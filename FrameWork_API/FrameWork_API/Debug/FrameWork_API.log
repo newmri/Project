@@ -1,0 +1,21 @@
+﻿  stdafx.cpp
+  BitmapManager.cpp
+  CollisionManager.cpp
+  Entry.cpp
+  GameManager.cpp
+  KeyManager.cpp
+  MainMenu.cpp
+  Obj.cpp
+s:\jusin\project\api\framework_api\framework_api\obj.cpp(21): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\framework_api\framework_api\obj.cpp(23): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\framework_api\framework_api\obj.cpp(24): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  ObjectManager.cpp
+  Player.cpp
+  RenderManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+s:\jusin\project\api\framework_api\framework_api\scenemanager.cpp(76): warning C4390: ';': empty controlled statement found; is this the intent?
+  SoundManager.cpp
+  Stage1.cpp
+  Generating Code...
+  FrameWork_API.vcxproj -> S:\Jusin\Project\API\FrameWork_API\Debug\FrameWork_API.exe

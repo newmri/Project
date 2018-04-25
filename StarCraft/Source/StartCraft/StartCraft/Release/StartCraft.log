@@ -1,0 +1,56 @@
+﻿  stdafx.cpp
+  BitmapManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(54): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(60): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(61): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(67): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(76): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(55): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: see declaration of 'strtok'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(68): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: see declaration of 'strtok'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(41): warning C4101: 'name': unreferenced local variable
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(101): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(107): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(108): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(102): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: see declaration of 'strtok'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(91): warning C4101: 'name': unreferenced local variable
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(134): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(140): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(141): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: see declaration of 'strcat'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(135): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: see declaration of 'strtok'
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\bitmapmanager.cpp(121): warning C4101: 'name': unreferenced local variable
+  CollisionManager.cpp
+  Entry.cpp
+  GameManager.cpp
+  KeyManager.cpp
+  MainMenu.cpp
+  MouseManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(16): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(132): note: see declaration of 'strcpy'
+  Obj.cpp
+  ObjectManager.cpp
+  Player.cpp
+  RenderManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scenemanager.cpp(76): warning C4390: ';': empty controlled statement found; is this the intent?
+  SoundManager.cpp
+  Stage1.cpp
+  Generating code
+  All 601 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Release\StartCraft.exe

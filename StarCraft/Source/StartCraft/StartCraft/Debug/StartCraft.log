@@ -1,0 +1,4 @@
+﻿  SinglePlayUI.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\singleplayui.cpp(58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\singleplayui.cpp(57): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Debug\StartCraft.exe

@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Default">
+      <UniqueIdentifier>{e41fabfc-5e15-49d9-813e-7dcb20433370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="My_Header">
+      <UniqueIdentifier>{1b58b869-e3d5-4186-9d11-226663f06ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AAAAAAAAAAAAAAAAAAAAA">
+      <UniqueIdentifier>{1478b3b6-60d3-4cae-846c-52a39210b783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{24655f54-9fea-4dcb-a9da-9a039590c896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork">
+      <UniqueIdentifier>{9113d72a-f9d8-42d8-89c7-3183ef6e77c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj">
+      <UniqueIdentifier>{9eaeecc3-6e39-4dba-bcb9-bfa0eb3b4f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Player">
+      <UniqueIdentifier>{421e5a85-87f5-4add-897b-37a626a604eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Weapone">
+      <UniqueIdentifier>{78d77c38-cf67-4e3a-a43f-a9f864ee905b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Scene">
+      <UniqueIdentifier>{b2e56e71-f9ac-4501-a849-49fc16f0f47f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Scene\Stage">
+      <UniqueIdentifier>{15bf1aee-7a41-4b17-8430-d7f951962831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Scene\Menu">
+      <UniqueIdentifier>{923f8a9f-830a-4ad4-b1ae-e5afafc71560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Enemy">
+      <UniqueIdentifier>{5e10c499-bf7e-45d6-80af-d93a79046cac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Enemy\NormalEnemy">
+      <UniqueIdentifier>{af45b0eb-226a-48ac-a187-d44a128cc9f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Item">
+      <UniqueIdentifier>{a3f745ab-7881-4a63-bb23-b91da373565a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet">
+      <UniqueIdentifier>{71954075-db68-4265-bbd7-7c63e4bfe528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\EnemyBullet">
+      <UniqueIdentifier>{07807417-650a-4c06-a950-d265465c4d2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet">
+      <UniqueIdentifier>{071f8346-221d-49b1-9c6d-06ae550e071c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet\Skill">
+      <UniqueIdentifier>{872572b7-ce25-45b0-ae47-848c20ab2d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet\NomalBullet">
+      <UniqueIdentifier>{3889a0a3-b7a0-4f1e-abec-036fd693f41c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet\Missile">
+      <UniqueIdentifier>{8aad53da-3a45-4620-aeea-7fe4984ff474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet\Missile\Missile">
+      <UniqueIdentifier>{a5207676-c620-4332-846d-0ad3b08095db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet\Missile\StrongMissile">
+      <UniqueIdentifier>{665ee1c9-dec5-46d5-a629-6c46521b2a6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Bullet\Bullet\Bomb">
+      <UniqueIdentifier>{eade8c06-7fb8-4f5b-9e8d-dad1c61c79a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Enemy\Boss">
+      <UniqueIdentifier>{50f79510-f830-4e48-9d4c-403c5a3882ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Framework1.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>AAAAAAAAAAAAAAAAAAAAA</Filter>
+    </ClInclude>
+    <ClInclude Include="My_Define.h">
+      <Filter>My_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="My_Struct.h">
+      <Filter>My_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMaker.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjDelete.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="My_Enum.h">
+      <Filter>My_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="My_Extern.h">
+      <Filter>My_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="My_Type.h">
+      <Filter>My_Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Obj\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="NomalBullet.h">
+      <Filter>Obj\Bullet\Bullet\NomalBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Obj\Bullet\Bullet\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapone.h">
+      <Filter>Obj\Weapone</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Obj\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage1.h">
+      <Filter>Obj\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Obj\Scene\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillBullet.h">
+      <Filter>Obj\Bullet\Bullet\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Obj\Bullet\Bullet\Missile\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="StrongMissile.h">
+      <Filter>Obj\Bullet\Bullet\Missile\StrongMissile</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Obj\Bullet\Bullet\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Obj\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Obj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyNormalBullet.h">
+      <Filter>Obj\Bullet\EnemyBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Obj\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalEnemy.h">
+      <Filter>Obj\Enemy\NormalEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage2.h">
+      <Filter>Obj\Scene\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Obj\Enemy\Boss</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework1.cpp">
+      <Filter>Default</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj.cpp">
+      <Filter>Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Obj\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="NomalBullet.cpp">
+      <Filter>Obj\Bullet\Bullet\NomalBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Obj\Bullet\Bullet\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapone.cpp">
+      <Filter>Obj\Weapone</Filter>
+    </ClCompile>
+    <ClCompile Include="BitmapManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Obj\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage1.cpp">
+      <Filter>Obj\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Obj\Scene\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillBullet.cpp">
+      <Filter>Obj\Bullet\Bullet\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Obj\Bullet\Bullet\Missile\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="StrongMissile.cpp">
+      <Filter>Obj\Bullet\Bullet\Missile\StrongMissile</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Obj\Bullet\Bullet\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Obj\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Obj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyNormalBullet.cpp">
+      <Filter>Obj\Bullet\EnemyBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Obj\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalEnemy.cpp">
+      <Filter>Obj\Enemy\NormalEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage2.cpp">
+      <Filter>Obj\Scene\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Obj\Enemy\Boss</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\Image\Icon\1945.ico" />
+    <Image Include="Framework1.ico">
+      <Filter>Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>Default</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Framework1.rc">
+      <Filter>Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

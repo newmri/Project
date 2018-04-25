@@ -1,0 +1,108 @@
+﻿  stdafx.cpp
+s:\jusin\project\api\1945\framework1\framework1\my_define.h(32): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\my_define.h(53): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\obj.h(25): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  BitmapManager.cpp
+  Bomb.cpp
+  Boss.cpp
+s:\jusin\project\api\1945\framework1\framework1\boss.cpp(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\boss.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\boss.cpp(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\boss.cpp(70): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Bullet.cpp
+s:\jusin\project\api\1945\framework1\framework1\bullet.cpp(44): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\bullet.cpp(45): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\bullet.cpp(47): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  Enemy.cpp
+  NormalEnemy.cpp
+s:\jusin\project\api\1945\framework1\framework1\normalenemy.cpp(27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\normalenemy.cpp(28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\normalenemy.cpp(77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  EnemyNormalBullet.cpp
+s:\jusin\project\api\1945\framework1\framework1\enemynormalbullet.cpp(39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Item.cpp
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(18): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(93): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(109): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(110): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(111): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\item.cpp(112): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  MainMenu.cpp
+  CollisionManager.cpp
+  SceneManager.cpp
+  Framework1.cpp
+s:\jusin\project\api\1945\framework1\framework1\framework1.cpp(51): warning C4244: 'initializing': conversion from 'float' to 'DWORD', possible loss of data
+  MainGame.cpp
+  Missile.cpp
+s:\jusin\project\api\1945\framework1\framework1\missile.cpp(21): warning C4305: '=': truncation from 'double' to 'float'
+s:\jusin\project\api\1945\framework1\framework1\missile.cpp(46): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\missile.cpp(47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\missile.cpp(52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\missile.cpp(77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  NomalBullet.cpp
+s:\jusin\project\api\1945\framework1\framework1\nomalbullet.cpp(49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Obj.cpp
+s:\jusin\project\api\1945\framework1\framework1\obj.cpp(44): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\obj.cpp(45): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\obj.cpp(47): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  Player.cpp
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(185): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(186): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(190): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(191): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(195): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(196): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(198): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(199): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(204): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(205): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(207): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(208): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(212): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(213): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(215): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(216): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(218): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(219): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(319): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(329): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(351): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(382): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(383): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(384): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(385): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(390): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\player.cpp(397): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  RenderManager.cpp
+  Skill.cpp
+s:\jusin\project\api\1945\framework1\framework1\skill.cpp(88): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  SkillBullet.cpp
+s:\jusin\project\api\1945\framework1\framework1\skillbullet.cpp(48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Compiling...
+  SoundManager.cpp
+  Scene.cpp
+s:\jusin\project\api\1945\framework1\framework1\objmaker.h(30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  s:\jusin\project\api\1945\framework1\framework1\objmaker.h(26): note: while compiling class template member function 'Obj *ObjMaker<CNormalEnemy>::Create(float,float,int)'
+  s:\jusin\project\api\1945\framework1\framework1\scene.cpp(8): note: see reference to function template instantiation 'Obj *ObjMaker<CNormalEnemy>::Create(float,float,int)' being compiled
+  s:\jusin\project\api\1945\framework1\framework1\scene.cpp(8): note: see reference to class template instantiation 'ObjMaker<CNormalEnemy>' being compiled
+  Stage1.cpp
+s:\jusin\project\api\1945\framework1\framework1\stage1.cpp(27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\stage1.cpp(42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Stage2.cpp
+s:\jusin\project\api\1945\framework1\framework1\stage2.cpp(19): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\stage2.cpp(32): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  StrongMissile.cpp
+s:\jusin\project\api\1945\framework1\framework1\strongmissile.cpp(20): warning C4305: '=': truncation from 'double' to 'float'
+s:\jusin\project\api\1945\framework1\framework1\strongmissile.cpp(44): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\strongmissile.cpp(45): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\strongmissile.cpp(50): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\1945\framework1\framework1\strongmissile.cpp(74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Weapone.cpp
+  Generating code
+  762 of 768 functions (99.2%) were compiled, the rest were copied from previous compilation.
+    30 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Framework1.vcxproj -> S:\Jusin\Project\API\1945\Framework1\Release\Framework1.exe
