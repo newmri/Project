@@ -1,0 +1,31 @@
+﻿  stdafx.cpp
+  SinglePlay.cpp
+  SoundManager.cpp
+  SinglePlayUI.cpp
+e:\starcraft\source\startcraft\startcraft\singleplayui.cpp(64): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  SceneManager.cpp
+  Scene.cpp
+  RenderManager.cpp
+  Player.cpp
+  ObjectManager.cpp
+  Obj.cpp
+  MouseManager.cpp
+  MainMenu.cpp
+e:\starcraft\source\startcraft\startcraft\mainmenu.cpp(21): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  KeyManager.cpp
+  GameManager.cpp
+  Entry.cpp
+  CollisionManager.cpp
+  BitmapManager.cpp
+  코드를 생성하고 있습니다...
+SoundManager.obj : error LNK2019: FMOD_System_Create 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_System_Release 외부 기호(참조 위치: "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_System_Init 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_System_Close 외부 기호(참조 위치: "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_System_CreateSound 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_System_CreateStream 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpSound(void)" (?SetUpSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_System_PlaySound 외부 기호(참조 위치: "public: void __cdecl CSoundManager::PlayeSound(enum SOUNDKIND)" (?PlayeSound@CSoundManager@@QEAAXW4SOUNDKIND@@@Z) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_Sound_Release 외부 기호(참조 위치: "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+SoundManager.obj : error LNK2019: FMOD_Channel_Stop 외부 기호(참조 위치: "public: void __cdecl CSoundManager::BGSoundOff(void)" (?BGSoundOff@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
+../lib/fmodex_vc.lib : warning LNK4272: 'X86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+E:\StarCraft\Source\StartCraft\x64\Debug\StartCraft.exe : fatal error LNK1120: 9개의 확인할 수 없는 외부 참조입니다.

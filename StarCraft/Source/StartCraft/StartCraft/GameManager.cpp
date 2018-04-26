@@ -8,6 +8,7 @@ void CGameManager::Init()
 	SOUNDMANAGER->Init();
 	SCENEMANAGER->Init();
 	MOUSEMANAGER->Init();
+
 }
 
 void CGameManager::Update()

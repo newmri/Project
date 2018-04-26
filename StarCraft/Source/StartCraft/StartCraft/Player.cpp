@@ -56,7 +56,7 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
-	SetRect();
+	//SetRect();
 
 }
 

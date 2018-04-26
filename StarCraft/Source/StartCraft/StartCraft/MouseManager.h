@@ -5,9 +5,13 @@ class CMouseManager
 	
 public:
 	void Init();
+	void UpdateRect();
 	void Update();
 	void Render();
 	void Release();
+
+public:
+	void CheckMouseOver(SCENELIST& target);
 
 public:
 	static CMouseManager* GetInstance()
@@ -28,6 +32,7 @@ private:
 private:
 	POINT				m_tImageSize;
 	POINT				m_tPos;
+	RECT				m_tRect;
 
 private:
 	ANIMATION_INFO		m_tAnimationInfo[CURSOR_END];

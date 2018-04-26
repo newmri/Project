@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "Obj.h"
+#include "Scene.h"
 
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
@@ -27,11 +29,22 @@ void CMouseManager::Init()
 		}
 
 	}
+	
+}
+
+void CMouseManager::UpdateRect()
+{
+	m_tRect.left = m_tPos.x + CURSOR_SIZE / 2;
+	m_tRect.right = m_tRect.left + 20;
+	m_tRect.top = m_tPos.y + CURSOR_SIZE / 2;
+	m_tRect.bottom = m_tRect.top + 20;
+
 
 }
 
 void CMouseManager::Update()
 {
+
 	// Update Mouse Pos
 	GetCursorPos(&m_tPos);
 	ScreenToClient(RENDERMANAGER->GethWnd(), &m_tPos);
@@ -41,14 +54,20 @@ void CMouseManager::Update()
 		m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % m_tAnimationInfo[m_eCurrId].nAnimationNum;
 		m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
 	}
+
 }
 
 void CMouseManager::Render()
 {
-	
+	UpdateRect();
+
+	if (SCENEMANAGER->ShowCollisionBox()) {
+		Rectangle(RENDERMANAGER->GetMemDC(), m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	}
+
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tPos.x - CURSOR_SIZE / 2,
-		m_tPos.y - CURSOR_SIZE / 2,
+		m_tPos.x,
+		m_tPos.y,
 		CURSOR_SIZE,
 		CURSOR_SIZE,
 		0,
@@ -68,4 +87,20 @@ void CMouseManager::Release()
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
+}
+
+void CMouseManager::CheckMouseOver(SCENELIST& target)
+{
+	RECT rc{};
+
+	for (auto& pTarget : target) {
+		if (IntersectRect(&rc, &m_tRect, &(pTarget->GetRect()))) {
+			if (pTarget->IsUI()) dynamic_cast<CScene*>(pTarget)->SetMouseOver();
+		}
+
+		else {
+			if (pTarget->IsUI()) dynamic_cast<CScene*>(pTarget)->SetIdle();
+		}
+	}
+	
 }

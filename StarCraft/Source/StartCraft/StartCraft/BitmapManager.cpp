@@ -5,24 +5,28 @@ CBitmapManager* CBitmapManager::m_pInstance = nullptr;
 
 void CBitmapManager::Init()
 {
-	LoadMenuImg();
-	LoadCursorImg();
-	LoadBackImg();
-	LoadPlayerImg();
-	LoadEnemyImg();
-	LoadItemImg();
-	LoadEffectImg();
-	LoadEndingImg();
+	LoadObjImg();
+	LoadSceneImg();
 }
 
 void CBitmapManager::Release()
 {
+
+	// Need to be fixed
 	for (int i = 0; i < OBJ_END; ++i) {
 		for (int j = 0; j < CURSOR_END; ++j) SafeDelete(m_tAnimationInfo[i][j].tName[i]);
 		for (int j = 0; j < CURSOR_END; ++j) SafeDelete(m_tAnimationInfo[i][j].tName);
 
 		SafeDelete(m_tAnimationInfo[i]);
 	}
+
+	for (int i = 0; i < SCENE::SCENE_END; ++i) {
+		for (int j = 0; j < SCENE::SCENE_END; ++j) SafeDelete(m_tSceneAnimationInfo[i][j].tName[i]);
+		for (int j = 0; j < SCENE::SCENE_END; ++j) SafeDelete(m_tSceneAnimationInfo[i][j].tName);
+
+		SafeDelete(m_tSceneAnimationInfo[i]);
+	}
+
 
 	for (auto& d : m_map) {
 		delete d.second;
@@ -37,7 +41,7 @@ void CBitmapManager::Release()
 	}
 }
 
-void CBitmapManager::SetName(int idx, char* filemask)
+void CBitmapManager::SetName(BITMAP_ANIMATION_INFO** tAnimationInfo, int nType, int idx, char* filemask)
 {
 	char path[STR_LEN];
 	char name[STR_LEN];
@@ -69,7 +73,7 @@ void CBitmapManager::SetName(int idx, char* filemask)
 			strcat_s(path, info.name);
 			strcat_s(path, "/*.*");
 			strcat_s(path, "\0");
-			SetName(idx++, path);
+			SetName(tAnimationInfo, nType, idx++, path);
 		
 		}
 		else {
@@ -83,10 +87,12 @@ void CBitmapManager::SetName(int idx, char* filemask)
 			CImage* pImg = new CImage;
 			pImg->Load(CString(path));
 			m_map.insert(make_pair(string(name), pImg));
-			strcpy_s(m_tAnimationInfo[m_eId][idx].tName[cnt++], STR_LEN, name);
+			strcpy_s(tAnimationInfo[nType][idx].tName[cnt], STR_LEN, name);
 
-			m_tAnimationInfo[m_eId][idx].nImageW = m_map[name]->GetWidth();
-			m_tAnimationInfo[m_eId][idx].nImageH = m_map[name]->GetHeight();
+			tAnimationInfo[nType][idx].nImageW = m_map[name]->GetWidth();
+			tAnimationInfo[nType][idx].nImageH = m_map[name]->GetHeight();
+
+			if (cnt < tAnimationInfo[nType][idx].nAnimationNum - 1) ++cnt;
 
 
 		}
@@ -131,7 +137,7 @@ void CBitmapManager::CountAnimationNum(char* filemask)
 
 }
 
-void CBitmapManager::AllocMemoryByImageNum(char * filemask)
+void CBitmapManager::AllocMemoryByImageNum(BITMAP_ANIMATION_INFO** tAnimationInfo, int nType, char* filemask)
 {
 	char path[STR_LEN];
 	char* p = nullptr;
@@ -148,8 +154,7 @@ void CBitmapManager::AllocMemoryByImageNum(char * filemask)
 
 	hFile = _findfirst(filemask, &info);
 	if (-1 == hFile) return;
-
-
+	
 	while (_findnext(hFile, &info) != -1L) {
 		// Cut *
 		strcpy_s(path, STR_LEN, filemask);
@@ -162,11 +167,11 @@ void CBitmapManager::AllocMemoryByImageNum(char * filemask)
 			strcat_s(path, "/*.*");
 			strcat_s(path, "\0");
 
-			AllocMemoryByImageNum(path);
+			AllocMemoryByImageNum(tAnimationInfo, nType, path);
 
-			m_tAnimationInfo[m_eId][idx].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
-			m_tAnimationInfo[m_eId][idx].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
-			ZeroMemory(m_tAnimationInfo[m_eId][idx++].tName, m_nAnimationCnt[IMAGE_NUM]);
+			tAnimationInfo[nType][idx].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
+			tAnimationInfo[nType][idx].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
+			ZeroMemory(tAnimationInfo[nType][idx++].tName, m_nAnimationCnt[IMAGE_NUM]);
 
 		}
 		else ++m_nAnimationCnt[IMAGE_NUM];
@@ -176,12 +181,12 @@ void CBitmapManager::AllocMemoryByImageNum(char * filemask)
 
 }
 
-void CBitmapManager::LoadMenuImg()
+void CBitmapManager::LoadObjImg()
 {
 
 	for (int i = 0; i < OBJ_END; ++i) {
 		m_eId = static_cast<OBJ_ID>(i);
-		m_nAnimationCnt[TYPE_NUM] = 0;
+		m_nAnimationCnt[TYPE_NUM] = 1;
 
 		char filemask[STR_LEN];
 		strcpy_s(filemask, STR_LEN, OBJ_DIR[i]);
@@ -189,14 +194,11 @@ void CBitmapManager::LoadMenuImg()
 
 		CountAnimationNum(filemask);
 
-		// have no animation
-		if (0 == m_nAnimationCnt[TYPE_NUM])  m_nAnimationCnt[TYPE_NUM] = 1;
-
 		m_tAnimationInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
 		ZeroMemory(m_tAnimationInfo[i], sizeof(BITMAP_ANIMATION_INFO));
 		
 
-		AllocMemoryByImageNum(filemask);
+		AllocMemoryByImageNum(m_tAnimationInfo, m_eId, filemask);
 
 		// have no animation
 		if (1 == m_nAnimationCnt[IMAGE_NUM]) {
@@ -215,123 +217,49 @@ void CBitmapManager::LoadMenuImg()
 			}
 
 		}
-		SetName(0, (char*)filemask);
+		SetName(m_tAnimationInfo, m_eId, 0, (char*)filemask);
 	}
 
 }
 
-void CBitmapManager::LoadCursorImg()
+void CBitmapManager::LoadSceneImg()
 {
-	/*m_eId = CURSOR;
-	m_nAnimationCnt[TYPE_NUM] = 0;
+	for (int i = 0; i < SCENE::SCENE_END; ++i) {
+		m_eSceneId = static_cast<SCENE::SCENE_ID>(i);
+		m_nAnimationCnt[TYPE_NUM] = 1;
 
-	char filemask[STR_LEN] = "Resources/Image/Cursor/*.*";
-	strcat_s(filemask, "\0");
+		char filemask[STR_LEN];
+		strcpy_s(filemask, STR_LEN, SCENE_DIR[i]);
+		strcat_s(filemask, "\0");
 
-	CountAnimationNum(filemask);
+		CountAnimationNum(filemask);
 
-	if (0 == m_nAnimationCnt[TYPE_NUM])  m_nAnimationCnt[TYPE_NUM] = 1;
+		m_tSceneAnimationInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
+		ZeroMemory(m_tSceneAnimationInfo[i], sizeof(BITMAP_ANIMATION_INFO));
 
-	for (int i = 0; i < OBJ_END; ++i) {
-		m_tAnimationInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
-		ZeroMemory(m_tAnimationInfo[i], sizeof(BITMAP_ANIMATION_INFO));
-	}
+		AllocMemoryByImageNum(m_tSceneAnimationInfo, m_eSceneId, filemask);
 
-	AllocMemoryByImageNum(filemask);
-
-	if (1 == m_nAnimationCnt[IMAGE_NUM]) {
-		m_tAnimationInfo[m_eId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
-		m_tAnimationInfo[m_eId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
-		ZeroMemory(m_tAnimationInfo[m_eId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
-	}
-
-	for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
-		if (0 == m_tAnimationInfo[m_eId][i].nAnimationNum) m_tAnimationInfo[m_eId][i].nAnimationNum = 1;
-
-		for (int j = 0; j < m_tAnimationInfo[m_eId][i].nAnimationNum; ++j) {
-			m_tAnimationInfo[m_eId][i].tName[j] = new char[STR_LEN];
-			ZeroMemory(m_tAnimationInfo[m_eId][i].tName[j], STR_LEN);
-
+		// have no animation
+		if (1 == m_nAnimationCnt[IMAGE_NUM]) {
+			m_tSceneAnimationInfo[m_eSceneId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
+			m_tSceneAnimationInfo[m_eSceneId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
+			ZeroMemory(m_tSceneAnimationInfo[m_eSceneId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
 		}
 
+		for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
+			if (0 == m_tSceneAnimationInfo[m_eSceneId][i].nAnimationNum) m_tSceneAnimationInfo[m_eSceneId][i].nAnimationNum = 1;
+
+			for (int j = 0; j < m_tSceneAnimationInfo[m_eSceneId][i].nAnimationNum; ++j) {
+				m_tSceneAnimationInfo[m_eSceneId][i].tName[j] = new char[STR_LEN];
+				ZeroMemory(m_tSceneAnimationInfo[m_eSceneId][i].tName[j], STR_LEN);
+
+			}
+
+		}
+		SetName(m_tSceneAnimationInfo, m_eSceneId, 0, (char*)filemask);
 	}
-	SetName(0, (char*)filemask);*/
-
 }
 
-void CBitmapManager::LoadBackImg()
-{
-	/*for (int i = 0; i < NUM_OF_STAGE; ++i) {
-		CImage* pImg = new CImage;
-		CString tDir;
-		CString tKey;
-		tKey.Format(L"STAGE%d", i + 1);
-		tDir.Format(L"Resources/Image/Map/Stage%d.bmp", i + 1);
-		pImg->Load(tDir);
-		m_map.insert(make_pair(tKey, pImg));
-	}*/
-
-}
-
-void CBitmapManager::LoadPlayerImg()
-{
-	/*for (int i = 0; i < ANIM_END; ++i) {
-		CImage* pImg = new CImage;
-		CString tDir = L"Resources/Image/Player/";
-		CString tKey = PLAYER_IMG_STR[i];
-		CString tExtention = L".bmp";
-		tDir.Append(tKey);
-		tDir.Append(tExtention);
-		pImg->Load(tDir);
-		m_map.insert(make_pair(tKey, pImg));
-	}*/
-}
-
-void CBitmapManager::LoadEnemyImg()
-{
-	CString tDir;
-	CString tKey;
-
-	//for (int i = 0; i < NUM_OF_ENEMY; ++i) {
-	//	CImage* pImg = new CImage;
-	//	tKey.Format(L"ENEMY%d", i + 1);
-	//	tDir.Format(L"Resources/Image/Enemy/Enemy%d.bmp", i + 1);
-	//	pImg->Load(tDir);
-	//	m_map.insert(make_pair(tKey, pImg));
-	//}
-
-
-}
-
-void CBitmapManager::LoadItemImg()
-{
-	//CImage* pImg = new CImage;
-	//CString tDir = L"Resources/Image/Item/Item.bmp";
-	//CString tKey = L"ITEM";
-	//pImg->Load(tDir);
-	//m_map.insert(make_pair(tKey, pImg));
-
-	//{
-	//	CImage* pImg = new CImage;
-	//	CString tDir = L"Resources/Image/Shield/Shield.bmp";
-	//	CString tKey = L"SHIELD";
-	//	pImg->Load(tDir);
-	//	m_map.insert(make_pair(tKey, pImg));
-	//}
-}
-
-void CBitmapManager::LoadEffectImg()
-{
-}
-
-void CBitmapManager::LoadEndingImg()
-{
-	/*CImage* pImg = new CImage;
-	CString tDir = L"Resources/Image/Die/Die.bmp";
-	CString tKey = L"DIE";
-	pImg->Load(tDir);
-	m_map.insert(make_pair(tKey, pImg));*/
-}
 
 void CBitmapManager::RotateSizingImage(HDC hdc, HBITMAP hBmp, RECT rt, double dblAngle, int ixRotateAxis, int iyRotateAxis, int ixDisplay, int iyDisplay, double dblSizeRatio, HBITMAP hMaskBmp, int ixMask, int iyMask)
 {

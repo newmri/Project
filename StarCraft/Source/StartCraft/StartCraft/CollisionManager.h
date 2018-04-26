@@ -9,7 +9,6 @@ public:
 
 public:
 	void RectCollision(OBJLIST& dest, OBJLIST& src);
-	void ItemCollision(OBJLIST& dest, OBJLIST& src);
 	void SphereCollision(OBJLIST& dest, OBJLIST& src);
 
 public:

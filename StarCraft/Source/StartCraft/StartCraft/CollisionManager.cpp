@@ -1,33 +1,20 @@
 #include "stdafx.h"
+#include "Obj.h"
 
 CCollisionManager* CCollisionManager::m_pInstance = nullptr;
 
 void CCollisionManager::RectCollision(OBJLIST& dest, OBJLIST& src)
 {
-	//RECT rc{};
+	RECT rc{};
 
-	//for (auto& pDst : dest) {
-	//	for (auto& pSrc : src) {
-	//		if (IntersectRect(&rc, &(pDst->GetRect()), &(pSrc->GetRect()))) {
-	//			pDst->SetDamage(pSrc->GetStat().m_Atk);
-	//			pSrc->SetDead();
-	//		}
-	//	}
-	//}
-}
-
-void CCollisionManager::ItemCollision(OBJLIST& player, OBJLIST & item)
-{
-	//RECT rc{};
-
-	//for (auto& pDst : player) {
-	//	for (auto& pSrc : item) {
-	//		if (IntersectRect(&rc, &(pDst->GetRect()), &(pSrc->GetRect()))) {
-	//			SCENEMANAGER->IncreaseScore(ITEM_SCORE);
-	//			dynamic_cast<Player*>(pDst)->SetItem(dynamic_cast<Item*>(pSrc)->GetItem());
-	//		}
-	//	}
-	//}
+	for (auto& pDst : dest) {
+		for (auto& pSrc : src) {
+			if (IntersectRect(&rc, &(pDst->GetRect()), &(pSrc->GetRect()))) {
+				//pDst->SetDamage(pSrc->GetStat().m_Atk);
+				//pSrc->SetDead();
+			}
+		}
+	}
 }
 
 void CCollisionManager::SphereCollision(OBJLIST& dest, OBJLIST& src)

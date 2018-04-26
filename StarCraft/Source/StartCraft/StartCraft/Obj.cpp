@@ -8,6 +8,16 @@ void CObj::LateInit()
 	m_bIsInit = true;
 }
 
+void CObj::UpdateRect()
+{
+	/*int w = static_cast<int>(m_tInfo.fX - m_tAnimationInfo[m_eCurrId].nImageW / 2);
+	m_tRect.left = w;
+	m_tRect.right = m_tRect.left + w;
+	m_tRect.top = m_tInfo.fY + 5;
+	m_tRect.bottom = m_tInfo.fY + m_tAnimationInfo[m_eCurrAnim].nImageH;*/
+
+}
+
 void CObj::RenderCollsionBox()
 {
 	if (SCENEMANAGER->ShowCollisionBox()) {
@@ -15,15 +25,6 @@ void CObj::RenderCollsionBox()
 	}
 }
 
-void CObj::SetRect()
-{
-	/*int w = (m_tAnimationInfo[m_eCurrAnim].nImageW / PLAYER_ANIMATION_NUM[m_eCurrAnim]);
-	m_tRect.left = m_tInfo.fX + 10;
-	m_tRect.right = m_tRect.left + w - 20;
-	m_tRect.top = m_tInfo.fY + 5;
-	m_tRect.bottom = m_tInfo.fY + m_tAnimationInfo[m_eCurrAnim].nImageH;*/
-
-}
 
 void CObj::DoAnimation()
 {
@@ -60,6 +61,7 @@ CObj::CObj()
 {
 	m_bIsDead = false;
 	m_bIsInit = false;
+	m_bIsUI = false;
 }
 
 CObj::~CObj()

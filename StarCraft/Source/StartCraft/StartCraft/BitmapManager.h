@@ -12,22 +12,19 @@ public:
 	void Release();
 
 public:
-	void SetName(int idx, char* filemask);
+	void SetName(BITMAP_ANIMATION_INFO** tAnimationInfo, int nType, int idx, char* filemask);
 	void CountAnimationNum(char* filemask);
-	void AllocMemoryByImageNum(char* filemask);
+	void AllocMemoryByImageNum(BITMAP_ANIMATION_INFO** tAnimationInfo, int nType, char* filemask);
 
 public:
-	void LoadMenuImg();
-	void LoadCursorImg();
-	void LoadBackImg();
-	void LoadPlayerImg();
-	void LoadEnemyImg();
-	void LoadItemImg();
-	void LoadEffectImg();
-	void LoadEndingImg();
+	void LoadObjImg();
+	void LoadSceneImg();
+
 
 public:
 	BITMAP_ANIMATION_INFO* GetAnimationInfo(OBJ_ID eId) { return m_tAnimationInfo[eId]; }
+	BITMAP_ANIMATION_INFO* GetSceneAnimationInfo(SCENE::SCENE_ID eId) { return m_tSceneAnimationInfo[eId]; }
+
 
 public:
 	void RotateSizingImage(HDC hdc, HBITMAP hBmp, RECT rt,
@@ -66,5 +63,9 @@ private:
 
 private:
 	BITMAP_ANIMATION_INFO* m_tAnimationInfo[OBJ_END];
+	BITMAP_ANIMATION_INFO* m_tSceneAnimationInfo[SCENE::SCENE_END];
+
 	OBJ_ID m_eId;
+	SCENE::SCENE_ID m_eSceneId;
+
 };

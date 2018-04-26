@@ -5,6 +5,7 @@
 // 객체 생성에 대한 디자인 패턴 (구조 설계)
 
 class CObj;
+class CScene;
 
 template <typename T>
 class CFactoryManager
@@ -26,6 +27,17 @@ public:
 
 		return pObj;
 	}
+
+	static CScene* CreateScene(float x, float y)
+	{
+		CScene* pObj = new T;
+		pObj->Init();
+		pObj->SetPos(x, y);
+
+		return pObj;
+	}
+
+
 
 	static CObj* CreateObj(float x, float y, float speed)
 	{

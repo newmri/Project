@@ -1,40 +1,48 @@
 #include "stdafx.h"
-
-#ifdef _DEBUG
-
-#ifdef UNICODE
-#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
-#else
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
-#endif
-#endif
-
-CSinglePlay::CSinglePlay()
-{
-}
-
-
-CSinglePlay::~CSinglePlay()
-{
-}
+#include "SinglePlay.h"
 
 void CSinglePlay::Init()
 {
+	m_eId = SCENE::SINGLE_PLAY;
 
-	SCENEMANAGER->CreatePlayer();
+	CScene::Init();
+
 }
 
-SCENE_ID CSinglePlay::Update()
+void CSinglePlay::LateInit()
 {
-	return NO_EVENT;	
+	UpdateRect();
+}
+
+SCENE::SCENE_ID CSinglePlay::Update()
+{
+	CScene::LateInit();
+	CScene::Update();
+
+	return SCENE::NO_EVENT;
+}
+
+void CSinglePlay::LateUpdate()
+{
 }
 
 void CSinglePlay::Render()
 {
-	BitBlt(RENDERMANAGER->GetMemDC(), 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), BITMAPMANAGER->GetImage()["STAGE1"]->GetDC(), 0, 0, SRCCOPY);
-
+	CScene::Render();
 }
 
 void CSinglePlay::Release()
 {
+	for (int i = 0; i < CURSOR_END; ++i) SafeDelete(m_tAnimationInfo[i].tName[i]);
+	for (int i = 0; i < CURSOR_END; ++i) SafeDelete(m_tAnimationInfo[i].tName);
+}
+
+CSinglePlay::CSinglePlay()
+{
+
+}
+
+CSinglePlay::~CSinglePlay()
+{
+	Release();
 }

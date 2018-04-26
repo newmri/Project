@@ -19,12 +19,6 @@
     <Filter Include="02.Scene">
       <UniqueIdentifier>{322eab80-e9cd-4e39-9f4f-92a3f10547a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Scene\00,MainMenu">
-      <UniqueIdentifier>{5f664822-2d82-40d2-924f-3476d7a4207e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Scene\01.SinglePlay">
-      <UniqueIdentifier>{f6a98d39-e477-46b6-b54c-d2d990f28c4e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Object">
       <UniqueIdentifier>{d542960e-47bf-4fa6-978e-21f61851ad28}</UniqueIdentifier>
     </Filter>
@@ -33,6 +27,21 @@
     </Filter>
     <Filter Include="01.Object\01.UI">
       <UniqueIdentifier>{68c2a729-9b30-4290-a4b3-f9afbc9ee15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\00.MainMenu">
+      <UniqueIdentifier>{5f664822-2d82-40d2-924f-3476d7a4207e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\02.MultiPlay">
+      <UniqueIdentifier>{0edce887-fa66-42fd-bf73-4d737a4c2ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\03.Editor">
+      <UniqueIdentifier>{89b21329-2d46-4972-9d1a-8afddc587a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\04.Exit">
+      <UniqueIdentifier>{d61a229f-92a4-4765-a8cc-4fede99336ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\01.SinglePlay">
+      <UniqueIdentifier>{5d051054-38fa-42ed-84c7-2fc99b876e65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -103,16 +112,25 @@
       <Filter>02.Scene</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
-      <Filter>02.Scene\00,MainMenu</Filter>
+      <Filter>02.Scene\00.MainMenu</Filter>
     </ClInclude>
     <ClInclude Include="MouseManager.h">
       <Filter>97.Managers</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>01.Object\01.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>02.Scene\03.Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Exit.h">
+      <Filter>02.Scene\04.Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiPlay.h">
+      <Filter>02.Scene\02.MultiPlay</Filter>
+    </ClInclude>
     <ClInclude Include="SinglePlay.h">
       <Filter>02.Scene\01.SinglePlay</Filter>
-    </ClInclude>
-    <ClInclude Include="SinglePlayUI.h">
-      <Filter>01.Object\01.UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -156,16 +174,25 @@
       <Filter>02.Scene</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
-      <Filter>02.Scene\00,MainMenu</Filter>
+      <Filter>02.Scene\00.MainMenu</Filter>
     </ClCompile>
     <ClCompile Include="MouseManager.cpp">
       <Filter>97.Managers</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>01.Object\01.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
+      <Filter>02.Scene\03.Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Exit.cpp">
+      <Filter>02.Scene\04.Exit</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiPlay.cpp">
+      <Filter>02.Scene\02.MultiPlay</Filter>
+    </ClCompile>
     <ClCompile Include="SinglePlay.cpp">
       <Filter>02.Scene\01.SinglePlay</Filter>
-    </ClCompile>
-    <ClCompile Include="SinglePlayUI.cpp">
-      <Filter>01.Object\01.UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

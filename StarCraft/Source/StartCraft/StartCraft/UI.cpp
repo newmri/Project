@@ -1,14 +1,15 @@
 #include "stdafx.h"
-#include "SinglePlayUI.h"
+#include "UI.h"
 
-void CSinglePlayUI::Init()
+void CUI::Init()
 {
+	m_bIsUI = true;
 	m_eCurrId = IDLE;
 
 	m_tAnimationInfo = new ANIMATION_INFO[UI_END];
 	for (int i = 0; i < UI_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
 
-	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetAnimationInfo(SINGLE_PLAY);
+	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetAnimationInfo(m_eId);
 
 	// Set Animation Name
 	for (int i = 0; i < UI_END; ++i) {
@@ -32,13 +33,13 @@ void CSinglePlayUI::Init()
 	}
 }
 
-void CSinglePlayUI::LateInit()
+void CUI::LateInit()
 {
 }
 
-int CSinglePlayUI::Update()
+int CUI::Update()
 {
-	if (m_tAnimationInfo[m_eCurrId].dwAnimationTime + 2000 / m_tAnimationInfo[m_eCurrId].nAnimationNum < GetTickCount()) {
+	if (m_tAnimationInfo[m_eCurrId].dwAnimationTime + 1000 / m_tAnimationInfo[m_eCurrId].nAnimationNum < GetTickCount()) {
 
 		m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % m_tAnimationInfo[m_eCurrId].nAnimationNum;
 		m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
@@ -47,15 +48,15 @@ int CSinglePlayUI::Update()
 	return 0;
 }
 
-void CSinglePlayUI::LateUpdate()
+void CUI::LateUpdate()
 {
 }
 
-void CSinglePlayUI::Render()
+void CUI::Render()
 {
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tInfo.fX - m_tAnimationInfo[m_eCurrId].nImageW / 2,
-		m_tInfo.fY - m_tAnimationInfo[m_eCurrId].nImageH / 2,
+		m_tRect.left,
+		m_tRect.top,
 		m_tAnimationInfo[m_eCurrId].nImageW,
 		m_tAnimationInfo[m_eCurrId].nImageH,
 		0,
@@ -64,18 +65,41 @@ void CSinglePlayUI::Render()
 		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
 }
 
-void CSinglePlayUI::Realease()
+void CUI::Realease()
 {
-	for (int i = 0; i < CURSOR_END; ++i) SafeDelete(m_tAnimationInfo[i].tName[i]);
-	for (int i = 0; i < CURSOR_END; ++i) SafeDelete(m_tAnimationInfo[i].tName);
 }
 
-CSinglePlayUI::CSinglePlayUI()
+void CUI::SetMouseOver()
 {
-
+	if (IDLE == m_eCurrId) ChangeAnimation(MOUSE_OVER);
+		
 }
 
-CSinglePlayUI::~CSinglePlayUI()
+void CUI::SetIdle()
 {
-	Realease();
+	if (MOUSE_OVER == m_eCurrId) ChangeAnimation(IDLE);
+}
+
+void CUI::ChangeAnimation(UI_ID eId)
+{
+	m_eCurrId = eId;
+	m_tAnimationInfo[m_eCurrId].nCnt = 0;
+	m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
+}
+
+void CUI::UpdateUIRect()
+{
+
+	m_tRect.left = m_tInfo.fX;
+	m_tRect.right = m_tInfo.fX + m_tAnimationInfo[m_eCurrId].nImageW;
+	m_tRect.top = m_tInfo.fY;
+	m_tRect.bottom = m_tInfo.fY + m_tAnimationInfo[m_eCurrId].nImageH;
+}
+
+CUI::CUI()
+{
+}
+
+CUI::~CUI()
+{
 }

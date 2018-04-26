@@ -45,6 +45,8 @@ void CObjectManager::LateUpdate()
 		}
 
 	}
+
+
 }
 
 void CObjectManager::Render()

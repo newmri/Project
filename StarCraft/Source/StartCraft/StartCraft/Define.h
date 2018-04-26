@@ -18,9 +18,16 @@ static const int CURSOR_SIZE = 128;
 
 const char OBJ_DIR[OBJ_END][STR_LEN] = 
 {
-	{ "Resources/Image/Cursor/*.*" },
+	{ "Resources/Image/Cursor/*.*" }
+};
+
+const char SCENE_DIR[SCENE::SCENE_END][STR_LEN] =
+{
 	{ "Resources/Image/MainMenu/Menu/*.*" },
-	{ "Resources/Image/MainMenu/SinglePlay/*.*" }
+	{ "Resources/Image/MainMenu/SinglePlay/*.*" },
+	{ "Resources/Image/MainMenu/MultiPlay/*.*" },
+	{ "Resources/Image/MainMenu/Editor/*.*" },
+	{ "Resources/Image/MainMenu/Exit/*.*" }
 };
 
 #define GAMEMANAGER CGameManager::GetInstance()

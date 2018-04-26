@@ -11,10 +11,13 @@ public:
 	void Update();
 	void LateUpdate();
 	void Render();
-	void SetState(const SCENE_ID eSceneID);
+	void SetState(const SCENE::SCENE_ID eSceneID);
 	void Release();
 
 	void RenderDie();
+
+public:
+	void AddScene(CScene* pObj, SCENE::SCENE_ID eID);
 
 public:
 	void KillPlayer() { m_bIsPlayerDead = true; }
@@ -28,7 +31,7 @@ public:
 	void ReSetAll();
 
 public:
-	const SCENE_ID& GetStage() { return m_eSceneID; }
+	const SCENE::SCENE_ID& GetStage() { return m_eSceneID; }
 
 public:
 	static CSceneManager* GetInstance()
@@ -50,8 +53,11 @@ private:
 	static CSceneManager* m_pInstance;
 
 private:
+	SCENELIST m_objList[SCENE::SCENE_ID::SCENE_END];
+
+private:
 	CScene*		m_pScene;
-	SCENE_ID	m_eSceneID;
+	SCENE::SCENE_ID	m_eSceneID;
 
 private:
 	bool		m_bShowCollisionBox;
