@@ -6,6 +6,7 @@
 
 class CObj;
 class CScene;
+class CUI;
 
 template <typename T>
 class CFactoryManager
@@ -37,7 +38,13 @@ public:
 		return pObj;
 	}
 
-
+	static CUI* CreateUI(float x, float y)
+	{
+		CUI* pObj = new T;
+		pObj->Init();
+		pObj->SetPos(x, y);
+		return pObj;
+	}
 
 	static CObj* CreateObj(float x, float y, float speed)
 	{

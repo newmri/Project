@@ -14,10 +14,25 @@ public:
 	void SetState(const SCENE::SCENE_ID eSceneID);
 	void Release();
 
+public:
+	void LateSceneInit();
+	void SceneUpdate();
+	void LateSceneUpdate();
+	void SceneRender();
+
+public:
+	void LateUIInit();
+	void UIUpdate();
+	void LateUIUpdate();
+	void UIRender();
+
+
 	void RenderDie();
 
 public:
 	void AddScene(CScene* pObj, SCENE::SCENE_ID eID);
+	void AddUI(CUI* pObj, UI_ID eID);
+
 
 public:
 	void KillPlayer() { m_bIsPlayerDead = true; }
@@ -54,6 +69,7 @@ private:
 
 private:
 	SCENELIST m_objList[SCENE::SCENE_ID::SCENE_END];
+	UILIST	  m_uiList[UI_END];
 
 private:
 	CScene*		m_pScene;

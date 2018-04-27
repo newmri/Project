@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MultiPlay.h"
+#include "Button.h"
 
 void CMultiPlay::Init()
 {
@@ -12,6 +13,11 @@ void CMultiPlay::Init()
 void CMultiPlay::LateInit()
 {
 	UpdateRect();
+
+	CUI* p = CFactoryManager<CButton>::CreateUI(m_tRect.left - 10, m_tRect.top - 30);
+	dynamic_cast<CButton*>(p)->SetId(MULTI_PLAY_BUTTON);
+
+	AddUI(p, BUTTON);
 }
 
 SCENE::SCENE_ID CMultiPlay::Update()
@@ -37,6 +43,9 @@ void CMultiPlay::Render()
 		0,
 		m_tAnimationInfo[m_eCurrId].nImageW,
 		m_tAnimationInfo[m_eCurrId].nImageH, RGB(255, 255, 255));
+
+	UIRender();
+
 }
 
 void CMultiPlay::Release()

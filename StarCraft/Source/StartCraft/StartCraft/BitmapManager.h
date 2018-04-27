@@ -18,11 +18,13 @@ public:
 
 public:
 	void LoadObjImg();
+	void LoadButtonImage();
 	void LoadSceneImg();
 
 
 public:
 	BITMAP_ANIMATION_INFO* GetAnimationInfo(OBJ_ID eId) { return m_tAnimationInfo[eId]; }
+	BITMAP_ANIMATION_INFO* GetButtonAnimationInfo(BUTTON_ID eId) { return m_tButtonAnimationInfo[eId]; }
 	BITMAP_ANIMATION_INFO* GetSceneAnimationInfo(SCENE::SCENE_ID eId) { return m_tSceneAnimationInfo[eId]; }
 
 
@@ -56,16 +58,18 @@ private:
 	map<string, CImage*>		m_map;
 
 private:
-	static CBitmapManager*			m_pInstance;
+	static CBitmapManager*		m_pInstance;
 
 private:
 	int m_nAnimationCnt[ANIMATION_NUM_END];
 
 private:
 	BITMAP_ANIMATION_INFO* m_tAnimationInfo[OBJ_END];
+	BITMAP_ANIMATION_INFO* m_tButtonAnimationInfo[BUTTON_END];
 	BITMAP_ANIMATION_INFO* m_tSceneAnimationInfo[SCENE::SCENE_END];
 
-	OBJ_ID m_eId;
-	SCENE::SCENE_ID m_eSceneId;
+	OBJ_ID				m_eId;
+	BUTTON_ID			m_eButtonId;
+	SCENE::SCENE_ID		m_eSceneId;
 
 };

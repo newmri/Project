@@ -25,9 +25,6 @@
     <Filter Include="01.Object\00.Player">
       <UniqueIdentifier>{a1513b79-c90c-4ed1-889c-a3dd37be929c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Object\01.UI">
-      <UniqueIdentifier>{68c2a729-9b30-4290-a4b3-f9afbc9ee15e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.Scene\00.MainMenu">
       <UniqueIdentifier>{5f664822-2d82-40d2-924f-3476d7a4207e}</UniqueIdentifier>
     </Filter>
@@ -42,6 +39,12 @@
     </Filter>
     <Filter Include="02.Scene\01.SinglePlay">
       <UniqueIdentifier>{5d051054-38fa-42ed-84c7-2fc99b876e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Object\01.UI">
+      <UniqueIdentifier>{68c2a729-9b30-4290-a4b3-f9afbc9ee15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Object\01.UI\00.Button">
+      <UniqueIdentifier>{db21dfc1-d002-4834-9ece-6f7fea410bc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +135,9 @@
     <ClInclude Include="SinglePlay.h">
       <Filter>02.Scene\01.SinglePlay</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>01.Object\01.UI\00.Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="SinglePlay.cpp">
       <Filter>02.Scene\01.SinglePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>01.Object\01.UI\00.Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

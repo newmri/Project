@@ -28,9 +28,10 @@ void CMainMenu::LateInit()
 
 SCENE::SCENE_ID CMainMenu::Update()
 {
-	if (KEYMANAGER->KeyDown(VK_RETURN)) {
-		return SCENE::EXIT;
-	}
+	if (KEYMANAGER->KeyDown(VK_ESCAPE)) DestroyWindow(RENDERMANAGER->GethWnd());
+	if (KEYMANAGER->KeyDown('X')) DestroyWindow(RENDERMANAGER->GethWnd());
+
+	
 	return SCENE::NO_EVENT;
 }
 

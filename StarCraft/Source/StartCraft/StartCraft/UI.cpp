@@ -1,40 +1,15 @@
 #include "stdafx.h"
-#include "UI.h"
 
 void CUI::Init()
 {
-	m_bIsUI = true;
-	m_eCurrId = IDLE;
-
-	m_tAnimationInfo = new ANIMATION_INFO[UI_END];
-	for (int i = 0; i < UI_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
-
-	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetAnimationInfo(m_eId);
-
-	// Set Animation Name
-	for (int i = 0; i < UI_END; ++i) {
-
-		m_tAnimationInfo[i].tName = new char*[pAnim[i].nAnimationNum];
-		ZeroMemory(m_tAnimationInfo[i].tName, pAnim[i].nAnimationNum);
-
-		for (int j = 0; j < pAnim[i].nAnimationNum; ++j) {
-
-			m_tAnimationInfo[i].tName[j] = new char[STR_LEN];
-			strcpy_s(m_tAnimationInfo[i].tName[j], strlen(m_tAnimationInfo[i].tName[j]), pAnim[i].tName[j]);
-
-			m_tAnimationInfo[i].nAnimationNum = pAnim[i].nAnimationNum;
-			m_tAnimationInfo[i].nImageW = pAnim[i].nImageW;
-			m_tAnimationInfo[i].nImageH = pAnim[i].nImageH;
-			m_tAnimationInfo[i].dwAnimationTime = GetTickCount();
-			m_tAnimationInfo[i].nCnt = 0;
-
-		}
-
-	}
+	
 }
 
 void CUI::LateInit()
 {
+	if (!m_bIsInit) this->LateInit();
+
+	m_bIsInit = true;
 }
 
 int CUI::Update()
@@ -65,8 +40,12 @@ void CUI::Render()
 		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
 }
 
-void CUI::Realease()
+
+void CUI::RenderCollsionBox()
 {
+	if (SCENEMANAGER->ShowCollisionBox()) {
+		Rectangle(RENDERMANAGER->GetMemDC(), m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	}
 }
 
 void CUI::SetMouseOver()
@@ -80,14 +59,15 @@ void CUI::SetIdle()
 	if (MOUSE_OVER == m_eCurrId) ChangeAnimation(IDLE);
 }
 
-void CUI::ChangeAnimation(UI_ID eId)
+
+void CUI::ChangeAnimation(UI_STATE_ID eId)
 {
 	m_eCurrId = eId;
 	m_tAnimationInfo[m_eCurrId].nCnt = 0;
 	m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
 }
 
-void CUI::UpdateUIRect()
+void CUI::UpdateRect()
 {
 
 	m_tRect.left = m_tInfo.fX;
@@ -98,6 +78,7 @@ void CUI::UpdateUIRect()
 
 CUI::CUI()
 {
+	m_bIsInit = false;
 }
 
 CUI::~CUI()

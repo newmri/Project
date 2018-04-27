@@ -12,6 +12,8 @@ public:
 
 public:
 	void CheckMouseOver(SCENELIST& target);
+	void CheckMouseOver(UILIST& target);
+
 
 public:
 	static CMouseManager* GetInstance()

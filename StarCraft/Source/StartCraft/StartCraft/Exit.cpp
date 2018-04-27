@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Exit.h"
+#include "Button.h"
 
 void CExit::Init()
 {
@@ -12,6 +13,10 @@ void CExit::Init()
 void CExit::LateInit()
 {
 	UpdateRect();
+
+	CUI* p = CFactoryManager<CButton>::CreateUI(m_tRect.left + 80, m_tRect.top - 20);
+	dynamic_cast<CButton*>(p)->SetId(EXIT_BUTTON);
+	AddUI(p, BUTTON);
 }
 
 SCENE::SCENE_ID CExit::Update()

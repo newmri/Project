@@ -18,7 +18,16 @@ static const int CURSOR_SIZE = 128;
 
 const char OBJ_DIR[OBJ_END][STR_LEN] = 
 {
-	{ "Resources/Image/Cursor/*.*" }
+	{ "Resources/Image/Cursor/*.*" },
+};
+
+const char BUTTON_DIR[BUTTON_END][STR_LEN] =
+{
+	{ "Resources/Image/MainMenu/Button/SinglePlay/*.*" },
+	{ "Resources/Image/MainMenu/Button/MultiPlay/*.*" },
+	{ "Resources/Image/MainMenu/Button/Editor/*.*" },
+	{ "Resources/Image/MainMenu/Button/Exit/*.*" }
+
 };
 
 const char SCENE_DIR[SCENE::SCENE_END][STR_LEN] =

@@ -6,6 +6,7 @@ CBitmapManager* CBitmapManager::m_pInstance = nullptr;
 void CBitmapManager::Init()
 {
 	LoadObjImg();
+	LoadButtonImage();
 	LoadSceneImg();
 }
 
@@ -220,6 +221,44 @@ void CBitmapManager::LoadObjImg()
 		SetName(m_tAnimationInfo, m_eId, 0, (char*)filemask);
 	}
 
+}
+
+void CBitmapManager::LoadButtonImage()
+{
+	for (int i = 0; i < BUTTON_END; ++i) {
+		m_eButtonId = static_cast<BUTTON_ID>(i);
+		m_nAnimationCnt[TYPE_NUM] = 1;
+
+		char filemask[STR_LEN];
+		strcpy_s(filemask, STR_LEN, BUTTON_DIR[i]);
+		strcat_s(filemask, "\0");
+
+		CountAnimationNum(filemask);
+
+		m_tButtonAnimationInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
+		ZeroMemory(m_tButtonAnimationInfo[i], sizeof(BITMAP_ANIMATION_INFO));
+
+		AllocMemoryByImageNum(m_tButtonAnimationInfo, m_eButtonId, filemask);
+
+		// have no animation
+		if (1 == m_nAnimationCnt[IMAGE_NUM]) {
+			m_tButtonAnimationInfo[m_eButtonId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
+			m_tButtonAnimationInfo[m_eButtonId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
+			ZeroMemory(m_tButtonAnimationInfo[m_eButtonId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
+		}
+
+		for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
+			if (0 == m_tButtonAnimationInfo[m_eButtonId][i].nAnimationNum) m_tButtonAnimationInfo[m_eButtonId][i].nAnimationNum = 1;
+
+			for (int j = 0; j < m_tButtonAnimationInfo[m_eButtonId][i].nAnimationNum; ++j) {
+				m_tButtonAnimationInfo[m_eButtonId][i].tName[j] = new char[STR_LEN];
+				ZeroMemory(m_tButtonAnimationInfo[m_eButtonId][i].tName[j], STR_LEN);
+
+			}
+
+		}
+		SetName(m_tButtonAnimationInfo, m_eButtonId, 0, (char*)filemask);
+	}
 }
 
 void CBitmapManager::LoadSceneImg()

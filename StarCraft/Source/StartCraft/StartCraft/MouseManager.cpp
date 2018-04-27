@@ -34,10 +34,12 @@ void CMouseManager::Init()
 
 void CMouseManager::UpdateRect()
 {
-	m_tRect.left = m_tPos.x + CURSOR_SIZE / 2;
-	m_tRect.right = m_tRect.left + 20;
-	m_tRect.top = m_tPos.y + CURSOR_SIZE / 2;
-	m_tRect.bottom = m_tRect.top + 20;
+
+
+	m_tRect.left = m_tPos.x - CURSOR_SIZE / 2 - 30;
+	m_tRect.right = m_tRect.left + 50;
+	m_tRect.top = m_tPos.y - 30;
+	m_tRect.bottom = m_tRect.top + 50;
 
 
 }
@@ -66,8 +68,8 @@ void CMouseManager::Render()
 	}
 
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tPos.x,
-		m_tPos.y,
+		m_tPos.x - CURSOR_SIZE,
+		m_tPos.y - CURSOR_SIZE / 2,
 		CURSOR_SIZE,
 		CURSOR_SIZE,
 		0,
@@ -103,4 +105,19 @@ void CMouseManager::CheckMouseOver(SCENELIST& target)
 		}
 	}
 	
+}
+
+void CMouseManager::CheckMouseOver(UILIST& target)
+{
+	RECT rc{};
+
+	for (auto& pTarget : target) {
+		if (IntersectRect(&rc, &m_tRect, &(pTarget->GetRect()))) {
+			if (pTarget->IsUI()) dynamic_cast<CUI*>(pTarget)->SetMouseOver();
+		}
+
+		else {
+			if (pTarget->IsUI()) dynamic_cast<CUI*>(pTarget)->SetIdle();
+		}
+	}
 }

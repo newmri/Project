@@ -13,6 +13,12 @@ public:
 	virtual void Release() = 0;
 
 public:
+	void LateUIInit();
+	void UIUpdate();
+	void LateUIUpdate();
+	void UIRender();
+
+public:
 	void RenderCollsionBox();
 
 public:
@@ -28,7 +34,10 @@ public:
 	void SetIdle();
 
 public:
-	void ChangeAnimation(UI_ID eId);
+	void AddUI(CUI* pObj, UI_ID eID);
+
+public:
+	void ChangeAnimation(UI_STATE_ID eId);
 
 public:
 	void UpdateRect();
@@ -47,10 +56,13 @@ protected:
 	RECT		m_tRect;
 
 protected:
-	UI_ID		m_eCurrId;
+	UI_STATE_ID		m_eCurrId;
 	SCENE::SCENE_ID		m_eId;
 
 protected:
 	ANIMATION_INFO* m_tAnimationInfo;
+
+protected:
+	UILIST	m_uiList[UI_END];
 };
 

@@ -6,13 +6,13 @@ void CScene::Init()
 	m_bIsUI = true;
 	m_eCurrId = IDLE;
 
-	m_tAnimationInfo = new ANIMATION_INFO[UI_END];
-	for (int i = 0; i < UI_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
+	m_tAnimationInfo = new ANIMATION_INFO[UI_STATE_END];
+	for (int i = 0; i < UI_STATE_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
 
 	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetSceneAnimationInfo(m_eId);
 
 	// Set Animation Name
-	for (int i = 0; i < UI_END; ++i) {
+	for (int i = 0; i < UI_STATE_END; ++i) {
 
 		m_tAnimationInfo[i].tName = new char*[pAnim[i].nAnimationNum];
 		ZeroMemory(m_tAnimationInfo[i].tName, pAnim[i].nAnimationNum);
@@ -35,8 +35,10 @@ void CScene::Init()
 
 void CScene::LateInit()
 {
-	if (!m_bIsInit) this->LateInit();
-
+	if (!m_bIsInit) {
+		this->LateInit();
+		LateUIInit();
+	}
 	m_bIsInit = true;
 }
 
@@ -48,11 +50,14 @@ SCENE::SCENE_ID CScene::Update()
 		m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
 	}
 
+	UIUpdate();
+
 	return SCENE::NO_EVENT;
 }
 
 void CScene::LateUpdate()
 {
+	LateUIUpdate();
 }
 
 void CScene::Render()
@@ -66,6 +71,61 @@ void CScene::Render()
 		0,
 		m_tAnimationInfo[m_eCurrId].nImageW,
 		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+
+	UIRender();
+}
+
+void CScene::LateUIInit()
+{
+	for (int i = 0; i < UI_END; i++) {
+		auto it_begin = m_uiList[i].begin();
+		auto it_OBJ_END = m_uiList[i].end();
+		for (; it_begin != it_OBJ_END;) {
+			(*it_begin)->LateInit();
+			it_begin++;
+		}
+
+	}
+}
+
+void CScene::UIUpdate()
+{
+	for (int i = 0; i < UI_END; i++) {
+		auto it_begin = m_uiList[i].begin();
+		auto it_OBJ_END = m_uiList[i].end();
+		for (; it_begin != it_OBJ_END;) {
+			(*it_begin)->Update();
+			it_begin++;
+		}
+
+	}
+}
+
+void CScene::LateUIUpdate()
+{
+	for (int i = 0; i < UI_END; i++) {
+		auto it_begin = m_uiList[i].begin();
+		auto it_OBJ_END = m_uiList[i].end();
+		for (; it_begin != it_OBJ_END;) {
+			(*it_begin)->LateUpdate();
+			it_begin++;
+		}
+
+	}
+}
+
+void CScene::UIRender()
+{
+	for (int i = 0; i < UI_END; i++) {
+		auto it_begin = m_uiList[i].begin();
+		auto it_OBJ_END = m_uiList[i].end();
+		for (; it_begin != it_OBJ_END;) {
+			(*it_begin)->RenderCollsionBox();
+			(*it_begin)->Render();
+			it_begin++;
+		}
+
+	}
 }
 
 void CScene::RenderCollsionBox()
@@ -77,16 +137,39 @@ void CScene::RenderCollsionBox()
 
 void CScene::SetMouseOver()
 {
-	if (IDLE == m_eCurrId) ChangeAnimation(MOUSE_OVER);
+	if (IDLE == m_eCurrId) {
+		ChangeAnimation(MOUSE_OVER);
 
+		auto it_begin = m_uiList[BUTTON].begin();
+		auto it_OBJ_END = m_uiList[BUTTON].end();
+		for (; it_begin != it_OBJ_END;) {
+			(*it_begin)->ChangeAnimation(MOUSE_OVER);
+			it_begin++;
+		}
+
+	}
 }
 
 void CScene::SetIdle()
 {
-	if (MOUSE_OVER == m_eCurrId) ChangeAnimation(IDLE);
+	if (MOUSE_OVER == m_eCurrId) {
+		ChangeAnimation(IDLE);
+
+		auto it_begin = m_uiList[BUTTON].begin();
+		auto it_OBJ_END = m_uiList[BUTTON].end();
+		for (; it_begin != it_OBJ_END;) {
+			(*it_begin)->ChangeAnimation(IDLE);
+			it_begin++;
+		}
+	}
 }
 
-void CScene::ChangeAnimation(UI_ID eId)
+void CScene::AddUI(CUI* pObj, UI_ID eID)
+{
+	m_uiList[eID].push_back(pObj);
+}
+
+void CScene::ChangeAnimation(UI_STATE_ID eId)
 {
 	m_eCurrId = eId;
 	m_tAnimationInfo[m_eCurrId].nCnt = 0;
@@ -105,8 +188,21 @@ void CScene::UpdateRect()
 
 CScene::CScene()
 {
+	m_bIsInit = false;
 }
 
 CScene::~CScene()
 {
+	for (int i = 0; i < UI_END; ++i) {
+		for_each(m_uiList[i].begin(), m_uiList[i].end(),
+			[](auto& obj)
+		{
+			if (obj)
+			{
+				delete obj;
+				obj = nullptr;
+			}
+		});
+		m_uiList[i].clear();
+	}
 }
