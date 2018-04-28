@@ -2,6 +2,8 @@
 
 #include "Enum.h"
 
+class CButton;
+
 class CScene
 {
 public:
@@ -24,6 +26,7 @@ public:
 public:
 	const INFO& GetInfo() const { return m_tInfo; }
 	const RECT& GetRect() const { return m_tRect; }
+	CButton* GetButton(BUTTON_ID eId);
 	const bool& IsUI() const { return m_bIsUI; }
 
 public:

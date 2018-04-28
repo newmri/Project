@@ -11,6 +11,9 @@ public:
 	virtual void Release() override;
 
 public:
+	const BUTTON_ID& GetId() { return m_eId; }
+
+public:
 	void SetId(BUTTON_ID eId) { m_eId = eId; }
 
 public:

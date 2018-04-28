@@ -36,7 +36,6 @@ private:
 	HDC			m_hDC, m_hMemDC;
 	HBITMAP		m_hBit, m_hOldBit;
 	HWND		m_hWnd;
-
 private:
 	POINT m_tWindowSize;
 

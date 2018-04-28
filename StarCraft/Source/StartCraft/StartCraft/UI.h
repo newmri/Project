@@ -18,10 +18,12 @@ public:
 public:
 	const INFO& GetInfo() const { return m_tInfo; }
 	const RECT& GetRect() const { return m_tRect; }
-	const bool& IsUI() const { return m_bIsUI; }
+	const bool& IsMouseOver() const { return (MOUSE_OVER == m_eCurrId); }
+
 
 public:
 	void SetPos(float fX, float fY) { m_tInfo.fX = fX, m_tInfo.fY = fY; }
+	void SetColor(COLORREF color) { m_tRGB = color; }
 
 public:
 	void SetMouseOver();
@@ -40,7 +42,6 @@ public:
 protected:
 	bool	m_bIsDead;
 	bool	m_bIsInit;
-	bool	m_bIsUI;
 
 protected:
 	INFO		m_tInfo;
@@ -51,4 +52,7 @@ protected:
 
 protected:
 	ANIMATION_INFO* m_tAnimationInfo;
+
+protected:
+	COLORREF		m_tRGB;
 };

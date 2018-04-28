@@ -5,42 +5,49 @@
 #include "Editor.h"
 #include "Exit.h"
 #include "UI.h"
+#include "Button.h"
 
 CSceneManager* CSceneManager::m_pInstance = nullptr;
 
 void CSceneManager::SetState(const SCENE::SCENE_ID eSceneID)
 {
-	switch (eSceneID) {
-	case SCENE::SCENE_ID::MAIN_MENU:
-		m_bIsGameStarted = false;
-		m_pScene = new CMainMenu; m_eSceneID = SCENE::SCENE_ID::MAIN_MENU; break;
+	if (eSceneID != m_eSceneID) {
 
-	//case SCENE_ID::STAGE1:
-	//	m_bIsGameStarted = true;
-	//	//SOUNDMANAGER->PlayeSound(STAGE1BGM);
-	//	m_pScene = new CSinglePlay; m_eSceneID = SCENE_ID::STAGE1; break;
+		SafeDelete(m_pScene);
 
-	default: break;
+		switch (eSceneID) {
+		case SCENE::SCENE_ID::MAIN_MENU:
+			m_bIsGameStarted = false;
+			m_pScene = new CMainMenu; m_eSceneID = SCENE::SCENE_ID::MAIN_MENU; break;
+
+		case SCENE::EDITOR:
+			m_bIsGameStarted = true;
+			m_pScene = new CEditor; m_eSceneID = SCENE::EDITOR; break;
+
+		default: break;
+		}
+
+
+		m_pScene->Init();
 	}
-	m_pScene->Init();
 }
 
 void CSceneManager::Init()
 {
+	m_pScene = nullptr;
+	m_bIsGameStarted = false;
 	SetState(SCENE::MAIN_MENU);
 	m_bShowCollisionBox = false;
 	m_bInvincibility = false;
 	m_bIsPlayerDead = false;
 
 	LateInit();
-	
 
 }
 
 void CSceneManager::LateInit()
 {
-	LateSceneInit();
-	LateUIInit();
+	m_pScene->LateInit();
 }
 
 void CSceneManager::Update()
@@ -52,12 +59,9 @@ void CSceneManager::Update()
 
 	OBJMANAGER->Update();
 
-	SceneUpdate();
-	UIUpdate();
-
 	eSceneId = m_pScene->Update();
 
-	if (eSceneId > SCENE::SCENE_ID::NO_EVENT){
+	if (eSceneId != SCENE::SCENE_ID::NO_EVENT){
 		this->SetState(eSceneId);
 		return;
 	}
@@ -68,14 +72,8 @@ void CSceneManager::LateUpdate()
 {
 
 	OBJMANAGER->LateUpdate();
+	m_pScene->LateUpdate();
 
-	LateSceneUpdate();
-	LateUIUpdate();
-
-	for (int i = 1; i < SCENE::SCENE_END; ++i) MOUSEMANAGER->CheckMouseOver(m_objList[i]);
-	for (int i = 0; i < UI_END; ++i) MOUSEMANAGER->CheckMouseOver(m_uiList[i]);
-	
-	
 
 	if (!m_bInvincibility) {
 		//COLLISIONMANAGER->RectCollision(obj_list[OBJTYPE::PLAYER], obj_list[OBJTYPE::ENEMY]);
@@ -87,9 +85,6 @@ void CSceneManager::LateUpdate()
 void CSceneManager::Render()
 {
 	if (m_pScene)  m_pScene->Render(); 
-
-	SceneRender();
-	UIRender();
 	OBJMANAGER->Render();
 
 
@@ -100,169 +95,12 @@ void CSceneManager::Release()
 {
 	OBJMANAGER->Release();
 
-	for (int i = 0; i < SCENE::SCENE_END; ++i) {
-		for_each(m_objList[i].begin(), m_objList[i].end(),
-			[](auto& obj)
-		{
-			if (obj)
-			{
-				delete obj;
-				obj = nullptr;
-			}
-		});
-		m_objList[i].clear();
-	}
-
-	for (int i = 0; i < UI_END; ++i) {
-		for_each(m_uiList[i].begin(), m_uiList[i].end(),
-			[](auto& obj)
-		{
-			if (obj)
-			{
-				delete obj;
-				obj = nullptr;
-			}
-		});
-		m_uiList[i].clear();
-	}
-
-
 	if (m_pInstance) {
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
 }
 
-void CSceneManager::LateSceneInit()
-{
-	float w = static_cast<float>(GetSystemMetrics(SM_CXSCREEN));
-	float h = static_cast<float>(GetSystemMetrics(SM_CYSCREEN));
-
-	{
-		CScene* p = CFactoryManager<CSinglePlay>::CreateScene(w * 0.2f, h * 0.2f);
-		AddScene(p, SCENE::SINGLE_PLAY);
-	}
-
-	{
-		CScene* p = CFactoryManager<CEditor>::CreateScene(w * 0.6f, h * 0.3f);
-		AddScene(p, SCENE::EDITOR);
-
-	}
-
-	{
-		CScene* p = CFactoryManager<CMultiPlay>::CreateScene(w * 0.3f, h * 0.6f);
-		AddScene(p, SCENE::MULTI_PLAY);
-
-	}
-
-	{
-		CScene* p = CFactoryManager<CExit>::CreateScene(w * 0.7f, h * 0.6f);
-		AddScene(p, SCENE::EXIT);
-
-	}
-
-	for (int i = SCENE::SINGLE_PLAY; i < SCENE::SCENE_END; i++) {
-		auto it_begin = m_objList[i].begin();
-		auto it_OBJ_END = m_objList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->LateInit();
-			it_begin++;
-		}
-
-	}
-}
-
-void CSceneManager::SceneUpdate()
-{
-	for (int i = SCENE::SINGLE_PLAY; i < SCENE::SCENE_END; i++) {
-		auto it_begin = m_objList[i].begin();
-		auto it_OBJ_END = m_objList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->Update();
-			it_begin++;
-		}
-
-	}
-}
-
-void CSceneManager::LateSceneUpdate()
-{
-	for (int i = SCENE::SINGLE_PLAY; i < SCENE::SCENE_END; i++) {
-		auto it_begin = m_objList[i].begin();
-		auto it_OBJ_END = m_objList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->LateUpdate();
-			it_begin++;
-		}
-
-	}
-}
-
-void CSceneManager::SceneRender()
-{
-	for (int i = 1; i < SCENE::SCENE_END; i++) {
-		auto it_begin = m_objList[i].begin();
-		auto it_OBJ_END = m_objList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->RenderCollsionBox();
-			(*it_begin)->Render();
-			it_begin++;
-		}
-	}
-}
-
-void CSceneManager::LateUIInit()
-{
-	for (int i = 0; i < UI_END; i++) {
-		auto it_begin = m_uiList[i].begin();
-		auto it_OBJ_END = m_uiList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->LateInit();
-			it_begin++;
-		}
-
-	}
-}
-
-void CSceneManager::UIUpdate()
-{
-	for (int i = 0; i < UI_END; i++) {
-		auto it_begin = m_uiList[i].begin();
-		auto it_OBJ_END = m_uiList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->Update();
-			it_begin++;
-		}
-
-	}
-}
-
-void CSceneManager::LateUIUpdate()
-{
-	for (int i = 0; i < UI_END; i++) {
-		auto it_begin = m_uiList[i].begin();
-		auto it_OBJ_END = m_uiList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->LateUpdate();
-			it_begin++;
-		}
-
-	}
-}
-
-void CSceneManager::UIRender()
-{
-	for (int i = 0; i < UI_END; i++) {
-		auto it_begin = m_uiList[i].begin();
-		auto it_OBJ_END = m_uiList[i].end();
-		for (; it_begin != it_OBJ_END;) {
-			(*it_begin)->RenderCollsionBox();
-			(*it_begin)->Render();
-			it_begin++;
-		}
-
-	}
-}
 
 void CSceneManager::RenderDie()
 {
@@ -278,14 +116,11 @@ void CSceneManager::RenderDie()
 	
 }
 
-void CSceneManager::AddScene(CScene* pObj, SCENE::SCENE_ID eID)
-{
-	m_objList[eID].push_back(pObj);
-}
 
-void CSceneManager::AddUI(CUI * pObj, UI_ID eID)
+
+CButton* CSceneManager::GetButton(BUTTON_ID eId)
 {
-	m_uiList[eID].push_back(pObj);
+	return m_pScene->GetButton(eId);
 }
 
 void CSceneManager::CreatePlayer()

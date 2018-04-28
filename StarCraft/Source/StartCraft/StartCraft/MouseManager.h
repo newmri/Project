@@ -11,7 +11,6 @@ public:
 	void Release();
 
 public:
-	void CheckMouseOver(SCENELIST& target);
 	void CheckMouseOver(UILIST& target);
 
 

@@ -4,8 +4,10 @@ CRenderManager* CRenderManager::m_pInstance = nullptr;
 
 void CRenderManager::Init(const HWND& hWnd)
 {
-	m_tWindowSize.x = GetSystemMetrics(SM_CXSCREEN);
-	m_tWindowSize.y = GetSystemMetrics(SM_CYSCREEN);
+	RECT rc;
+	GetClientRect(hWnd, &rc);
+	m_tWindowSize.x = rc.right - rc.left;
+	m_tWindowSize.y = rc.bottom - rc.top;
 
 	m_hWnd = hWnd;
 	m_hDC = GetDC(m_hWnd);

@@ -17,7 +17,5 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-private:
-	POINT m_tImageSize;
 };
 

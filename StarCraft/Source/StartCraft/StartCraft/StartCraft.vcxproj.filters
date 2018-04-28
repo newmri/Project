@@ -43,8 +43,11 @@
     <Filter Include="01.Object\01.UI">
       <UniqueIdentifier>{68c2a729-9b30-4290-a4b3-f9afbc9ee15e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Object\01.UI\00.Button">
+    <Filter Include="01.Object\01.UI\01.Button">
       <UniqueIdentifier>{db21dfc1-d002-4834-9ece-6f7fea410bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Object\02.Tile">
+      <UniqueIdentifier>{1dd792b5-57e8-489e-acb3-4bb6e5158736}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +139,16 @@
       <Filter>02.Scene\01.SinglePlay</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
-      <Filter>01.Object\01.UI\00.Button</Filter>
+      <Filter>01.Object\01.UI\01.Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>01.Object\02.Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollManager.h">
+      <Filter>97.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TileManager.h">
+      <Filter>97.Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +213,16 @@
       <Filter>02.Scene\01.SinglePlay</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>01.Object\01.UI\00.Button</Filter>
+      <Filter>01.Object\01.UI\01.Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>01.Object\02.Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollManager.cpp">
+      <Filter>97.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TileManager.cpp">
+      <Filter>97.Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

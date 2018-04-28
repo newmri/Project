@@ -14,8 +14,8 @@ void CExit::LateInit()
 {
 	UpdateRect();
 
-	CUI* p = CFactoryManager<CButton>::CreateUI(m_tRect.left + 80, m_tRect.top - 20);
-	dynamic_cast<CButton*>(p)->SetId(EXIT_BUTTON);
+	CUI* p = CFactoryManager<CButton>::CreateUI(static_cast<float>(m_tRect.left + 80), static_cast<float>(m_tRect.top - 20));
+	dynamic_cast<CButton*>(p)->SetId(EXIT_STR_BUTTON);
 	AddUI(p, BUTTON);
 }
 
@@ -29,7 +29,6 @@ SCENE::SCENE_ID CExit::Update()
 
 void CExit::LateUpdate()
 {
-	if (KEYMANAGER->KeyUp(VK_LBUTTON) && MOUSE_OVER == m_eCurrId) DestroyWindow(RENDERMANAGER->GethWnd());
 	
 }
 

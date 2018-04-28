@@ -8,6 +8,8 @@ void CBitmapManager::Init()
 	LoadObjImg();
 	LoadButtonImage();
 	LoadSceneImg();
+	LoadMapImg();
+	
 }
 
 void CBitmapManager::Release()
@@ -296,6 +298,44 @@ void CBitmapManager::LoadSceneImg()
 
 		}
 		SetName(m_tSceneAnimationInfo, m_eSceneId, 0, (char*)filemask);
+	}
+}
+
+void CBitmapManager::LoadMapImg()
+{
+	for (int i = 0; i < MAP_END; ++i) {
+		m_eMapId = static_cast<MAP_ID>(i);
+		m_nAnimationCnt[TYPE_NUM] = 1;
+
+		char filemask[STR_LEN];
+		strcpy_s(filemask, STR_LEN, MAP_DIR[i]);
+		strcat_s(filemask, "\0");
+
+		CountAnimationNum(filemask);
+
+		m_tMapInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
+		ZeroMemory(m_tMapInfo[i], sizeof(BITMAP_ANIMATION_INFO));
+
+		AllocMemoryByImageNum(m_tMapInfo, m_eMapId, filemask);
+
+		// have no animation
+		if (1 == m_nAnimationCnt[IMAGE_NUM]) {
+			m_tMapInfo[m_eMapId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
+			m_tMapInfo[m_eMapId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
+			ZeroMemory(m_tMapInfo[m_eMapId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
+		}
+
+		for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
+			if (0 == m_tMapInfo[m_eMapId][i].nAnimationNum) m_tMapInfo[m_eMapId][i].nAnimationNum = 1;
+
+			for (int j = 0; j < m_tMapInfo[m_eMapId][i].nAnimationNum; ++j) {
+				m_tMapInfo[m_eMapId][i].tName[j] = new char[STR_LEN];
+				ZeroMemory(m_tMapInfo[m_eMapId][i].tName[j], STR_LEN);
+
+			}
+
+		}
+		SetName(m_tMapInfo, m_eMapId, 0, (char*)filemask);
 	}
 }
 

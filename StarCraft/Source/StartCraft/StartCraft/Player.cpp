@@ -76,7 +76,7 @@ void CPlayer::Render()
 	
 }
 
-void CPlayer::Realease()
+void CPlayer::Release()
 {
 
 }

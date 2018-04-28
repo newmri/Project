@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Obj.h"
 #include "Scene.h"
+#include "Button.h"
 
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
@@ -68,7 +69,7 @@ void CMouseManager::Render()
 	}
 
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tPos.x - CURSOR_SIZE,
+		m_tPos.x - CURSOR_SIZE / 2,
 		m_tPos.y - CURSOR_SIZE / 2,
 		CURSOR_SIZE,
 		CURSOR_SIZE,
@@ -91,21 +92,6 @@ void CMouseManager::Release()
 	}
 }
 
-void CMouseManager::CheckMouseOver(SCENELIST& target)
-{
-	RECT rc{};
-
-	for (auto& pTarget : target) {
-		if (IntersectRect(&rc, &m_tRect, &(pTarget->GetRect()))) {
-			if (pTarget->IsUI()) dynamic_cast<CScene*>(pTarget)->SetMouseOver();
-		}
-
-		else {
-			if (pTarget->IsUI()) dynamic_cast<CScene*>(pTarget)->SetIdle();
-		}
-	}
-	
-}
 
 void CMouseManager::CheckMouseOver(UILIST& target)
 {
@@ -113,11 +99,12 @@ void CMouseManager::CheckMouseOver(UILIST& target)
 
 	for (auto& pTarget : target) {
 		if (IntersectRect(&rc, &m_tRect, &(pTarget->GetRect()))) {
-			if (pTarget->IsUI()) dynamic_cast<CUI*>(pTarget)->SetMouseOver();
+			 pTarget->SetMouseOver();
 		}
 
 		else {
-			if (pTarget->IsUI()) dynamic_cast<CUI*>(pTarget)->SetIdle();
+			pTarget->SetIdle();
+
 		}
 	}
 }

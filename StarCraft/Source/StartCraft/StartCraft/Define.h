@@ -16,6 +16,11 @@ static const int NUM_OF_STAGE = 1;
 // Cursor
 static const int CURSOR_SIZE = 128;
 
+static const int TILE_SIZE = 32;
+
+static const float SCROLL_SPEED = static_cast<float>(TILE_SIZE * 2);
+
+
 const char OBJ_DIR[OBJ_END][STR_LEN] = 
 {
 	{ "Resources/Image/Cursor/*.*" },
@@ -26,17 +31,23 @@ const char BUTTON_DIR[BUTTON_END][STR_LEN] =
 	{ "Resources/Image/MainMenu/Button/SinglePlay/*.*" },
 	{ "Resources/Image/MainMenu/Button/MultiPlay/*.*" },
 	{ "Resources/Image/MainMenu/Button/Editor/*.*" },
-	{ "Resources/Image/MainMenu/Button/Exit/*.*" }
+	{ "Resources/Image/MainMenu/Button/Exit/*.*" },
+	{ "Resources/Image/MainMenu/Button/STR/SinglePlay/*.*" },
+	{ "Resources/Image/MainMenu/Button/STR/MultiPlay/*.*" },
+	{ "Resources/Image/MainMenu/Button/STR/Editor/*.*" },
+	{ "Resources/Image/MainMenu/Button/STR/Exit/*.*" }
 
 };
 
 const char SCENE_DIR[SCENE::SCENE_END][STR_LEN] =
 {
 	{ "Resources/Image/MainMenu/Menu/*.*" },
-	{ "Resources/Image/MainMenu/SinglePlay/*.*" },
-	{ "Resources/Image/MainMenu/MultiPlay/*.*" },
-	{ "Resources/Image/MainMenu/Editor/*.*" },
-	{ "Resources/Image/MainMenu/Exit/*.*" }
+};
+
+const char MAP_DIR[MAP_END][STR_LEN] =
+{
+	{ "Resources/Image/Map/Tile/*.*" },
+	{ "Resources/Image/Map/Beginner/*.*" }
 };
 
 #define GAMEMANAGER CGameManager::GetInstance()
@@ -48,3 +59,5 @@ const char SCENE_DIR[SCENE::SCENE_END][STR_LEN] =
 #define KEYMANAGER CKeyManager::GetInstance()
 #define OBJMANAGER CObjectManager::GetInstance()
 #define MOUSEMANAGER CMouseManager::GetInstance()
+#define SCROLLMANAGER CScrollManager::GetInstance()
+#define TILEMANAGER CTileManager::GetInstance()

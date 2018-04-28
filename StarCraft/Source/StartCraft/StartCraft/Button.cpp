@@ -3,11 +3,12 @@
 
 void CButton::Init()
 {
-	m_bIsUI = true;
 	m_eCurrId = IDLE;
 
 	m_tAnimationInfo = new ANIMATION_INFO[UI_STATE_END];
 	for (int i = 0; i < UI_STATE_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
+
+	m_tRGB = (0, 0, 0);
 
 }
 
@@ -36,11 +37,17 @@ void CButton::LateInit()
 
 	}
 
-	UpdateRect();
+	CUI::UpdateRect();
+	if (SINGLE_PLAY_STR_BUTTON <= m_eId && EXIT_STR_BUTTON >= m_eId) m_tRect.bottom += 150;
+	if (SINGLE_PLAY_STR_BUTTON == m_eId || EXIT_STR_BUTTON == m_eId) m_tRect.right += 150;
+
+	
+
 }
 
 int CButton::Update()
 {
+
 	CUI::LateInit();
 	CUI::Update();
 
@@ -53,15 +60,7 @@ void CButton::LateUpdate()
 
 void CButton::Render()
 {
-	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tRect.left,
-		m_tRect.top,
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH,
-		0,
-		0,
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+	CUI::Render();
 }
 
 void CButton::Release()

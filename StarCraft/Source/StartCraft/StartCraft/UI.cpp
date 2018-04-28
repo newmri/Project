@@ -2,13 +2,13 @@
 
 void CUI::Init()
 {
-	
+
 }
 
 void CUI::LateInit()
 {
 	if (!m_bIsInit) this->LateInit();
-
+	
 	m_bIsInit = true;
 }
 
@@ -29,6 +29,8 @@ void CUI::LateUpdate()
 
 void CUI::Render()
 {
+	if (0 == m_tAnimationInfo[m_eCurrId].nImageW) return;
+
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
 		m_tRect.left,
 		m_tRect.top,
@@ -37,7 +39,7 @@ void CUI::Render()
 		0,
 		0,
 		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+		m_tAnimationInfo[m_eCurrId].nImageH, m_tRGB);
 }
 
 
@@ -70,10 +72,10 @@ void CUI::ChangeAnimation(UI_STATE_ID eId)
 void CUI::UpdateRect()
 {
 
-	m_tRect.left = m_tInfo.fX;
-	m_tRect.right = m_tInfo.fX + m_tAnimationInfo[m_eCurrId].nImageW;
-	m_tRect.top = m_tInfo.fY;
-	m_tRect.bottom = m_tInfo.fY + m_tAnimationInfo[m_eCurrId].nImageH;
+	m_tRect.left = static_cast<LONG>(m_tInfo.fX);
+	m_tRect.right = static_cast<LONG>(m_tInfo.fX + m_tAnimationInfo[m_eCurrId].nImageW);
+	m_tRect.top = static_cast<LONG>(m_tInfo.fY);
+	m_tRect.bottom = static_cast<LONG>(m_tInfo.fY + m_tAnimationInfo[m_eCurrId].nImageH);
 }
 
 CUI::CUI()

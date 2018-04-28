@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Scene.h"
+#include "Button.h"
 
 void CScene::Init()
 {
@@ -9,7 +10,7 @@ void CScene::Init()
 	m_tAnimationInfo = new ANIMATION_INFO[UI_STATE_END];
 	for (int i = 0; i < UI_STATE_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
 
-	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetSceneAnimationInfo(m_eId);
+	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetSceneAnimationInfo(SCENE::MAIN_MENU);
 
 	// Set Animation Name
 	for (int i = 0; i < UI_STATE_END; ++i) {
@@ -29,16 +30,17 @@ void CScene::Init()
 			m_tAnimationInfo[i].nCnt = 0;
 
 		}
-
+		if (1 == pAnim[i].nAnimationNum) break;
 	}
 }
 
 void CScene::LateInit()
 {
 	if (!m_bIsInit) {
-		this->LateInit();
 		LateUIInit();
 	}
+	this->LateInit();
+
 	m_bIsInit = true;
 }
 
@@ -58,6 +60,8 @@ SCENE::SCENE_ID CScene::Update()
 void CScene::LateUpdate()
 {
 	LateUIUpdate();
+	for (int i = 0; i < UI_END; ++i) MOUSEMANAGER->CheckMouseOver(m_uiList[i]);
+
 }
 
 void CScene::Render()
@@ -135,6 +139,19 @@ void CScene::RenderCollsionBox()
 	}
 }
 
+CButton* CScene::GetButton(BUTTON_ID eId)
+{
+	auto it_begin = m_uiList[BUTTON].begin();
+	auto it_OBJ_END = m_uiList[BUTTON].end();
+	for (; it_begin != it_OBJ_END;) {
+		CButton* p = dynamic_cast<CButton*>((*it_begin));
+		if (eId == p->GetId()) return p;
+		it_begin++;
+	}
+
+	return nullptr;
+}
+
 void CScene::SetMouseOver()
 {
 	if (IDLE == m_eCurrId) {
@@ -178,7 +195,6 @@ void CScene::ChangeAnimation(UI_STATE_ID eId)
 
 void CScene::UpdateRect()
 {
-
 	m_tRect.left = m_tInfo.fX;
 	m_tRect.right = m_tInfo.fX + m_tAnimationInfo[m_eCurrId].nImageW;
 	m_tRect.top = m_tInfo.fY;

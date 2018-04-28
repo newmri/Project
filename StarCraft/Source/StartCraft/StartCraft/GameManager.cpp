@@ -6,8 +6,12 @@ void CGameManager::Init()
 {
 	BITMAPMANAGER->Init();
 	SOUNDMANAGER->Init();
+	SCROLLMANAGER->Init();
 	SCENEMANAGER->Init();
 	MOUSEMANAGER->Init();
+	TILEMANAGER->Init();
+	TILEMANAGER->LateInit();
+
 
 }
 

@@ -8,7 +8,7 @@ public:
 	virtual int Update()=0;
 	virtual void LateUpdate() = 0;
 	virtual void Render() = 0;
-	virtual void Realease() = 0;
+	virtual void Release() = 0;
 
 	void UpdateRect();
 	void RenderCollsionBox();

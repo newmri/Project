@@ -12,7 +12,7 @@ public:
 	virtual int Update() override;
 	virtual void LateUpdate() override;
 	virtual void Render() override;
-	virtual void Realease() override;
+	virtual void Release() override;
 
 
 public:

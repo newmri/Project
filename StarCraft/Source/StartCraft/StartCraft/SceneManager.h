@@ -14,25 +14,14 @@ public:
 	void SetState(const SCENE::SCENE_ID eSceneID);
 	void Release();
 
-public:
-	void LateSceneInit();
-	void SceneUpdate();
-	void LateSceneUpdate();
-	void SceneRender();
-
-public:
-	void LateUIInit();
-	void UIUpdate();
-	void LateUIUpdate();
-	void UIRender();
-
-
 	void RenderDie();
 
 public:
-	void AddScene(CScene* pObj, SCENE::SCENE_ID eID);
-	void AddUI(CUI* pObj, UI_ID eID);
+	CButton* GetButton(BUTTON_ID eId);
+	const POINT& GetMapSize() { return m_tMapSize; }
 
+public:
+	void SetMapSize(int x, int y) { m_tMapSize.x = x; m_tMapSize.y = y; }
 
 public:
 	void KillPlayer() { m_bIsPlayerDead = true; }
@@ -68,10 +57,6 @@ private:
 	static CSceneManager* m_pInstance;
 
 private:
-	SCENELIST m_objList[SCENE::SCENE_ID::SCENE_END];
-	UILIST	  m_uiList[UI_END];
-
-private:
 	CScene*		m_pScene;
 	SCENE::SCENE_ID	m_eSceneID;
 
@@ -80,5 +65,8 @@ private:
 	bool		m_bInvincibility;
 	bool		m_bIsPlayerDead;
 	bool		m_bIsGameStarted;
+
+private:
+	POINT		m_tMapSize;
 
 };

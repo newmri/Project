@@ -15,7 +15,7 @@ void CSinglePlay::LateInit()
 	UpdateRect();
 
 	CUI* p = CFactoryManager<CButton>::CreateUI(m_tRect.right - 150, m_tRect.bottom);
-	dynamic_cast<CButton*>(p)->SetId(SINGLE_PLAY_BUTTON);
+	dynamic_cast<CButton*>(p)->SetId(SINGLE_PLAY_STR_BUTTON);
 
 	AddUI(p, BUTTON);
 }
