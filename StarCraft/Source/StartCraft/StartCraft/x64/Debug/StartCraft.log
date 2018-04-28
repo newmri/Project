@@ -1,31 +1,52 @@
 ﻿  stdafx.cpp
-  SinglePlay.cpp
-  SoundManager.cpp
-  SinglePlayUI.cpp
-e:\starcraft\source\startcraft\startcraft\singleplayui.cpp(64): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  SceneManager.cpp
-  Scene.cpp
-  RenderManager.cpp
-  Player.cpp
-  ObjectManager.cpp
-  Obj.cpp
-  MouseManager.cpp
-  MainMenu.cpp
-e:\starcraft\source\startcraft\startcraft\mainmenu.cpp(21): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  KeyManager.cpp
-  GameManager.cpp
-  Entry.cpp
-  CollisionManager.cpp
   BitmapManager.cpp
-  코드를 생성하고 있습니다...
-SoundManager.obj : error LNK2019: FMOD_System_Create 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_System_Release 외부 기호(참조 위치: "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_System_Init 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_System_Close 외부 기호(참조 위치: "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_System_CreateSound 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_System_CreateStream 외부 기호(참조 위치: "public: void __cdecl CSoundManager::SetUpSound(void)" (?SetUpSound@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_System_PlaySound 외부 기호(참조 위치: "public: void __cdecl CSoundManager::PlayeSound(enum SOUNDKIND)" (?PlayeSound@CSoundManager@@QEAAXW4SOUNDKIND@@@Z) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_Sound_Release 외부 기호(참조 위치: "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-SoundManager.obj : error LNK2019: FMOD_Channel_Stop 외부 기호(참조 위치: "public: void __cdecl CSoundManager::BGSoundOff(void)" (?BGSoundOff@CSoundManager@@QEAAXXZ) 함수)에서 확인하지 못했습니다.
-../lib/fmodex_vc.lib : warning LNK4272: 'X86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
-E:\StarCraft\Source\StartCraft\x64\Debug\StartCraft.exe : fatal error LNK1120: 9개의 확인할 수 없는 외부 참조입니다.
+  Button.cpp
+  CollisionManager.cpp
+  Editor.cpp
+  Entry.cpp
+  Exit.cpp
+  GameManager.cpp
+  KeyManager.cpp
+  MainMenu.cpp
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(57): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(57): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(65): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(73): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(73): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(81): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(81): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
+  MouseManager.cpp
+  MultiPlay.cpp
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\multiplay.cpp(17): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  Obj.cpp
+  ObjectManager.cpp
+  Player.cpp
+  RenderManager.cpp
+  Scene.cpp
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(198): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(199): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(200): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(201): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  SceneManager.cpp
+  ScrollManager.cpp
+  SinglePlay.cpp
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\singleplay.cpp(17): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  SoundManager.cpp
+  Generating Code...
+c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\ui.h(21): warning C4172: returning address of local variable or temporary
+  Compiling...
+  Tile.cpp
+  TileManager.cpp
+  UI.cpp
+  Generating Code...
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_Create referenced in function "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_Release referenced in function "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_Init referenced in function "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_Close referenced in function "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_CreateSound referenced in function "public: void __cdecl CSoundManager::SetUpEffectSound(void)" (?SetUpEffectSound@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_CreateStream referenced in function "public: void __cdecl CSoundManager::SetUpSound(void)" (?SetUpSound@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_PlaySound referenced in function "public: void __cdecl CSoundManager::PlayeSound(enum SOUNDKIND)" (?PlayeSound@CSoundManager@@QEAAXW4SOUNDKIND@@@Z)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_Sound_Release referenced in function "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ)
+SoundManager.obj : error LNK2019: unresolved external symbol FMOD_Channel_Stop referenced in function "public: void __cdecl CSoundManager::BGSoundOff(void)" (?BGSoundOff@CSoundManager@@QEAAXXZ)
+..\lib\fmodex_vc.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\newmr\Desktop\StarCraft\Source\StartCraft\x64\Debug\StartCraft.exe : fatal error LNK1120: 9 unresolved externals

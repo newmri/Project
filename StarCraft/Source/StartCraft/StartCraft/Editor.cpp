@@ -37,6 +37,7 @@ void CEditor::Init()
 		if (1 == pAnim[i].nAnimationNum) break;
 	}
 
+
 }
 
 void CEditor::LateInit()
@@ -44,13 +45,18 @@ void CEditor::LateInit()
 	m_tRect.left = 0;
 	m_tRect.top = 0;
 
+
 }
 
 SCENE::SCENE_ID CEditor::Update()
 {
+	if (KEYMANAGER->KeyDown(VK_ESCAPE)) {
+		TILEMANAGER->SaveData();
+		return SCENE::MAIN_MENU;
+	}
+
 	CScene::LateInit();
-	
-	if (KEYMANAGER->KeyDown(VK_ESCAPE)) return SCENE::MAIN_MENU;
+
 	if (KEYMANAGER->KeyPressing(VK_LEFT)) SCROLLMANAGER->SetScrollX(SCROLL_SPEED);
 	else if (KEYMANAGER->KeyPressing(VK_RIGHT)) SCROLLMANAGER->SetScrollX(-SCROLL_SPEED);
 	else if (KEYMANAGER->KeyPressing(VK_UP)) SCROLLMANAGER->SetScrollY(SCROLL_SPEED);
@@ -65,6 +71,16 @@ SCENE::SCENE_ID CEditor::Update()
 void CEditor::LateUpdate()
 {
 	CScene::LateUpdate();
+	if (KEYMANAGER->KeyUp(VK_LBUTTON)) MOUSEMANAGER->IsPicking();
+	if (KEYMANAGER->KeyDown('Z')) TILEMANAGER->Undo();
+	if (KEYMANAGER->KeyDown(VK_TAB)) TILEMANAGER->SwapRenderMode();
+
+
+	if (KEYMANAGER->KeyDown('S')) TILEMANAGER->SaveData();
+	if (KEYMANAGER->KeyDown('L')) TILEMANAGER->LoadData();
+
+
+
 
 }
 
@@ -81,7 +97,7 @@ void CEditor::Render()
 		0,
 		0,
 		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0,0,0));
+		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
 
 	TILEMANAGER->Render();
 
@@ -90,7 +106,7 @@ void CEditor::Render()
 
 void CEditor::Release()
 {
-	
+
 }
 
 CEditor::CEditor()

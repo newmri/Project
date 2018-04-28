@@ -65,15 +65,29 @@ void CTile::LateUpdate()
 
 void CTile::Render()
 {
+	if (MOVABLE == m_eId) {
+	if(!TILEMANAGER->IsRenderUnMovableTileOnly())
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eId].tName[m_tAnimationInfo[m_eId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
-		static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
-		m_tAnimationInfo[m_eId].nImageW,
-		m_tAnimationInfo[m_eId].nImageH,
-		0,
-		0,
-		m_tAnimationInfo[m_eId].nImageW,
-		m_tAnimationInfo[m_eId].nImageH, RGB(255, 255, 255));
+	static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+	static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+	m_tAnimationInfo[m_eId].nImageW,
+	m_tAnimationInfo[m_eId].nImageH,
+	0,
+	0,
+	m_tAnimationInfo[m_eId].nImageW,
+	m_tAnimationInfo[m_eId].nImageH, RGB(255, 255, 255));
+	}
+
+	else
+	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eId].tName[m_tAnimationInfo[m_eId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+	static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+	static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+	m_tAnimationInfo[m_eId].nImageW,
+	m_tAnimationInfo[m_eId].nImageH,
+	0,
+	0,
+	m_tAnimationInfo[m_eId].nImageW,
+	m_tAnimationInfo[m_eId].nImageH, RGB(0, 0, 0));
 }
 
 void CTile::Release()

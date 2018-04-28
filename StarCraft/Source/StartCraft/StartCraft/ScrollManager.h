@@ -7,6 +7,7 @@ class CScrollManager
 public:
 	void Init();
 	void Update();
+	void ReSet();
 
 public:
 	float GetScrollX() { return m_fScrollX; }

@@ -66,17 +66,8 @@ void CScene::LateUpdate()
 
 void CScene::Render()
 {
-	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tRect.left,
-		m_tRect.top,
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH,
-		0,
-		0,
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
-
 	UIRender();
+
 }
 
 void CScene::LateUIInit()

@@ -46,10 +46,7 @@ int CPlayer::Update()
 	Move();
 	Jump();
 
-	if (m_bIsDead) {
-		SOUNDMANAGER->PlayerEffectSound(PLAYER_DIE_EFSD);
-		SCENEMANAGER->RenderDie();
-	}
+
 
 	return m_bIsDead;
 }

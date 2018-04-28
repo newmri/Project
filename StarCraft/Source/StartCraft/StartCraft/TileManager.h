@@ -13,7 +13,24 @@ public:
 	void Release();
 
 public:
-	const POINT& GetTileSize() { return m_nTileSize; }
+	void Undo();
+
+public:
+	void SwapRenderMode() { m_bRenderUnOnly = !m_bRenderUnOnly; }
+
+public:
+	bool IsRenderUnMovableTileOnly() { return m_bRenderUnOnly; }
+
+public:
+	const POINT& GetTileNum() { return m_nTileNum; }
+
+public:
+	CObj * SelectTile(int nIdx);
+
+public:
+	void SaveData();
+	void LoadData();
+
 
 public:
 	static CTileManager* GetInstance()
@@ -31,6 +48,11 @@ private:
 
 private:
 	vector<CObj*>		m_vecTile;
-	POINT				m_nTileSize;
+	list<int>			m_listLog;
+
+	POINT				m_nTileNum;
+
+private:
+	bool				m_bRenderUnOnly;
 };
 

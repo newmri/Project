@@ -2,13 +2,16 @@
 
 class CMouseManager
 {
-	
+
 public:
 	void Init();
 	void UpdateRect();
 	void Update();
 	void Render();
 	void Release();
+
+public:
+	void IsPicking();
 
 public:
 	void CheckMouseOver(UILIST& target);

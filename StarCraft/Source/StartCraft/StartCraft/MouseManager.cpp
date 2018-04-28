@@ -2,6 +2,7 @@
 #include "Obj.h"
 #include "Scene.h"
 #include "Button.h"
+#include "Tile.h"
 
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
@@ -18,10 +19,10 @@ void CMouseManager::Init()
 		ZeroMemory(m_tAnimationInfo[i].tName, pAnim[i].nAnimationNum);
 
 		for (int j = 0; j < pAnim[i].nAnimationNum; ++j) {
-			 
+
 			m_tAnimationInfo[i].tName[j] = new char[STR_LEN];
 			strcpy_s(m_tAnimationInfo[i].tName[j], strlen(m_tAnimationInfo[i].tName[j]), pAnim[i].tName[j]);
-			
+
 			m_tAnimationInfo[i].nAnimationNum = pAnim[i].nAnimationNum;
 
 			m_tAnimationInfo[i].dwAnimationTime = GetTickCount();
@@ -30,7 +31,7 @@ void CMouseManager::Init()
 		}
 
 	}
-	
+
 }
 
 void CMouseManager::UpdateRect()
@@ -85,11 +86,29 @@ void CMouseManager::Release()
 	for (int i = 0; i < CURSOR_END; ++i) SafeDelete(m_tAnimationInfo[i].tName);
 
 
-	
+
 	if (m_pInstance) {
 		delete m_pInstance;
 		m_pInstance = nullptr;
 	}
+}
+
+void CMouseManager::IsPicking()
+{
+
+	float fScrollX = SCROLLMANAGER->GetScrollX();
+	float fScrollY = SCROLLMANAGER->GetScrollY();
+
+	int x = (m_tPos.x - static_cast<int>(fScrollX)) / TILE_SIZE;
+	int y = (m_tPos.y - static_cast<int>(fScrollY)) / TILE_SIZE;
+	int k = TILEMANAGER->GetTileNum().x;
+	int nIdx = x + TILEMANAGER->GetTileNum().x * y;
+
+	CObj* pTile = TILEMANAGER->SelectTile(nIdx);
+
+	if (nullptr == pTile) return;
+
+	dynamic_cast<CTile*>(pTile)->SwapTile();
 }
 
 
@@ -99,7 +118,7 @@ void CMouseManager::CheckMouseOver(UILIST& target)
 
 	for (auto& pTarget : target) {
 		if (IntersectRect(&rc, &m_tRect, &(pTarget->GetRect()))) {
-			 pTarget->SetMouseOver();
+			pTarget->SetMouseOver();
 		}
 
 		else {

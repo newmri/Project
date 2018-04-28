@@ -14,7 +14,6 @@ public:
 	void SetState(const SCENE::SCENE_ID eSceneID);
 	void Release();
 
-	void RenderDie();
 
 public:
 	CButton* GetButton(BUTTON_ID eId);
@@ -30,7 +29,6 @@ public:
 	const bool& ShowCollisionBox() { return m_bShowCollisionBox; }
 
 public:
-	void CreatePlayer();
 	void ReSet();
 	void ReSetAll();
 

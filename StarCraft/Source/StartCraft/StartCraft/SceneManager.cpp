@@ -20,8 +20,13 @@ void CSceneManager::SetState(const SCENE::SCENE_ID eSceneID)
 			m_bIsGameStarted = false;
 			m_pScene = new CMainMenu; m_eSceneID = SCENE::SCENE_ID::MAIN_MENU; break;
 
-		case SCENE::EDITOR:
+		case SCENE::SINGLE_PLAY:
+			TILEMANAGER->LoadData();
 			m_bIsGameStarted = true;
+			m_pScene = new CSinglePlay; m_eSceneID = SCENE::SINGLE_PLAY; break;
+
+		case SCENE::EDITOR:
+			TILEMANAGER->LoadData();
 			m_pScene = new CEditor; m_eSceneID = SCENE::EDITOR; break;
 
 		default: break;
@@ -39,7 +44,6 @@ void CSceneManager::Init()
 	SetState(SCENE::MAIN_MENU);
 	m_bShowCollisionBox = false;
 	m_bInvincibility = false;
-	m_bIsPlayerDead = false;
 
 	LateInit();
 
@@ -61,7 +65,7 @@ void CSceneManager::Update()
 
 	eSceneId = m_pScene->Update();
 
-	if (eSceneId != SCENE::SCENE_ID::NO_EVENT){
+	if (eSceneId != SCENE::SCENE_ID::NO_EVENT) {
 		this->SetState(eSceneId);
 		return;
 	}
@@ -84,11 +88,9 @@ void CSceneManager::LateUpdate()
 
 void CSceneManager::Render()
 {
-	if (m_pScene)  m_pScene->Render(); 
+	if (m_pScene)  m_pScene->Render();
 	OBJMANAGER->Render();
 
-
-	RenderDie();
 }
 
 void CSceneManager::Release()
@@ -102,37 +104,15 @@ void CSceneManager::Release()
 }
 
 
-void CSceneManager::RenderDie()
-{
-	if (m_bIsPlayerDead) {
-		/*BITMAPMANAGER->GetImage()["DIE"]->TransparentBlt(RENDERMANAGER->GetMemDC(), (W_MAX / 2) - m_dieW / 2, (H_MAX / 2) - m_dieH / 2,
-			m_dieW,
-			m_dieH,
-			0,
-			0,
-			m_dieW,
-			m_dieH, RGB(0, 0, 0));*/
-	}
-	
-}
-
-
-
 CButton* CSceneManager::GetButton(BUTTON_ID eId)
 {
 	return m_pScene->GetButton(eId);
 }
 
-void CSceneManager::CreatePlayer()
-{
-	CObj* p = CFactoryManager<CPlayer>::CreateObj();
-	OBJMANAGER->AddObject(p, OBJ_ID::PLAYER);
-}
 
 void CSceneManager::ReSet()
 {
 	OBJMANAGER->ReSet();
-	CreatePlayer();
 }
 
 void CSceneManager::ReSetAll()

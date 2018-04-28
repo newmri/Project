@@ -16,12 +16,18 @@ void CScrollManager::Update()
 
 	int nWinX = RENDERMANAGER->GetWindowSize().x;
 	int nWinY = RENDERMANAGER->GetWindowSize().x;
-	int nTileX = TILEMANAGER->GetTileSize().x;
-	int nTileY = TILEMANAGER->GetTileSize().y;
+	int nTileX = TILEMANAGER->GetTileNum().x;
+	int nTileY = TILEMANAGER->GetTileNum().y;
 
 
 	if (nWinX - TILE_SIZE * nTileX >= static_cast<int>(m_fScrollX))
 		m_fScrollX = float(nWinX - TILE_SIZE * nTileX);
 	if (nWinY - TILE_SIZE * nTileY >= static_cast<int>(m_fScrollY))
 		m_fScrollY = float(nWinY - TILE_SIZE * nTileY);
+}
+
+void CScrollManager::ReSet()
+{
+	m_fScrollX = 0;
+	m_fScrollY = 0;
 }

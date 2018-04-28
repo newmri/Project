@@ -89,6 +89,7 @@ SCENE::SCENE_ID CMainMenu::Update()
 {
 	if (KEYMANAGER->KeyDown(VK_ESCAPE)) DestroyWindow(RENDERMANAGER->GethWnd());
 	if (KEYMANAGER->KeyDown('X')) DestroyWindow(RENDERMANAGER->GethWnd());
+	if (KEYMANAGER->KeyDown('S')) return SCENE::SINGLE_PLAY;
 
 	if (KEYMANAGER->KeyDown('C')) return SCENE::EDITOR;
 
@@ -102,8 +103,9 @@ SCENE::SCENE_ID CMainMenu::Update()
 		auto it_OBJ_END = m_uiList[BUTTON].end();
 		for (; it_begin != it_OBJ_END;) {
 			if (((*it_begin)->IsMouseOver())) {
-				if(EXIT_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId())
-					DestroyWindow(RENDERMANAGER->GethWnd());
+				if (EDITOR_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) return SCENE::EDITOR;
+
+				else if (EXIT_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) DestroyWindow(RENDERMANAGER->GethWnd());
 			}
 			it_begin++;
 		}
