@@ -8,34 +8,31 @@
   GameManager.cpp
   KeyManager.cpp
   MainMenu.cpp
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(57): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(57): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(65): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(73): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(73): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(81): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\mainmenu.cpp(81): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(57): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(57): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(65): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(73): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(73): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(81): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mainmenu.cpp(81): warning C4244: 'argument': conversion from 'const LONG' to 'float', possible loss of data
   MouseManager.cpp
   MultiPlay.cpp
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\multiplay.cpp(17): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\multiplay.cpp(17): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   Obj.cpp
   ObjectManager.cpp
-  Player.cpp
   RenderManager.cpp
   Scene.cpp
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(198): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(199): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(200): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\scene.cpp(201): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(189): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(190): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(191): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(192): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
   SceneManager.cpp
   ScrollManager.cpp
   SinglePlay.cpp
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\singleplay.cpp(17): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
   SoundManager.cpp
-  Generating Code...
-c:\users\newmr\desktop\starcraft\source\startcraft\startcraft\ui.h(21): warning C4172: returning address of local variable or temporary
-  Compiling...
   Tile.cpp
+  Generating Code...
+  Compiling...
   TileManager.cpp
   UI.cpp
   Generating Code...
@@ -49,4 +46,4 @@ SoundManager.obj : error LNK2019: unresolved external symbol FMOD_System_PlaySou
 SoundManager.obj : error LNK2019: unresolved external symbol FMOD_Sound_Release referenced in function "public: void __cdecl CSoundManager::Release(void)" (?Release@CSoundManager@@QEAAXXZ)
 SoundManager.obj : error LNK2019: unresolved external symbol FMOD_Channel_Stop referenced in function "public: void __cdecl CSoundManager::BGSoundOff(void)" (?BGSoundOff@CSoundManager@@QEAAXXZ)
 ..\lib\fmodex_vc.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-C:\Users\newmr\Desktop\StarCraft\Source\StartCraft\x64\Debug\StartCraft.exe : fatal error LNK1120: 9 unresolved externals
+S:\Jusin\Project\API\StarCraft\Source\StartCraft\x64\Debug\StartCraft.exe : fatal error LNK1120: 9 unresolved externals

@@ -27,6 +27,9 @@ public:
 	virtual ~CTile();
 
 private:
-	TILE_ID m_eId;
+	TILE_ID		m_eId;
+
+private:
+	IMAGE_INFO* m_tImageInfo;
 };
 

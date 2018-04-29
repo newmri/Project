@@ -18,7 +18,7 @@ public:
 public:
 	const INFO& GetInfo() const { return m_tInfo; }
 	const RECT& GetRect() const { return m_tRect; }
-	const bool& IsMouseOver() const { return (MOUSE_OVER == m_eCurrId); }
+	const bool IsMouseOver() const { return (MOUSE_OVER == m_eCurrId); }
 
 
 public:

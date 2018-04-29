@@ -23,9 +23,6 @@ public:
 	void SetMapSize(int x, int y) { m_tMapSize.x = x; m_tMapSize.y = y; }
 
 public:
-	void KillPlayer() { m_bIsPlayerDead = true; }
-
-public:
 	const bool& ShowCollisionBox() { return m_bShowCollisionBox; }
 
 public:

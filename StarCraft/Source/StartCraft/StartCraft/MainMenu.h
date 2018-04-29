@@ -17,5 +17,7 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
+private:
+	IMAGE_INFO * m_tImageInfo;
 };
 

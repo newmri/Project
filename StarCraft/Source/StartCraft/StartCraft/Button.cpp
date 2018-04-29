@@ -6,7 +6,7 @@ void CButton::Init()
 	m_eCurrId = IDLE;
 
 	m_tAnimationInfo = new ANIMATION_INFO[UI_STATE_END];
-	for (int i = 0; i < UI_STATE_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
+	for (int i = 0; i < UI_STATE_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(m_tAnimationInfo[i]));
 
 	m_tRGB = (0, 0, 0);
 
@@ -15,7 +15,7 @@ void CButton::Init()
 void CButton::LateInit()
 {
 	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetButtonAnimationInfo(m_eId);
-
+	
 	// Set Animation Name
 	for (int i = 0; i < UI_STATE_END; ++i) {
 

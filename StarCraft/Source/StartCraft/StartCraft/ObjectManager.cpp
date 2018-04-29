@@ -3,15 +3,6 @@
 
 CObjectManager*	CObjectManager::m_pInstance = nullptr;
 
-CObj * CObjectManager::GetPlayer()
-{
-	if(0 != m_objList[OBJ_ID::PLAYER].size()) return m_objList[OBJ_ID::PLAYER].front();
-
-	return nullptr;
-}
-
-
-
 void CObjectManager::AddObject(CObj* pObj, OBJ_ID eID)
 {
 	m_objList[eID].push_back(pObj);

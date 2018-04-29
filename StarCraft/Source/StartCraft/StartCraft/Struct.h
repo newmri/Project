@@ -50,3 +50,29 @@ typedef struct tagAnimationInfo
 	DWORD	dwAnimationTime;
 
 }ANIMATION_INFO;
+
+
+typedef struct tagIntPoint
+{
+	int x;
+	int y;
+
+}INTPOINT;
+
+typedef struct tagImageInfo
+{
+	char szName[STR_LEN];
+
+	int		nImageW;
+	int		nImageH;
+	int		nImageNum;
+
+}IMAGE_INFO;
+
+
+typedef struct tagStaticUIImageInfo
+{
+	IMAGE_INFO  tInfo;
+	INTPOINT	tPos;
+
+}STATIC_UI_IMAGE_INFO;

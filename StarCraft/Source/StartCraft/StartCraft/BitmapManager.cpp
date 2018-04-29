@@ -7,8 +7,7 @@ void CBitmapManager::Init()
 {
 	LoadObjImg();
 	LoadButtonImage();
-	LoadSceneImg();
-	LoadMapImg();
+	LoadStaticImg();
 	
 }
 
@@ -23,12 +22,6 @@ void CBitmapManager::Release()
 		SafeDelete(m_tAnimationInfo[i]);
 	}
 
-	for (int i = 0; i < SCENE::SCENE_END; ++i) {
-		for (int j = 0; j < SCENE::SCENE_END; ++j) SafeDelete(m_tSceneAnimationInfo[i][j].tName[i]);
-		for (int j = 0; j < SCENE::SCENE_END; ++j) SafeDelete(m_tSceneAnimationInfo[i][j].tName);
-
-		SafeDelete(m_tSceneAnimationInfo[i]);
-	}
 
 
 	for (auto& d : m_map) {
@@ -263,80 +256,72 @@ void CBitmapManager::LoadButtonImage()
 	}
 }
 
-void CBitmapManager::LoadSceneImg()
+
+
+void CBitmapManager::LoadStaticImg()
 {
-	for (int i = 0; i < SCENE::SCENE_END; ++i) {
-		m_eSceneId = static_cast<SCENE::SCENE_ID>(i);
-		m_nAnimationCnt[TYPE_NUM] = 1;
+	char chE[2];
+	chE[0] = '*';
+	chE[1] = '\0';
+	char chD[2];
+	chD[0] = '.';
+	chD[1] = '\0';
 
-		char filemask[STR_LEN];
-		strcpy_s(filemask, STR_LEN, SCENE_DIR[i]);
-		strcat_s(filemask, "\0");
+	char* p = nullptr;
 
-		CountAnimationNum(filemask);
+	char path[STR_LEN];
+	char name[STR_LEN];
 
-		m_tSceneAnimationInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
-		ZeroMemory(m_tSceneAnimationInfo[i], sizeof(BITMAP_ANIMATION_INFO));
+	struct _finddata_t info;
+	intptr_t hFile;
 
-		AllocMemoryByImageNum(m_tSceneAnimationInfo, m_eSceneId, filemask);
+	for (int i = 0; i < IMAGE_END; ++i) {
 
-		// have no animation
-		if (1 == m_nAnimationCnt[IMAGE_NUM]) {
-			m_tSceneAnimationInfo[m_eSceneId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
-			m_tSceneAnimationInfo[m_eSceneId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
-			ZeroMemory(m_tSceneAnimationInfo[m_eSceneId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
+		int nImgNum = 0;
+		hFile = _findfirst(IMAGE_DIR[i], &info);
+		if (-1 == hFile) return;
+
+		while (_findnext(hFile, &info) != -1L) {
+
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+			nImgNum++;
 		}
 
-		for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
-			if (0 == m_tSceneAnimationInfo[m_eSceneId][i].nAnimationNum) m_tSceneAnimationInfo[m_eSceneId][i].nAnimationNum = 1;
+		m_tImageInfo[i] = new IMAGE_INFO[nImgNum];
 
-			for (int j = 0; j < m_tSceneAnimationInfo[m_eSceneId][i].nAnimationNum; ++j) {
-				m_tSceneAnimationInfo[m_eSceneId][i].tName[j] = new char[STR_LEN];
-				ZeroMemory(m_tSceneAnimationInfo[m_eSceneId][i].tName[j], STR_LEN);
+		int j = 0;
+		hFile = _findfirst(IMAGE_DIR[i], &info);
+		while (_findnext(hFile, &info) != -1L) {
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
 
-			}
+			
+			ZeroMemory(&path, STR_LEN);
+			ZeroMemory(&name, STR_LEN);
+
+			strcpy_s(path, STR_LEN, IMAGE_DIR[i]);
+			strtok_s(path, chE, &p);
+			strcat_s(path, info.name);
+
+			strcpy_s(name, STR_LEN, info.name);
+
+			strtok_s(name, chD, &p);
+
+			m_tImageInfo[i][j].nImageNum = nImgNum;
+			strcpy_s(m_tImageInfo[i][j].szName, STR_LEN, name);
+
+			CImage* pImg = new CImage;
+
+			pImg->Load(CString(path));
+			m_map.insert(make_pair(string(name), pImg));
+			m_tImageInfo[i][j].nImageW = pImg->GetWidth();
+			m_tImageInfo[i][j].nImageH = pImg->GetHeight();
+			j++;
 
 		}
-		SetName(m_tSceneAnimationInfo, m_eSceneId, 0, (char*)filemask);
+
 	}
-}
 
-void CBitmapManager::LoadMapImg()
-{
-	for (int i = 0; i < MAP_END; ++i) {
-		m_eMapId = static_cast<MAP_ID>(i);
-		m_nAnimationCnt[TYPE_NUM] = 1;
 
-		char filemask[STR_LEN];
-		strcpy_s(filemask, STR_LEN, MAP_DIR[i]);
-		strcat_s(filemask, "\0");
-
-		CountAnimationNum(filemask);
-
-		m_tMapInfo[i] = new BITMAP_ANIMATION_INFO[m_nAnimationCnt[TYPE_NUM]];
-		ZeroMemory(m_tMapInfo[i], sizeof(BITMAP_ANIMATION_INFO));
-
-		AllocMemoryByImageNum(m_tMapInfo, m_eMapId, filemask);
-
-		// have no animation
-		if (1 == m_nAnimationCnt[IMAGE_NUM]) {
-			m_tMapInfo[m_eMapId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
-			m_tMapInfo[m_eMapId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
-			ZeroMemory(m_tMapInfo[m_eMapId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
-		}
-
-		for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
-			if (0 == m_tMapInfo[m_eMapId][i].nAnimationNum) m_tMapInfo[m_eMapId][i].nAnimationNum = 1;
-
-			for (int j = 0; j < m_tMapInfo[m_eMapId][i].nAnimationNum; ++j) {
-				m_tMapInfo[m_eMapId][i].tName[j] = new char[STR_LEN];
-				ZeroMemory(m_tMapInfo[m_eMapId][i].tName[j], STR_LEN);
-
-			}
-
-		}
-		SetName(m_tMapInfo, m_eMapId, 0, (char*)filemask);
-	}
 }
 
 

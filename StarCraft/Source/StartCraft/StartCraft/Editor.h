@@ -18,4 +18,8 @@ public:
 public:
 	CEditor();
 	virtual ~CEditor();
+
+private:
+	IMAGE_INFO*	m_tImageInfo;
+
 };

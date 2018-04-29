@@ -18,6 +18,11 @@ void CMainMenu::Init()
 
 	CScene::Init();
 
+	IMAGE_INFO* p = BITMAPMANAGER->GetImageInfo(MAIN_MENU_IMAGE);
+	m_tImageInfo = new IMAGE_INFO[p->nImageNum];
+	memcpy(m_tImageInfo, p, sizeof(IMAGE_INFO) * p->nImageNum);
+
+
 	float w = static_cast<float>(RENDERMANAGER->GetWindowSize().x);
 	float h = static_cast<float>(RENDERMANAGER->GetWindowSize().y);
 
@@ -123,8 +128,8 @@ void CMainMenu::Render()
 {
 	StretchBlt(RENDERMANAGER->GetMemDC(), 0, 0, RENDERMANAGER->GetWindowSize().x,
 		RENDERMANAGER->GetWindowSize().y,
-		BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->GetDC(), 0, 0,
-		m_tAnimationInfo[m_eCurrId].nImageW, m_tAnimationInfo[m_eCurrId].nImageH, SRCCOPY);
+		BITMAPMANAGER->GetImage()[m_tImageInfo[MAIN_MENU_IMAGE].szName]->GetDC(), 0, 0,
+		m_tImageInfo[MAIN_MENU_IMAGE].nImageW, m_tImageInfo[MAIN_MENU_IMAGE].nImageH, SRCCOPY);
 
 	CScene::Render();
 	
@@ -132,4 +137,5 @@ void CMainMenu::Render()
 
 void CMainMenu::Release()
 {
+	SafeDelete(m_tImageInfo);
 }

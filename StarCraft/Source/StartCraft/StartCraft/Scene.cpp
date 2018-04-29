@@ -7,31 +7,6 @@ void CScene::Init()
 	m_bIsUI = true;
 	m_eCurrId = IDLE;
 
-	m_tAnimationInfo = new ANIMATION_INFO[UI_STATE_END];
-	for (int i = 0; i < UI_STATE_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
-
-	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetSceneAnimationInfo(SCENE::MAIN_MENU);
-
-	// Set Animation Name
-	for (int i = 0; i < UI_STATE_END; ++i) {
-
-		m_tAnimationInfo[i].tName = new char*[pAnim[i].nAnimationNum];
-		ZeroMemory(m_tAnimationInfo[i].tName, pAnim[i].nAnimationNum);
-
-		for (int j = 0; j < pAnim[i].nAnimationNum; ++j) {
-
-			m_tAnimationInfo[i].tName[j] = new char[STR_LEN];
-			strcpy_s(m_tAnimationInfo[i].tName[j], strlen(m_tAnimationInfo[i].tName[j]), pAnim[i].tName[j]);
-
-			m_tAnimationInfo[i].nAnimationNum = pAnim[i].nAnimationNum;
-			m_tAnimationInfo[i].nImageW = pAnim[i].nImageW;
-			m_tAnimationInfo[i].nImageH = pAnim[i].nImageH;
-			m_tAnimationInfo[i].dwAnimationTime = GetTickCount();
-			m_tAnimationInfo[i].nCnt = 0;
-
-		}
-		if (1 == pAnim[i].nAnimationNum) break;
-	}
 }
 
 void CScene::LateInit()
@@ -46,11 +21,6 @@ void CScene::LateInit()
 
 SCENE::SCENE_ID CScene::Update()
 {
-	if (m_tAnimationInfo[m_eCurrId].dwAnimationTime + 1000 / m_tAnimationInfo[m_eCurrId].nAnimationNum < GetTickCount()) {
-
-		m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % m_tAnimationInfo[m_eCurrId].nAnimationNum;
-		m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
-	}
 
 	UIUpdate();
 

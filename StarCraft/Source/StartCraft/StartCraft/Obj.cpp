@@ -26,37 +26,6 @@ void CObj::RenderCollsionBox()
 }
 
 
-void CObj::DoAnimation()
-{
-	//if (m_tAnimationInfo[m_eCurrAnim].dwAnimationTime + (1000 / PLAYER_ANIMATION_NUM[m_eCurrAnim]) < GetTickCount()) {
-	//	if (ANIM_LEFT_IDLE == m_eCurrAnim || ANIM_LEFT == m_eCurrAnim || ANIM_LEFT_JUMP == m_eCurrAnim) {
-	//		--m_tAnimationInfo[m_eCurrAnim].nCnt;
-	//		if (0 > m_tAnimationInfo[m_eCurrAnim].nCnt) m_tAnimationInfo[m_eCurrAnim].nCnt = PLAYER_ANIMATION_NUM[m_eCurrAnim] - 1;
-	//	}
-	//	else {
-	//		++m_tAnimationInfo[m_eCurrAnim].nCnt;
-	//		if (m_tAnimationInfo[m_eCurrAnim].nCnt >= PLAYER_ANIMATION_NUM[m_eCurrAnim]) m_tAnimationInfo[m_eCurrAnim].nCnt = 0;
-	//	}
-
-	//	m_tAnimationInfo[m_eCurrAnim].dwAnimationTime = GetTickCount();
-	//}
-}
-
-//void CObj::EnableAnimation(ANIMATION eAnim)
-//{
-//	ReSetAnimation();
-//	m_eCurrAnim = eAnim;
-//}
-
-void CObj::ReSetAnimation()
-{
-	//for (int i = 0; i < ANIM_END; ++i) {
-	//	if (i == ANIM_UP || i == ANIM_DOWN) continue;
-	//	if (ANIM_LEFT_IDLE == i || i == ANIM_LEFT || i == ANIM_LEFT_JUMP) m_tAnimationInfo[i].nCnt = PLAYER_ANIMATION_NUM[i];
-	//	else m_tAnimationInfo[i].nCnt = -1;
-	//}
-}
-
 CObj::CObj()
 {
 	m_bIsDead = false;

@@ -19,18 +19,14 @@ public:
 public:
 	void LoadObjImg();
 	void LoadButtonImage();
-	void LoadSceneImg();
-	void LoadMapImg();
+	void LoadStaticImg();
 
 
 
 public:
 	BITMAP_ANIMATION_INFO* GetAnimationInfo(OBJ_ID eId) { return m_tAnimationInfo[eId]; }
 	BITMAP_ANIMATION_INFO* GetButtonAnimationInfo(BUTTON_ID eId) { return m_tButtonAnimationInfo[eId]; }
-	BITMAP_ANIMATION_INFO* GetSceneAnimationInfo(SCENE::SCENE_ID eId) { return m_tSceneAnimationInfo[eId]; }
-	BITMAP_ANIMATION_INFO* GetMapInfo(MAP_ID eId) { return m_tMapInfo[eId]; }
-
-
+	IMAGE_INFO* GetImageInfo(IMAGE_ID eId) { return m_tImageInfo[eId]; }
 
 public:
 	void RotateSizingImage(HDC hdc, HBITMAP hBmp, RECT rt,
@@ -70,14 +66,11 @@ private:
 private:
 	BITMAP_ANIMATION_INFO* m_tAnimationInfo[OBJ_END];
 	BITMAP_ANIMATION_INFO* m_tButtonAnimationInfo[BUTTON_END];
-	BITMAP_ANIMATION_INFO* m_tSceneAnimationInfo[SCENE::SCENE_END];
-	BITMAP_ANIMATION_INFO* m_tMapInfo[MAP_END];
+	IMAGE_INFO*			   m_tImageInfo[IMAGE_END];
 
 
 	OBJ_ID				m_eId;
 	BUTTON_ID			m_eButtonId;
-	SCENE::SCENE_ID		m_eSceneId;
-	MAP_ID				m_eMapId;
 
 
 };

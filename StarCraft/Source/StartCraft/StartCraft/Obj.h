@@ -26,11 +26,6 @@ public:
 	void SetStat(STAT tagStat) { m_tStat = tagStat; }
 
 public:
-	void DoAnimation();
-	/*void EnableAnimation(ANIMATION eAnim);*/
-	void ReSetAnimation();
-
-public:
 	CObj();
 	~CObj();
 

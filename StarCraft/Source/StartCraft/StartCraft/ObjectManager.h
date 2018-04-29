@@ -4,8 +4,6 @@ class CObj;
 // ÁßÀçÀÚ
 class CObjectManager
 {
-public:
-	CObj* GetPlayer();
 
 public:
 	void AddObject(CObj* pObj, OBJ_ID eID);

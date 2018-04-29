@@ -2,6 +2,14 @@
 #include "Editor.h"
 #include "Button.h"
 
+#ifdef _DEBUG
+
+#ifdef UNICODE
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+#else
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
+#endif
 void CEditor::Init()
 {
 	m_eId = SCENE::EDITOR;
@@ -11,32 +19,9 @@ void CEditor::Init()
 	m_bIsUI = true;
 	m_eCurrId = static_cast<UI_STATE_ID>(MAIN_MAP);
 
-	m_tAnimationInfo = new ANIMATION_INFO[MAP_KIND_END];
-	for (int i = 0; i < MAP_KIND_END; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(ANIMATION_INFO));
-
-	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetMapInfo(BEGINNER_MAP);
-
-	// Set Animation Name
-	for (int i = 0; i < MAP_KIND_END; ++i) {
-
-		m_tAnimationInfo[i].tName = new char*[pAnim[i].nAnimationNum];
-		ZeroMemory(m_tAnimationInfo[i].tName, pAnim[i].nAnimationNum);
-
-		for (int j = 0; j < pAnim[i].nAnimationNum; ++j) {
-
-			m_tAnimationInfo[i].tName[j] = new char[STR_LEN];
-			strcpy_s(m_tAnimationInfo[i].tName[j], strlen(m_tAnimationInfo[i].tName[j]), pAnim[i].tName[j]);
-
-			m_tAnimationInfo[i].nAnimationNum = pAnim[i].nAnimationNum;
-			m_tAnimationInfo[i].nImageW = pAnim[i].nImageW;
-			m_tAnimationInfo[i].nImageH = pAnim[i].nImageH;
-			m_tAnimationInfo[i].dwAnimationTime = GetTickCount();
-			m_tAnimationInfo[i].nCnt = 0;
-
-		}
-		if (1 == pAnim[i].nAnimationNum) break;
-	}
-
+	IMAGE_INFO* p = BITMAPMANAGER->GetImageInfo(MAIN_MAP_IMAGE);
+	m_tImageInfo = new IMAGE_INFO[p->nImageNum];
+	memcpy(m_tImageInfo, p, sizeof(IMAGE_INFO) * p->nImageNum);
 
 }
 
@@ -44,7 +29,6 @@ void CEditor::LateInit()
 {
 	m_tRect.left = 0;
 	m_tRect.top = 0;
-
 
 }
 
@@ -80,8 +64,6 @@ void CEditor::LateUpdate()
 	if (KEYMANAGER->KeyDown('L')) TILEMANAGER->LoadData();
 
 
-
-
 }
 
 void CEditor::Render()
@@ -89,24 +71,25 @@ void CEditor::Render()
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
-	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+
+	BITMAPMANAGER->GetImage()[m_tImageInfo[0].szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
 		static_cast<int>(m_tRect.left + fScrollX),
 		static_cast<int>(m_tRect.top + fScrollY),
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH,
+		m_tImageInfo[0].nImageW,
+		m_tImageInfo[0].nImageH,
 		0,
 		0,
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+		m_tImageInfo[0].nImageW,
+		m_tImageInfo[0].nImageH, RGB(0, 0, 0));
 
 	TILEMANAGER->Render();
 
-	//CScene::Render();
+	CScene::Render();
 }
 
 void CEditor::Release()
 {
-
+	SafeDelete(m_tImageInfo);
 }
 
 CEditor::CEditor()

@@ -8,23 +8,22 @@ void CTileManager::Init()
 {
 	float x = 0.f, y = 0.f;
 	m_bRenderUnOnly = true;
+	IMAGE_INFO* imageInfo = BITMAPMANAGER->GetImageInfo(MAIN_MAP_IMAGE);
 
-	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetMapInfo(BEGINNER_MAP);
-	SCENEMANAGER->SetMapSize(pAnim[MAIN_MAP].nImageW, pAnim[MAIN_MAP].nImageH);
+	SCENEMANAGER->SetMapSize(imageInfo->nImageW, imageInfo->nImageH);
 
+	m_nTileNum.x = imageInfo->nImageW / TILE_SIZE;
+	m_nTileNum.y = imageInfo->nImageH / TILE_SIZE;
+	m_vecTile.reserve(static_cast<size_t>(m_nTileNum.x * m_nTileNum.y));
 
-	m_nTileNum.x = pAnim[MAIN_MAP].nImageW / TILE_SIZE;
-	m_nTileNum.y = pAnim[MAIN_MAP].nImageH / TILE_SIZE;
+	for (int i = 0; i < m_nTileNum.y; ++i) {
+		for (int j = 0; j < m_nTileNum.x; ++j) {
+			x = static_cast<float>(TILE_SIZE * j);
+			y = static_cast<float>(TILE_SIZE * i);
 
-	for (int i = 0; i < m_nTileNum.y; ++i)
-	{
-	for (int j = 0; j < m_nTileNum.x; ++j)
-	{
-	x = static_cast<float>(TILE_SIZE * j);
-	y = static_cast<float>(TILE_SIZE * i);
+			m_vecTile.push_back(CFactoryManager<CTile>::CreateObj(x, y));
+		}
 
-	m_vecTile.push_back(CFactoryManager<CTile>::CreateObj(x, y));
-	}
 	}
 }
 

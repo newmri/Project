@@ -39,15 +39,19 @@ const char BUTTON_DIR[BUTTON_END][STR_LEN] =
 
 };
 
-const char SCENE_DIR[SCENE::SCENE_END][STR_LEN] =
-{
-	{ "Resources/Image/MainMenu/Menu/*.*" },
-};
-
 const char MAP_DIR[MAP_END][STR_LEN] =
 {
 	{ "Resources/Image/Map/Tile/*.*" },
 	{ "Resources/Image/Map/Beginner/*.*" }
+};
+
+const char IMAGE_DIR[IMAGE_END][STR_LEN] =
+{
+	{ "Resources/Image/MainMenu/Menu/*.*" },
+	{ "Resources/Image/UI/Bottom/*.*" },
+	{ "Resources/Image/Map/MainMap/*.*" },
+	{ "Resources/Image/Map/Tile/*.*" }
+
 };
 
 #define GAMEMANAGER CGameManager::GetInstance()

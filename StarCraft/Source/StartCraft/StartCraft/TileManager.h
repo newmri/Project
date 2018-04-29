@@ -22,7 +22,7 @@ public:
 	bool IsRenderUnMovableTileOnly() { return m_bRenderUnOnly; }
 
 public:
-	const POINT& GetTileNum() { return m_nTileNum; }
+	const INTPOINT& GetTileNum() { return m_nTileNum; }
 
 public:
 	CObj * SelectTile(int nIdx);
@@ -50,7 +50,7 @@ private:
 	vector<CObj*>		m_vecTile;
 	list<int>			m_listLog;
 
-	POINT				m_nTileNum;
+	INTPOINT				m_nTileNum;
 
 private:
 	bool				m_bRenderUnOnly;
