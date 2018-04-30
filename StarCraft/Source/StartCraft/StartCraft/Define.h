@@ -18,12 +18,14 @@ static const int CURSOR_SIZE = 128;
 
 static const int TILE_SIZE = 32;
 
-static const float SCROLL_SPEED = static_cast<float>(TILE_SIZE * 2);
+static const float SCROLL_SPEED = static_cast<float>(TILE_SIZE);
 
 
 const char OBJ_DIR[OBJ_END][STR_LEN] = 
 {
 	{ "Resources/Image/Cursor/*.*" },
+	{ "Resources/Image/Structure/Barrack/*.*" },
+	{ "Resources/Image/Structure/Control/*.*" }
 };
 
 const char BUTTON_DIR[BUTTON_END][STR_LEN] =
@@ -50,7 +52,11 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 	{ "Resources/Image/MainMenu/Menu/*.*" },
 	{ "Resources/Image/UI/Bottom/*.*" },
 	{ "Resources/Image/Map/MainMap/*.*" },
-	{ "Resources/Image/Map/Tile/*.*" }
+	{ "Resources/Image/Map/MiniMap/*.*" },
+	{ "Resources/Image/Map/Tile/*.*" },
+	{ "Resources/Image/UI/ResourcesIcon/*.*" },
+	{ "Resources/Image/Select/*.*" }
+
 
 };
 

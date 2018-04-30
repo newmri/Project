@@ -21,7 +21,7 @@ void CTileManager::Init()
 			x = static_cast<float>(TILE_SIZE * j);
 			y = static_cast<float>(TILE_SIZE * i);
 
-			m_vecTile.push_back(CFactoryManager<CTile>::CreateObj(x, y));
+			m_vecTile.push_back(CFactoryManager<CTile>::CreateObj(NEUTRAL, UNIT_SELECT1, x, y));
 		}
 
 	}

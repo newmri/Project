@@ -8,21 +8,23 @@ void CObj::LateInit()
 	m_bIsInit = true;
 }
 
-void CObj::UpdateRect()
-{
-	/*int w = static_cast<int>(m_tInfo.fX - m_tAnimationInfo[m_eCurrId].nImageW / 2);
-	m_tRect.left = w;
-	m_tRect.right = m_tRect.left + w;
-	m_tRect.top = m_tInfo.fY + 5;
-	m_tRect.bottom = m_tInfo.fY + m_tAnimationInfo[m_eCurrAnim].nImageH;*/
-
-}
 
 void CObj::RenderCollsionBox()
 {
 	if (SCENEMANAGER->ShowCollisionBox()) {
 		Rectangle(RENDERMANAGER->GetMemDC(), m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	}
+}
+
+bool CObj::IsClicked(const POINT& pos) const
+{
+	float fScrollX = SCROLLMANAGER->GetScrollX();
+	float fScrollY = SCROLLMANAGER->GetScrollY();
+
+	if (pos.x + fScrollX + TILE_SIZE >= m_tSelectRect.left && pos.x + fScrollX + TILE_SIZE <= m_tSelectRect.right &&
+		pos.y + fScrollY >= m_tSelectRect.top && pos.y + fScrollY <= m_tSelectRect.bottom) return true;
+
+	return false;
 }
 
 

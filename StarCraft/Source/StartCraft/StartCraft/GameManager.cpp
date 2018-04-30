@@ -4,13 +4,12 @@ CGameManager* CGameManager::m_pInstance = nullptr;
 
 void CGameManager::Init()
 {
-	BITMAPMANAGER->Init();
 	SOUNDMANAGER->Init();
-	SCROLLMANAGER->Init();
 	SCENEMANAGER->Init();
 	MOUSEMANAGER->Init();
 	TILEMANAGER->Init();
 	TILEMANAGER->LateInit();
+	SCROLLMANAGER->Init();
 
 
 }

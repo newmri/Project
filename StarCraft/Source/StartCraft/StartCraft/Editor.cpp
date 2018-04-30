@@ -23,6 +23,7 @@ void CEditor::Init()
 	m_tImageInfo = new IMAGE_INFO[p->nImageNum];
 	memcpy(m_tImageInfo, p, sizeof(IMAGE_INFO) * p->nImageNum);
 
+
 }
 
 void CEditor::LateInit()
@@ -46,6 +47,7 @@ SCENE::SCENE_ID CEditor::Update()
 	else if (KEYMANAGER->KeyPressing(VK_UP)) SCROLLMANAGER->SetScrollY(SCROLL_SPEED);
 	else if (KEYMANAGER->KeyPressing(VK_DOWN)) SCROLLMANAGER->SetScrollY(-SCROLL_SPEED);
 
+	MOUSEMANAGER->MouseScroll();
 
 	SCROLLMANAGER->Update();
 
@@ -55,7 +57,7 @@ SCENE::SCENE_ID CEditor::Update()
 void CEditor::LateUpdate()
 {
 	CScene::LateUpdate();
-	if (KEYMANAGER->KeyUp(VK_LBUTTON)) MOUSEMANAGER->IsPicking();
+	if (KEYMANAGER->KeyUp(VK_LBUTTON)) MOUSEMANAGER->CheckSwapTile();
 	if (KEYMANAGER->KeyDown('Z')) TILEMANAGER->Undo();
 	if (KEYMANAGER->KeyDown(VK_TAB)) TILEMANAGER->SwapRenderMode();
 
@@ -82,8 +84,8 @@ void CEditor::Render()
 		m_tImageInfo[0].nImageW,
 		m_tImageInfo[0].nImageH, RGB(0, 0, 0));
 
-	TILEMANAGER->Render();
 
+	TILEMANAGER->Render();
 	CScene::Render();
 }
 

@@ -22,7 +22,7 @@ void CTile::Init()
 	m_tImageInfo = new IMAGE_INFO[p->nImageNum];
 	memcpy(m_tImageInfo, p, sizeof(IMAGE_INFO) * p->nImageNum);
 
-
+	m_tInfo.eOwnerId = NEUTRAL;
 }
 
 void CTile::LateInit()

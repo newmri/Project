@@ -16,6 +16,9 @@ typedef struct tagInfo {
 	float		fJumpUpAcc;
 	float		fJumpDownAcc;
 
+	OWNER_ID			eOwnerId;
+	UNIT_SELECT			eUnitSize;
+	OBJ_ID				eObjId;
 
 }INFO;
 
@@ -74,5 +77,7 @@ typedef struct tagStaticUIImageInfo
 {
 	IMAGE_INFO  tInfo;
 	INTPOINT	tPos;
+	INTPOINT	tDrawSize;
+	COLORREF	tColor;
 
 }STATIC_UI_IMAGE_INFO;

@@ -12,6 +12,8 @@ public:
 	void Render();
 	void Release();
 
+	OBJLIST GetObj(OBJ_ID eId) { return m_objList[eId]; }
+
 public:
 	void ReSet();
 

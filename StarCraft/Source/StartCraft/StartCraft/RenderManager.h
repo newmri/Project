@@ -12,6 +12,10 @@ public:
 	void Render();
 
 public:
+	void UpdateMiniMapFrame();
+	void RenderMiniMapFrame();
+
+public:
 	const HDC& GetMemDC() { return m_hMemDC; }
 	const HWND& GethWnd() { return m_hWnd; }
 	const POINT& GetWindowSize() { return m_tWindowSize; }
@@ -36,7 +40,10 @@ private:
 	HDC			m_hDC, m_hMemDC;
 	HBITMAP		m_hBit, m_hOldBit;
 	HWND		m_hWnd;
+
 private:
 	POINT m_tWindowSize;
+
+	RECT		m_tMiniMapFrameRect;
 
 };
