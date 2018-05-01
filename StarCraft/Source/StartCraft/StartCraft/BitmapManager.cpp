@@ -6,6 +6,7 @@ CBitmapManager* CBitmapManager::m_pInstance = nullptr;
 void CBitmapManager::Init()
 {
 	LoadObjImg();
+	LoadPortraitImg();
 	LoadButtonImage();
 	LoadStaticImg();
 	
@@ -182,7 +183,7 @@ void CBitmapManager::LoadObjImg()
 
 	for (int i = 0; i < OBJ_END; ++i) {
 		m_eId = static_cast<OBJ_ID>(i);
-		m_nAnimationCnt[TYPE_NUM] = 1;
+		m_nAnimationCnt[TYPE_NUM] = 0;
 
 		char filemask[STR_LEN];
 		strcpy_s(filemask, STR_LEN, OBJ_DIR[i]);
@@ -215,6 +216,72 @@ void CBitmapManager::LoadObjImg()
 		}
 		SetName(m_tAnimationInfo, m_eId, 0, (char*)filemask);
 	}
+
+}
+
+void CBitmapManager::LoadPortraitImg()
+{
+	char chE[2];
+	chE[0] = '*';
+	chE[1] = '\0';
+	char chD[2];
+	chD[0] = '.';
+	chD[1] = '\0';
+
+	char* p = nullptr;
+
+	char path[STR_LEN];
+	char name[STR_LEN];
+
+	struct _finddata_t info;
+	intptr_t hFile;
+
+	for (int i = 0; i < PORTRAIT::PORTRAIT_END; ++i) {
+
+		int nImgNum = 0;
+		hFile = _findfirst(OBJ_PORTRAIT_DIR[i], &info);
+		if (-1 == hFile) return;
+
+		while (_findnext(hFile, &info) != -1L) {
+
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+			nImgNum++;
+		}
+
+		m_tPortraitImageInfo[i] = new IMAGE_INFO[nImgNum];
+
+		int j = 0;
+		hFile = _findfirst(OBJ_PORTRAIT_DIR[i], &info);
+		while (_findnext(hFile, &info) != -1L) {
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+
+
+			ZeroMemory(&path, STR_LEN);
+			ZeroMemory(&name, STR_LEN);
+
+			strcpy_s(path, STR_LEN, OBJ_PORTRAIT_DIR[i]);
+			strtok_s(path, chE, &p);
+			strcat_s(path, info.name);
+
+			strcpy_s(name, STR_LEN, info.name);
+
+			strtok_s(name, chD, &p);
+
+			m_tPortraitImageInfo[i][j].nImageNum = nImgNum;
+			strcpy_s(m_tPortraitImageInfo[i][j].szName, STR_LEN, name);
+
+			CImage* pImg = new CImage;
+
+			pImg->Load(CString(path));
+			m_map.insert(make_pair(string(name), pImg));
+			m_tPortraitImageInfo[i][j].nImageW = pImg->GetWidth();
+			m_tPortraitImageInfo[i][j].nImageH = pImg->GetHeight();
+			j++;
+
+		}
+
+	}
+
 
 }
 

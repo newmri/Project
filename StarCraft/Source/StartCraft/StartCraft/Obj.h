@@ -20,6 +20,7 @@ public:
 	const UNIT_SELECT& GetSize() const { return  m_tInfo.eUnitSize; }
 	const RECT& GetSelectRect() const { return m_tSelectRect; }
 	const OBJ_ID& GetObjId() const { return m_tInfo.eObjId; }
+	const PORTRAIT::ID& GetPortraitId() { return m_tInfo.ePortraitId; }
 
 	const bool& IsUI() const { return m_bIsUI; }
 	bool IsClicked(const POINT& pos) const;
@@ -32,6 +33,7 @@ public:
 	void SetOwnerId(OWNER_ID eId) { m_tInfo.eOwnerId = eId; }
 	void SetSize(UNIT_SELECT eId) { m_tInfo.eUnitSize = eId; }
 	void SetObjId(OBJ_ID eId) { m_tInfo.eObjId = eId; }
+	void SetPortraitId(PORTRAIT::ID eId) { m_tInfo.ePortraitId = eId; }
 
 
 

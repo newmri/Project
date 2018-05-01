@@ -47,7 +47,7 @@ void CSinglePlay::Init()
 
 		RECT rc;
 		rc.left = static_cast<LONG>(pTemp->tPos.x);
-		rc.right = static_cast<LONG>(pTemp->tDrawSize.x + 13);
+		rc.right = static_cast<LONG>(pTemp->tDrawSize.x);
 		rc.top = static_cast<LONG>(pTemp->tPos.y);
 		rc.bottom = static_cast<LONG>(pTemp->tPos.y + pTemp->tDrawSize.y);
 
@@ -69,10 +69,10 @@ void CSinglePlay::Init()
 		m_listStaticUImage.push_back(pTemp);
 	}
 
-	CObj* pObj = CFactoryManager<CStructure>::CreateObj(GREEN, CONTROL, UNIT_SELECT9, 250, 200);
+	CObj* pObj = CFactoryManager<CStructure>::CreateObj(GREEN, CONTROL, PORTRAIT::ADVISOR, UNIT_SELECT9, 300, 200);
 	OBJMANAGER->AddObject(pObj, CONTROL);
 
-	pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, UNIT_SELECT9, 150, 300);
+	pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, PORTRAIT::ADVISOR, UNIT_SELECT9, 140, 300);
 	OBJMANAGER->AddObject(pObj, BARRACK);
 
 }
@@ -96,12 +96,11 @@ SCENE::SCENE_ID CSinglePlay::Update()
 	else if (KEYMANAGER->KeyPressing(VK_DOWN)) SCROLLMANAGER->SetScrollY(-SCROLL_SPEED);
 	else if (KEYMANAGER->KeyDown(VK_TAB)) TILEMANAGER->SwapRenderMode();
 
-	if (KEYMANAGER->KeyUp(VK_LBUTTON)) MOUSEMANAGER->CheckSelectObj();
-
 	CScene::LateInit();
 
 	MOUSEMANAGER->MouseScroll();
 	MOUSEMANAGER->MoveScrollByMouse();
+	MOUSEMANAGER->CheckDragSelectObj();
 	SCROLLMANAGER->Update();
 
 	return SCENE::NO_EVENT;

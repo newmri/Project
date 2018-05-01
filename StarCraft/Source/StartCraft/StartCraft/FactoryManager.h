@@ -40,13 +40,14 @@ public:
 		return pObj;
 	}
 
-	static CObj* CreateObj(OWNER_ID eId, OBJ_ID eObjId, UNIT_SELECT eUnitSize, float x, float y)
+	static CObj* CreateObj(OWNER_ID eId, OBJ_ID eObjId, PORTRAIT::ID ePortId, UNIT_SELECT eUnitSize, float x, float y)
 	{
 		CObj* pObj = new T;
 		pObj->Init();
 		pObj->SetOwnerId(eId);
-		pObj->SetSize(eUnitSize);
 		pObj->SetObjId(eObjId);
+		pObj->SetPortraitId(ePortId);
+		pObj->SetSize(eUnitSize);
 		pObj->SetPos(x, y);
 
 		return pObj;

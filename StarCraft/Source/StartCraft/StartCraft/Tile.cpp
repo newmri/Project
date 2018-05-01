@@ -4,6 +4,7 @@
 
 CTile::CTile()
 {
+	m_tInfo.ePortraitId = PORTRAIT::PORTRAIT_END;
 }
 
 

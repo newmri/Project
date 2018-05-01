@@ -77,6 +77,16 @@ void CTileManager::Undo()
 
 }
 
+INTPOINT CTileManager::GetIndex(const RECT& rc)
+{
+	INTPOINT pos;
+
+	pos.x = rc.left / TILE_SIZE;
+	pos.y = rc.bottom / TILE_SIZE;
+
+	return pos;
+}
+
 CObj* CTileManager::SelectTile(int nIdx)
 {
 	if (m_vecTile.empty()) return nullptr;

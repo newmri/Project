@@ -18,10 +18,42 @@ void CRenderManager::Init(const HWND& hWnd)
 
 	SetBkColor(m_hMemDC, RGB(0, 0, 0));
 
-	m_tMiniMapFrameRect.left = m_tWindowSize.x / 110;
-	m_tMiniMapFrameRect.right = m_tWindowSize.x * 0.09f - m_tMiniMapFrameRect.left;
-	m_tMiniMapFrameRect.top = (m_tWindowSize.y - BITMAPMANAGER->GetImageInfo(BOTTOM_MENU_IMAGE)->nImageH) + 69;
-	m_tMiniMapFrameRect.bottom = m_tMiniMapFrameRect.top + m_tWindowSize.y * 0.03f;
+
+
+	
+}
+
+void CRenderManager::LateInit()
+{
+float fScrollX = SCROLLMANAGER->GetScrollX();
+	float fScrollY = SCROLLMANAGER->GetScrollY();
+
+	IMAGE_INFO* p = BITMAPMANAGER->GetImageInfo(MAIN_MAP_IMAGE);
+
+	int x = MOUSEMANAGER->GetMiniMapArea().right - MOUSEMANAGER->GetMiniMapArea().left;
+	int y = MOUSEMANAGER->GetMiniMapArea().bottom - MOUSEMANAGER->GetMiniMapArea().top;
+
+	float fSizeX = m_tMiniMapFrameRect.right - m_tMiniMapFrameRect.left;
+	float fMapSizeX = MOUSEMANAGER->GetMiniMapArea().right - MOUSEMANAGER->GetMiniMapArea().left;
+	float fSizeY = m_tMiniMapFrameRect.bottom - m_tMiniMapFrameRect.top;
+	float fMapSizeY = MOUSEMANAGER->GetMiniMapArea().bottom - MOUSEMANAGER->GetMiniMapArea().top;
+
+	float fRatio = (1.f - (fSizeX / fMapSizeX));
+
+	m_tMiniMapFrameRect.left = MOUSEMANAGER->GetMiniMapArea().left;
+	m_tMiniMapFrameRect.left += (x * (fScrollX / static_cast<float>(SCROLLMANAGER->GetScrollEndPos().x))) * fRatio;
+
+	m_tMiniMapFrameRect.right = static_cast<LONG>((static_cast<float>(m_tWindowSize.x) /
+		static_cast<float>(p->nImageW)) * MOUSEMANAGER->GetMiniMapArea().right);
+	m_tMiniMapFrameRect.right += m_tMiniMapFrameRect.left;
+
+	fRatio = (1.f - (fSizeY / fMapSizeY)) * 0.97f;
+	m_tMiniMapFrameRect.top = MOUSEMANAGER->GetMiniMapArea().top;
+	m_tMiniMapFrameRect.top += (y * (fScrollY / static_cast<float>(SCROLLMANAGER->GetScrollEndPos().y))) * fRatio;
+
+	m_tMiniMapFrameRect.bottom = m_tMiniMapFrameRect.top +
+		static_cast<LONG>((static_cast<float>(m_tWindowSize.y) / static_cast<float>(p->nImageH)) *
+		(MOUSEMANAGER->GetMiniMapArea().bottom - MOUSEMANAGER->GetMiniMapArea().top));
 
 }
 
@@ -50,11 +82,33 @@ void CRenderManager::UpdateMiniMapFrame()
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
-	m_tMiniMapFrameRect.left = (m_tWindowSize.x / 110) - (fScrollX * 0.075);
-	m_tMiniMapFrameRect.right = (m_tWindowSize.x * 0.075f) + m_tMiniMapFrameRect.left;
-	m_tMiniMapFrameRect.top = (m_tWindowSize.y - BITMAPMANAGER->GetImageInfo(BOTTOM_MENU_IMAGE)->nImageH) + 69;
-	m_tMiniMapFrameRect.top = m_tMiniMapFrameRect.top - (fScrollY * 0.041);
-	m_tMiniMapFrameRect.bottom = m_tMiniMapFrameRect.top + m_tWindowSize.y * 0.03f;
+	IMAGE_INFO* p = BITMAPMANAGER->GetImageInfo(MAIN_MAP_IMAGE);
+
+	int x = MOUSEMANAGER->GetMiniMapArea().right - MOUSEMANAGER->GetMiniMapArea().left;
+	int y = MOUSEMANAGER->GetMiniMapArea().bottom - MOUSEMANAGER->GetMiniMapArea().top;
+
+	float fSizeX = m_tMiniMapFrameRect.right - m_tMiniMapFrameRect.left;
+	float fMapSizeX = MOUSEMANAGER->GetMiniMapArea().right - MOUSEMANAGER->GetMiniMapArea().left;
+	float fSizeY = m_tMiniMapFrameRect.bottom - m_tMiniMapFrameRect.top;
+	float fMapSizeY = MOUSEMANAGER->GetMiniMapArea().bottom - MOUSEMANAGER->GetMiniMapArea().top;
+
+	float fRatio = (1.f - (fSizeX / fMapSizeX)) * 1.1f;
+
+	m_tMiniMapFrameRect.left = MOUSEMANAGER->GetMiniMapArea().left;
+	m_tMiniMapFrameRect.left += (x * (fScrollX / static_cast<float>(SCROLLMANAGER->GetScrollEndPos().x))) * fRatio;
+
+	m_tMiniMapFrameRect.right = static_cast<LONG>((static_cast<float>(m_tWindowSize.x) /
+		static_cast<float>(p->nImageW)) * MOUSEMANAGER->GetMiniMapArea().right);
+	m_tMiniMapFrameRect.right += m_tMiniMapFrameRect.left;
+
+	fRatio = (1.f - (fSizeY / fMapSizeY)) * 0.97f;
+	m_tMiniMapFrameRect.top = MOUSEMANAGER->GetMiniMapArea().top;
+	m_tMiniMapFrameRect.top += (y * (fScrollY / static_cast<float>(SCROLLMANAGER->GetScrollEndPos().y))) * fRatio;
+
+	m_tMiniMapFrameRect.bottom = m_tMiniMapFrameRect.top +
+		static_cast<LONG>((static_cast<float>(m_tWindowSize.y) / static_cast<float>(p->nImageH)) *
+		(MOUSEMANAGER->GetMiniMapArea().bottom - MOUSEMANAGER->GetMiniMapArea().top));
+
 }
 
 void CRenderManager::RenderMiniMapFrame()

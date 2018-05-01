@@ -17,7 +17,7 @@ public:
 public:
 	void SetScrollX(float x) { m_fScrollX += x; }
 	void SetScrollY(float y) { m_fScrollY += y; }
-	void SetScrollXY(float x, float y) { m_fScrollX = x; m_fScrollY = y; }
+	void SetScrollXY(float fPercentX, float fPercentY);
 
 public:
 	static CScrollManager* GetInstance()

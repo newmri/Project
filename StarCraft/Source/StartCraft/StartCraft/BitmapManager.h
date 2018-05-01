@@ -18,6 +18,7 @@ public:
 
 public:
 	void LoadObjImg();
+	void LoadPortraitImg();
 	void LoadButtonImage();
 	void LoadStaticImg();
 
@@ -26,7 +27,10 @@ public:
 public:
 	BITMAP_ANIMATION_INFO* GetAnimationInfo(OBJ_ID eId) { return m_tAnimationInfo[eId]; }
 	BITMAP_ANIMATION_INFO* GetButtonAnimationInfo(BUTTON_ID eId) { return m_tButtonAnimationInfo[eId]; }
+	
+public:
 	IMAGE_INFO* GetImageInfo(IMAGE_ID eId) { return m_tImageInfo[eId]; }
+	IMAGE_INFO* GetPortraitImageInfo(PORTRAIT::ID eId) { return m_tPortraitImageInfo[eId]; }
 
 public:
 	void RotateSizingImage(HDC hdc, HBITMAP hBmp, RECT rt,
@@ -66,10 +70,14 @@ private:
 private:
 	BITMAP_ANIMATION_INFO* m_tAnimationInfo[OBJ_END];
 	BITMAP_ANIMATION_INFO* m_tButtonAnimationInfo[BUTTON_END];
-	IMAGE_INFO*			   m_tImageInfo[IMAGE_END];
 
+private:
+	IMAGE_INFO*			   m_tImageInfo[IMAGE_END];
+	IMAGE_INFO*			   m_tPortraitImageInfo[PORTRAIT::PORTRAIT_END];
 
 	OBJ_ID				m_eId;
+	PORTRAIT::ID		m_ePortraitID;
+
 	BUTTON_ID			m_eButtonId;
 
 

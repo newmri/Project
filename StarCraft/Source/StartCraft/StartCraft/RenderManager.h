@@ -6,6 +6,7 @@ class CRenderManager
 {
 public:
 	void Init(const HWND& hWnd);
+	void LateInit();
 	void Release();
 
 public:
@@ -18,7 +19,7 @@ public:
 public:
 	const HDC& GetMemDC() { return m_hMemDC; }
 	const HWND& GethWnd() { return m_hWnd; }
-	const POINT& GetWindowSize() { return m_tWindowSize; }
+	const INTPOINT& GetWindowSize() { return m_tWindowSize; }
 
 public:
 	static CRenderManager* GetInstance()
@@ -42,7 +43,7 @@ private:
 	HWND		m_hWnd;
 
 private:
-	POINT m_tWindowSize;
+	INTPOINT m_tWindowSize;
 
 	RECT		m_tMiniMapFrameRect;
 

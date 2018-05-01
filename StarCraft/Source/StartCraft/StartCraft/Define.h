@@ -28,6 +28,11 @@ const char OBJ_DIR[OBJ_END][STR_LEN] =
 	{ "Resources/Image/Structure/Control/*.*" }
 };
 
+const char OBJ_PORTRAIT_DIR[PORTRAIT::PORTRAIT_END][STR_LEN] =
+{
+	{ "Resources/Image/Portrait/Advisor/*.*" }
+};
+
 const char BUTTON_DIR[BUTTON_END][STR_LEN] =
 {
 	{ "Resources/Image/MainMenu/Button/SinglePlay/*.*" },

@@ -11,15 +11,23 @@ public:
 	void Release();
 
 public:
+	void RenderDragRect();
+	void RenderUI();
+
+public:
 	void CheckSwapTile();
 	void CheckSelectObj();
+	void CheckDragSelectObj();
 	CObj* GetTile();
 
 public:
 	void MouseScroll();
+	
+public:
+	const RECT& GetMiniMapArea() { return m_tMiniMapRect; }
 
 public:
-	void SetMiniMapArea(RECT rc) { m_tMiniMapRect = rc; }
+	void SetMiniMapArea(RECT rc);
 
 public:
 	void MoveScrollByMouse();
@@ -47,20 +55,30 @@ private:
 private:
 	POINT				m_tImageSize;
 	POINT				m_tPos;
+	POINT				m_tDragPos[DRAG_POS_END];
 	RECT				m_tRect;
 	RECT				m_tMiniMapRect;
 	RECT				m_tSelectRect;
 	RECT				m_tSelectRenderRect;
+	RECT				m_tDragRenderRect;
+
 
 
 private:
 	ANIMATION_INFO		m_tAnimationInfo[CURSOR_END];
 	IMAGE_INFO* m_tSelectImage;
+	STATIC_UI_IMAGE_VECTOR_LIST	m_uiList;
 
 private:
 	CURSOR_ID			m_eCurrId;
 	UNIT_SELECT			m_eSelectedUnitsize;
+	PORTRAIT::ID		m_eSelectedPortraitId;
+
+private:
+	DWORD				m_dwAnimationTime;
+	int					m_nAnimationIdx;
 
 private:
 	bool				m_bIsSelectedObj;
+	bool				m_bIsDragging;
 };

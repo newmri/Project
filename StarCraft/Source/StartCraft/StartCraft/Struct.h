@@ -19,6 +19,7 @@ typedef struct tagInfo {
 	OWNER_ID			eOwnerId;
 	UNIT_SELECT			eUnitSize;
 	OBJ_ID				eObjId;
+	PORTRAIT::ID		ePortraitId;
 
 }INFO;
 

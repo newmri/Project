@@ -36,13 +36,16 @@ void CStructure::LateInit()
 
 	UpdateRect();
 
+	// Swap Tail
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
-	m_tSelectRect.left = m_tRect.left + fScrollX + TILE_SIZE;
-	m_tSelectRect.top = (m_tRect.top + fScrollX) + (TILE_SIZE * 2);
+	INTPOINT pos = TILEMANAGER->GetIndex(m_tRect);
+	m_tSelectRect.left = m_tRect.left + fScrollX;
+	m_tSelectRect.top = (m_tRect.top + fScrollY) + TILE_SIZE;
 	m_tSelectRect.right = m_tRect.right + fScrollX + TILE_SIZE;
-	m_tSelectRect.bottom = m_tSelectRect.top + TILE_SIZE * 2;
+	m_tSelectRect.bottom = m_tSelectRect.top + TILE_SIZE * 3;
+
 
 	for (int posY = m_tSelectRect.top; posY < m_tSelectRect.bottom; posY += TILE_SIZE) {
 

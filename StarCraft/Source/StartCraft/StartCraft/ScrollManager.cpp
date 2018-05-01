@@ -39,3 +39,9 @@ void CScrollManager::ReSet()
 	m_fScrollX = 0;
 	m_fScrollY = 0;
 }
+
+void CScrollManager::SetScrollXY(float fPercentX, float fPercentY)
+{
+	m_fScrollX = m_tEndPos.x * fPercentX;
+	m_fScrollY = m_tEndPos.y * fPercentY;
+}
