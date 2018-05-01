@@ -202,6 +202,7 @@ void CBitmapManager::LoadObjImg()
 			m_tAnimationInfo[m_eId][0].nAnimationNum = m_nAnimationCnt[IMAGE_NUM];
 			m_tAnimationInfo[m_eId][0].tName = new char*[m_nAnimationCnt[IMAGE_NUM]];
 			ZeroMemory(m_tAnimationInfo[m_eId][0].tName, m_nAnimationCnt[IMAGE_NUM]);
+			m_tAnimationInfo[m_eId][0].nStateNum = 1;
 		}
 
 		for (int i = 0; i < m_nAnimationCnt[TYPE_NUM]; ++i) {
@@ -210,6 +211,7 @@ void CBitmapManager::LoadObjImg()
 			for (int j = 0; j < m_tAnimationInfo[m_eId][i].nAnimationNum; ++j) {
 				m_tAnimationInfo[m_eId][i].tName[j] = new char[STR_LEN];
 				ZeroMemory(m_tAnimationInfo[m_eId][i].tName[j], STR_LEN);
+				m_tAnimationInfo[m_eId][i].nStateNum = m_nAnimationCnt[TYPE_NUM];
 
 			}
 

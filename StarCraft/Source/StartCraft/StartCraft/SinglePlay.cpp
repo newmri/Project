@@ -2,6 +2,7 @@
 #include "SinglePlay.h"
 #include "Button.h"
 #include "Structure.h"
+#include "Unit.h"
 
 void CSinglePlay::Init()
 {
@@ -24,9 +25,9 @@ void CSinglePlay::Init()
 
 		memcpy(&pTemp->tInfo, &p[i], sizeof(IMAGE_INFO));
 		pTemp->tPos.x = 0;
-		pTemp->tPos.y = RENDERMANAGER->GetWindowSize().y - p[i].nImageH;
+		pTemp->tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.8f);
 		pTemp->tDrawSize.x = RENDERMANAGER->GetWindowSize().x;
-		pTemp->tDrawSize.y = pTemp->tInfo.nImageH;
+		pTemp->tDrawSize.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.201f);
 		pTemp->tColor = RGB(255, 255, 255);
 		m_listStaticUImage.push_back(pTemp);
 	}
@@ -38,10 +39,10 @@ void CSinglePlay::Init()
 
 		memcpy(&pTemp->tInfo, &p[i], sizeof(IMAGE_INFO));
 
-		pTemp->tPos.x = RENDERMANAGER->GetWindowSize().x / 110;
-		pTemp->tPos.y = (RENDERMANAGER->GetWindowSize().y - BITMAPMANAGER->GetImageInfo(BOTTOM_MENU_IMAGE)->nImageH) + 69;
-		pTemp->tDrawSize.x = RENDERMANAGER->GetWindowSize().x / 5;
-		pTemp->tDrawSize.y = 165;
+		pTemp->tPos.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.009f);
+		pTemp->tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.858f);
+		pTemp->tDrawSize.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.2f);
+		pTemp->tDrawSize.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.142f);
 		pTemp->tColor = RGB(0, 0, 0);
 		m_listStaticUImage.push_back(pTemp);
 
@@ -75,6 +76,9 @@ void CSinglePlay::Init()
 	pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, PORTRAIT::ADVISOR, UNIT_SELECT9, 140, 300);
 	OBJMANAGER->AddObject(pObj, BARRACK);
 
+	pObj = CFactoryManager<CUnit>::CreateObj(GREEN, SCV, PORTRAIT::SCV, UNIT_SELECT3, 50, 265);
+	OBJMANAGER->AddObject(pObj, SCV);
+
 }
 
 void CSinglePlay::LateInit()
@@ -100,8 +104,8 @@ SCENE::SCENE_ID CSinglePlay::Update()
 
 	MOUSEMANAGER->MouseScroll();
 	MOUSEMANAGER->MoveScrollByMouse();
-	MOUSEMANAGER->CheckDragSelectObj();
 	SCROLLMANAGER->Update();
+	MOUSEMANAGER->CheckDragSelectObj();
 
 	return SCENE::NO_EVENT;
 }

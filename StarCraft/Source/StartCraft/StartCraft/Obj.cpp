@@ -21,8 +21,15 @@ bool CObj::IsClicked(const POINT& pos) const
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
-	if (pos.x + fScrollX + TILE_SIZE >= m_tSelectRect.left && pos.x + fScrollX + TILE_SIZE <= m_tSelectRect.right &&
-		pos.y + fScrollY >= m_tSelectRect.top && pos.y + fScrollY <= m_tSelectRect.bottom) return true;
+	INTPOINT	mouseIdx = TILEMANAGER->GetIndex(pos);
+	INTPOINT	unitIdx;
+	POINT unitPos;
+	for (unitPos.x = m_tSelectRect.left; unitPos.x < m_tSelectRect.right; unitPos.x += TILE_SIZE) {
+		for (unitPos.y = m_tSelectRect.top; unitPos.y < m_tSelectRect.bottom; unitPos.y += TILE_SIZE) {
+			unitIdx = TILEMANAGER->GetIndex(unitPos);
+			if (mouseIdx.x == unitIdx.x && mouseIdx.y == unitIdx.y) return true;
+		}
+	}
 
 	return false;
 }

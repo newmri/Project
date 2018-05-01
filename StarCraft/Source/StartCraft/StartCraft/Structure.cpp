@@ -40,7 +40,7 @@ void CStructure::LateInit()
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
-	INTPOINT pos = TILEMANAGER->GetIndex(m_tRect);
+
 	m_tSelectRect.left = m_tRect.left + fScrollX;
 	m_tSelectRect.top = (m_tRect.top + fScrollY) + TILE_SIZE;
 	m_tSelectRect.right = m_tRect.right + fScrollX + TILE_SIZE;

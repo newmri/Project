@@ -23,7 +23,8 @@ public:
 
 public:
 	const INTPOINT& GetTileNum() { return m_nTileNum; }
-	INTPOINT GetIndex(const RECT& rc);
+	INTPOINT GetIndex(const POINT& pos);
+
 
 
 public:

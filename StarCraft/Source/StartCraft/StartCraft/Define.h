@@ -25,12 +25,15 @@ const char OBJ_DIR[OBJ_END][STR_LEN] =
 {
 	{ "Resources/Image/Cursor/*.*" },
 	{ "Resources/Image/Structure/Barrack/*.*" },
-	{ "Resources/Image/Structure/Control/*.*" }
+	{ "Resources/Image/Structure/Control/*.*" },
+	{ "Resources/Image/Unit/Scv/*.*" }
 };
 
 const char OBJ_PORTRAIT_DIR[PORTRAIT::PORTRAIT_END][STR_LEN] =
 {
-	{ "Resources/Image/Portrait/Advisor/*.*" }
+	{ "Resources/Image/Portrait/Advisor/*.*" },
+	{ "Resources/Image/Portrait/SCV/*.*" }
+
 };
 
 const char BUTTON_DIR[BUTTON_END][STR_LEN] =

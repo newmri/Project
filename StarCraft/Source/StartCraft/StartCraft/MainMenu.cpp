@@ -108,7 +108,8 @@ SCENE::SCENE_ID CMainMenu::Update()
 		auto it_OBJ_END = m_uiList[BUTTON].end();
 		for (; it_begin != it_OBJ_END;) {
 			if (((*it_begin)->IsMouseOver())) {
-				if (EDITOR_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) return SCENE::EDITOR;
+				if (SINGLE_PLAY_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) return SCENE::SINGLE_PLAY;
+				else if (EDITOR_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) return SCENE::EDITOR;
 
 				else if (EXIT_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) DestroyWindow(RENDERMANAGER->GethWnd());
 			}

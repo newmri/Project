@@ -49,6 +49,9 @@
     <Filter Include="01.Object\03.Structure">
       <UniqueIdentifier>{319d0559-914d-440b-a2b4-af49990d4e09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Object\04.Unit">
+      <UniqueIdentifier>{b9d54d87-5d71-4281-b601-0d013d62123a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -150,6 +153,9 @@
     <ClInclude Include="TileManager.h">
       <Filter>97.Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>01.Object\04.Unit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -223,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="Structure.cpp">
       <Filter>01.Object\03.Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>01.Object\04.Unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

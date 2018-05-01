@@ -180,6 +180,7 @@
     <ClInclude Include="TileManager.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BitmapManager.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="StartCraft.rc" />

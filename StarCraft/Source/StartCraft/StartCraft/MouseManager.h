@@ -67,7 +67,7 @@ private:
 private:
 	ANIMATION_INFO		m_tAnimationInfo[CURSOR_END];
 	IMAGE_INFO* m_tSelectImage;
-	STATIC_UI_IMAGE_VECTOR_LIST	m_uiList;
+	STATIC_UI_IMAGE_VECTOR_LIST	m_portraitList[PORTRAIT::PORTRAIT_END];
 
 private:
 	CURSOR_ID			m_eCurrId;

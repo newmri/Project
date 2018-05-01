@@ -43,9 +43,9 @@ public:
 	static CObj* CreateObj(OWNER_ID eId, OBJ_ID eObjId, PORTRAIT::ID ePortId, UNIT_SELECT eUnitSize, float x, float y)
 	{
 		CObj* pObj = new T;
+		pObj->SetObjId(eObjId);
 		pObj->Init();
 		pObj->SetOwnerId(eId);
-		pObj->SetObjId(eObjId);
 		pObj->SetPortraitId(ePortId);
 		pObj->SetSize(eUnitSize);
 		pObj->SetPos(x, y);

@@ -45,19 +45,21 @@ void CMouseManager::Init()
 
 
 		// Portrait
-		p = BITMAPMANAGER->GetPortraitImageInfo(PORTRAIT::ADVISOR);
-		for (int i = 0; i < p[0].nImageNum; ++i) {
-			STATIC_UI_IMAGE_INFO* pTemp = new STATIC_UI_IMAGE_INFO;
+		for (int i = 0; i < PORTRAIT::PORTRAIT_END; ++i) {
+			p = BITMAPMANAGER->GetPortraitImageInfo(static_cast<PORTRAIT::ID>(i));
+			for (int j = 0; j < p[0].nImageNum; ++j) {
+				STATIC_UI_IMAGE_INFO* pTemp = new STATIC_UI_IMAGE_INFO;
 
-			memcpy(&pTemp->tInfo, &p[i], sizeof(IMAGE_INFO));
+				memcpy(&pTemp->tInfo, &p[j], sizeof(IMAGE_INFO));
 
-			pTemp->tPos.x = 994;
-			pTemp->tPos.y = 770;
-			pTemp->tDrawSize.x = pTemp->tInfo.nImageW * 2.3;
-			pTemp->tDrawSize.y = pTemp->tInfo.nImageH + 5;
-			pTemp->tColor = RGB(0, 0, 0);
+				pTemp->tPos.x = RENDERMANAGER->GetWindowSize().x * 0.648f;
+				pTemp->tPos.y = RENDERMANAGER->GetWindowSize().y * 0.93;
+				pTemp->tDrawSize.x = RENDERMANAGER->GetWindowSize().x * 0.089;
+				pTemp->tDrawSize.y = RENDERMANAGER->GetWindowSize().y * 0.05;
+				pTemp->tColor = RGB(0, 0, 0);
 
-			m_uiList.push_back(pTemp);
+				m_portraitList[i].push_back(pTemp);
+			}
 		}
 	
 }
@@ -97,7 +99,6 @@ void CMouseManager::Update()
 
 	}
 
-	CheckDragSelectObj();
 }
 
 void CMouseManager::Render()
@@ -167,19 +168,21 @@ void CMouseManager::RenderDragRect()
 void CMouseManager::RenderUI()
 {
 
-	if (m_dwAnimationTime + 1000 / m_uiList[m_nAnimationIdx]->tInfo.nImageNum < GetTickCount()) {
+	STATIC_UI_IMAGE_INFO* p = m_portraitList[m_eSelectedPortraitId][m_nAnimationIdx];
+
+	if (m_dwAnimationTime + 50 < GetTickCount()) {
 		m_dwAnimationTime = GetTickCount();
-		m_nAnimationIdx = (m_nAnimationIdx + 1) % m_uiList[m_nAnimationIdx]->tInfo.nImageNum;
+		m_nAnimationIdx = (m_nAnimationIdx + 1) % p->tInfo.nImageNum;
 	}
-	BITMAPMANAGER->GetImage()[m_uiList[m_nAnimationIdx]->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_uiList[m_nAnimationIdx]->tPos.x,
-		m_uiList[m_nAnimationIdx]->tPos.y,
-		m_uiList[m_nAnimationIdx]->tDrawSize.x,
-		m_uiList[m_nAnimationIdx]->tDrawSize.y,
+	BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+		p->tPos.x,
+		p->tPos.y,
+		p->tDrawSize.x,
+		p->tDrawSize.y,
 		0,
 		0,
-		m_uiList[m_nAnimationIdx]->tInfo.nImageW,
-		m_uiList[m_nAnimationIdx]->tInfo.nImageH, m_uiList[m_nAnimationIdx]->tColor);
+		p->tInfo.nImageW,
+		p->tInfo.nImageH, p->tColor);
 }
 
 void CMouseManager::CheckSwapTile()
@@ -205,13 +208,21 @@ void CMouseManager::CheckSelectObj()
 				m_bIsSelectedObj = true;
 				m_tSelectRect = d->GetSelectRect();
 				m_eSelectedUnitsize = d->GetSize();
-				m_tSelectRenderRect = d->GetRect();
+				m_tSelectRenderRect = d->GetSelectRect();
 				m_eSelectedPortraitId = d->GetPortraitId();
 
-				m_tSelectRenderRect.left -= 10;
-				m_tSelectRenderRect.right -= 10;
-				m_tSelectRenderRect.top -= 10;
-				m_tSelectRenderRect.bottom -= 10;
+				switch (m_eSelectedUnitsize) {
+				case UNIT_SELECT3:
+					m_tSelectRenderRect.left -= TILE_SIZE;
+					m_tSelectRenderRect.top -= TILE_SIZE;
+					break;
+				case UNIT_SELECT9:
+					m_tSelectRenderRect.left -= 10;
+					m_tSelectRenderRect.top -= TILE_SIZE * 1.5f;
+
+					break;
+				}
+
 
 				if (GREEN == d->GetOwnerId()) {
 					m_eCurrId = MAGG;
@@ -219,6 +230,7 @@ void CMouseManager::CheckSelectObj()
 				}
 
 				m_dwAnimationTime = GetTickCount();
+				m_nAnimationIdx = 0;
 
 				return;
 			}
@@ -231,6 +243,10 @@ void CMouseManager::CheckSelectObj()
 void CMouseManager::CheckDragSelectObj()
 {
 	
+	// Update Mouse Pos
+	GetCursorPos(&m_tPos);
+	ScreenToClient(RENDERMANAGER->GethWnd(), &m_tPos);
+
 	if (m_bIsDragging) {
 		if (KEYMANAGER->KeyUp(VK_LBUTTON)) {
 			m_bIsDragging = false;
@@ -245,7 +261,8 @@ void CMouseManager::CheckDragSelectObj()
 
 	if (KEYMANAGER->KeyPressing(VK_LBUTTON)) {
 		cout << m_tPos.x << ", " << m_tPos.y << endl;
-		if (!m_bIsDragging) {
+		cout << (float)m_tPos.y / (float)RENDERMANAGER->GetWindowSize().y << endl;
+		if (!m_bIsDragging && m_tPos.y < m_tMiniMapRect.top * 0.96f) {
 			m_tDragPos[DRAG_START_POS] = m_tPos;
 			m_bIsDragging = true;
 			m_tAnimationInfo[m_eCurrId].nCnt = 0;
@@ -345,7 +362,7 @@ void CMouseManager::MoveScrollByMouse()
 		m_tPos.y = m_tPos.y - m_tMiniMapRect.top;
 
 		float fPercentX = static_cast<float>(m_tPos.x) / static_cast<float>(m_tMiniMapRect.right);
-		float fPercentY = static_cast<float>(m_tPos.y + 5) / static_cast<float>(m_tMiniMapRect.bottom - m_tMiniMapRect.top);
+		float fPercentY = static_cast<float>(m_tPos.y) / static_cast<float>(m_tMiniMapRect.bottom - m_tMiniMapRect.top);
 
 		SCROLLMANAGER->SetScrollXY(fPercentX, fPercentY);
 	}

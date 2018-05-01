@@ -39,6 +39,7 @@ typedef struct tagBitmapAnimationInfo
 	int		nImageW;
 	int		nImageH;
 	int		nAnimationNum;
+	int		nStateNum;
 
 }BITMAP_ANIMATION_INFO;
 
@@ -50,6 +51,7 @@ typedef struct tagAnimationInfo
 	int		nImageH;
 	int		nCnt;
 	int		nAnimationNum;
+	int		nStateNum;
 
 	DWORD	dwAnimationTime;
 

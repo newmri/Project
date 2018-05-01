@@ -77,14 +77,15 @@ void CTileManager::Undo()
 
 }
 
-INTPOINT CTileManager::GetIndex(const RECT& rc)
+
+INTPOINT CTileManager::GetIndex(const POINT& pos)
 {
-	INTPOINT pos;
+	INTPOINT retPos;
 
-	pos.x = rc.left / TILE_SIZE;
-	pos.y = rc.bottom / TILE_SIZE;
+	retPos.x = pos.x / TILE_SIZE;
+	retPos.y = pos.y / TILE_SIZE;
 
-	return pos;
+	return retPos;
 }
 
 CObj* CTileManager::SelectTile(int nIdx)
