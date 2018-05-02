@@ -88,6 +88,7 @@ INTPOINT CTileManager::GetIndex(const POINT& pos)
 	return retPos;
 }
 
+
 CObj* CTileManager::SelectTile(int nIdx)
 {
 	if (m_vecTile.empty()) return nullptr;

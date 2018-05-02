@@ -41,7 +41,7 @@ public:
 	}
 
 	static CObj* CreateObj(OWNER_ID eId, OBJ_ID eObjId, PORTRAIT::ID ePortId, UNIT::LARGE_WIRE::LARGE_WIRE_ID eWireLarge,
-		UNIT_SELECT eUnitSize, float x, float y)
+		UNIT_SELECT eUnitSize, float x, float y, int hp)
 	{
 		CObj* pObj = new T;
 		pObj->SetObjId(eObjId);
@@ -52,13 +52,14 @@ public:
 
 		pObj->SetSize(eUnitSize);
 		pObj->SetPos(x, y);
+		pObj->SetHP(hp);
 
 		return pObj;
 	}
 
 	static CObj* CreateObj(OWNER_ID eId, OBJ_ID eObjId, PORTRAIT::ID ePortId, UNIT::LARGE_WIRE::LARGE_WIRE_ID eWireLarge,
 		UNIT::SMALL_WIRE::SMALL_WIRE_ID eWireSmall,
-		UNIT_SELECT eUnitSize, float x, float y)
+		UNIT_SELECT eUnitSize, float x, float y, int hp)
 	{
 		CObj* pObj = new T;
 		pObj->SetObjId(eObjId);
@@ -70,6 +71,8 @@ public:
 
 		pObj->SetSize(eUnitSize);
 		pObj->SetPos(x, y);
+		pObj->SetHP(hp);
+
 
 		return pObj;
 	}

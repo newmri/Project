@@ -1,4 +1,2 @@
 ﻿  MouseManager.cpp
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(293): warning C4244: '-=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(354): warning C4244: '-=': conversion from 'float' to 'LONG', possible loss of data
   StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Debug\StartCraft.exe

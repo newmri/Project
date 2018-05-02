@@ -16,6 +16,22 @@ void CObj::RenderCollsionBox()
 	}
 }
 
+const RECT CObj::GetRectWithScroll() const
+{
+	float fScrollX = SCROLLMANAGER->GetScrollX();
+	float fScrollY = SCROLLMANAGER->GetScrollY();
+
+	RECT rc;
+
+	rc.left = m_tRect.left + fScrollX;
+	rc.top = m_tRect.top + fScrollY;
+	rc.right = m_tRect.right + fScrollX;
+	rc.bottom = m_tRect.bottom + fScrollY;
+
+
+	return rc;
+}
+
 bool CObj::IsClicked(const POINT& pos) const
 {
 	float fScrollX = SCROLLMANAGER->GetScrollX();

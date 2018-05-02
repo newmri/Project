@@ -71,16 +71,16 @@ void CSinglePlay::Init()
 	}
 
 	CObj* pObj = CFactoryManager<CStructure>::CreateObj(GREEN, CONTROL, PORTRAIT::ADVISOR,
-		UNIT::LARGE_WIRE::CONTROL, UNIT_SELECT9, 300, 200);
+		UNIT::LARGE_WIRE::CONTROL, UNIT_SELECT9, 300, 200, 1500);
 	OBJMANAGER->AddObject(pObj, CONTROL);
 
 	pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, PORTRAIT::ADVISOR,
-		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, 140, 300);
+		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, 140, 300, 1500);
 	OBJMANAGER->AddObject(pObj, BARRACK);
 
 	for (int i = 300 - TILE_SIZE; i < 300 + TILE_SIZE * 6; i += TILE_SIZE) {
 		pObj = CFactoryManager<CUnit>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
-			UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT3, i, 300);
+			UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT3, i, 300, 60);
 		OBJMANAGER->AddObject(pObj, SCV);
 	}
 
@@ -112,6 +112,7 @@ SCENE::SCENE_ID CSinglePlay::Update()
 	MOUSEMANAGER->MoveScrollByMouse();
 	SCROLLMANAGER->Update();
 	MOUSEMANAGER->CheckSelectObj();
+	MOUSEMANAGER->CheckMoveObj();
 
 	return SCENE::NO_EVENT;
 }

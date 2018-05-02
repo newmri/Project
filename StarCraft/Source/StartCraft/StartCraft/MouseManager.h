@@ -19,6 +19,8 @@ public:
 	void SelectObj();
 	void DragSelectObj();
 	void CheckSelectObj();
+	void CheckMoveObj();
+
 	CObj* GetTile();
 
 public:
@@ -61,7 +63,7 @@ private:
 	RECT				m_tMiniMapRect;
 	RECT				m_tSelectRect;
 	RECT				m_tDragRenderRect;
-
+	RECT				m_tIllegalRect;
 
 
 private:
@@ -83,4 +85,5 @@ private:
 
 private:
 	bool				m_bIsDragging;
+
 };

@@ -24,6 +24,13 @@ static const int MAX_UNIT_SELECT_NUM = 12;
 
 static const int WIRE_IMAGE_SIZE_NUM = 2;
 
+const TCHAR OBJ_NAME[OBJ_END - 1][STR_LEN] = 
+{
+	{L"Terran Barrack"},
+	{L"Terran Command Center" },
+	{ L"Terran SCV" }
+
+};
 const char OBJ_DIR[OBJ_END][STR_LEN] = 
 {
 	{ "Resources/Image/Structure/Barrack/*.*" },

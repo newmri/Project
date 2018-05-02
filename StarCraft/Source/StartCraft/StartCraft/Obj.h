@@ -15,6 +15,7 @@ public:
 public:
 	const INFO& GetInfo() const { return m_tInfo; }
 	const RECT& GetRect() const { return m_tRect; }
+	const RECT GetRectWithScroll() const;
 	const STAT& GetStat() const { return m_tStat; }
 	const OWNER_ID& GetOwnerId() const { return m_tInfo.eOwnerId; }
 	const UNIT_SELECT& GetSize() const { return  m_tInfo.eUnitSize; }
@@ -40,6 +41,7 @@ public:
 	void SetPortraitId(PORTRAIT::ID eId) { m_tInfo.ePortraitId = eId; }
 	void SetLargeWireId(UNIT::LARGE_WIRE::LARGE_WIRE_ID eId) { m_tInfo.eLargeWireId = eId; }
 	void SetSmallWireId(UNIT::SMALL_WIRE::SMALL_WIRE_ID eId) { m_tInfo.eSmallWireId = eId; }
+	void SetHP(int hp) { m_tStat.nMaxHP = hp; m_tStat.nHP = hp; }
 
 
 

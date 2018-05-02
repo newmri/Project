@@ -100,6 +100,8 @@ typedef struct tagUnitSelectInfo
 
 	RECT				tSelectRenderRect;
 	POINT				tDrawPos;
+	TCHAR 				szName[STR_LEN];
+	TCHAR 				szHp[STR_LEN];
 
 }UNIT_SELECT_INFO;
 

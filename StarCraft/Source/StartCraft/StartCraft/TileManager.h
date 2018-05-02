@@ -25,8 +25,6 @@ public:
 	const INTPOINT& GetTileNum() { return m_nTileNum; }
 	INTPOINT GetIndex(const POINT& pos);
 
-
-
 public:
 	CObj * SelectTile(int nIdx);
 

@@ -16,8 +16,10 @@ public:
 
 public:
 	const TILE_ID& GetId() { return m_eId; }
-	void SetId(TILE_ID eId) { m_eId = eId; }
+	bool IsMovable() { return (MOVABLE == m_eId); }
 
+public:
+	void SetId(TILE_ID eId) { m_eId = eId; }
 
 public:
 	void SwapTile() { m_eId = static_cast<TILE_ID>((m_eId + 1) % TILE_END); }
