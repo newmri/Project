@@ -20,19 +20,36 @@ static const int TILE_SIZE = 32;
 
 static const float SCROLL_SPEED = static_cast<float>(TILE_SIZE);
 
+static const int MAX_UNIT_SELECT_NUM = 12;
+
+static const int WIRE_IMAGE_SIZE_NUM = 2;
 
 const char OBJ_DIR[OBJ_END][STR_LEN] = 
 {
-	{ "Resources/Image/Cursor/*.*" },
 	{ "Resources/Image/Structure/Barrack/*.*" },
 	{ "Resources/Image/Structure/Control/*.*" },
-	{ "Resources/Image/Unit/Scv/*.*" }
+	{ "Resources/Image/Unit/Scv/*.*" },
+	{ "Resources/Image/Cursor/*.*" }
 };
 
 const char OBJ_PORTRAIT_DIR[PORTRAIT::PORTRAIT_END][STR_LEN] =
 {
 	{ "Resources/Image/Portrait/Advisor/*.*" },
 	{ "Resources/Image/Portrait/SCV/*.*" }
+
+};
+
+const char OBJ_LARGE_WIRE_DIR[UNIT::LARGE_WIRE::LARGE_WIRE_END][STR_LEN] =
+{
+	{ "Resources/Image/Wire/Large/Barrack/*.*" },
+	{ "Resources/Image/Wire/Large/Control/*.*" },
+	{ "Resources/Image/Wire/Large/SCV/*.*" }
+
+};
+
+const char OBJ_SMALL_WIRE_DIR[UNIT::SMALL_WIRE::SMALL_WIRE_END][STR_LEN] =
+{
+	{ "Resources/Image/Wire/Small/SCV/*.*" }
 
 };
 

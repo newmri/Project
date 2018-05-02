@@ -21,9 +21,13 @@ public:
 	const RECT& GetSelectRect() const { return m_tSelectRect; }
 	const OBJ_ID& GetObjId() const { return m_tInfo.eObjId; }
 	const PORTRAIT::ID& GetPortraitId() { return m_tInfo.ePortraitId; }
+	const UNIT::LARGE_WIRE::LARGE_WIRE_ID& GetLargeWireId() { return m_tInfo.eLargeWireId; }
+	const UNIT::SMALL_WIRE::SMALL_WIRE_ID& GetSmallWireId() { return m_tInfo.eSmallWireId; }
 
+public:
 	const bool& IsUI() const { return m_bIsUI; }
 	bool IsClicked(const POINT& pos) const;
+
 
 public:
 	void SetDead() { m_bIsDead = true; }
@@ -34,6 +38,9 @@ public:
 	void SetSize(UNIT_SELECT eId) { m_tInfo.eUnitSize = eId; }
 	void SetObjId(OBJ_ID eId) { m_tInfo.eObjId = eId; }
 	void SetPortraitId(PORTRAIT::ID eId) { m_tInfo.ePortraitId = eId; }
+	void SetLargeWireId(UNIT::LARGE_WIRE::LARGE_WIRE_ID eId) { m_tInfo.eLargeWireId = eId; }
+	void SetSmallWireId(UNIT::SMALL_WIRE::SMALL_WIRE_ID eId) { m_tInfo.eSmallWireId = eId; }
+
 
 
 

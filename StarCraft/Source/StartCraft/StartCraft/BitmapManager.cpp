@@ -7,6 +7,8 @@ void CBitmapManager::Init()
 {
 	LoadObjImg();
 	LoadPortraitImg();
+	LoadLargeWireImg();
+	LoadSmallWireImg();
 	LoadButtonImage();
 	LoadStaticImg();
 	
@@ -285,6 +287,134 @@ void CBitmapManager::LoadPortraitImg()
 	}
 
 
+}
+
+void CBitmapManager::LoadLargeWireImg()
+{
+	char chE[2];
+	chE[0] = '*';
+	chE[1] = '\0';
+	char chD[2];
+	chD[0] = '.';
+	chD[1] = '\0';
+
+	char* p = nullptr;
+
+	char path[STR_LEN];
+	char name[STR_LEN];
+
+	struct _finddata_t info;
+	intptr_t hFile;
+
+	for (int i = 0; i < UNIT::LARGE_WIRE::LARGE_WIRE_END; ++i) {
+
+		int nImgNum = 0;
+		hFile = _findfirst(OBJ_LARGE_WIRE_DIR[i], &info);
+		if (-1 == hFile) return;
+
+		while (_findnext(hFile, &info) != -1L) {
+
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+			nImgNum++;
+		}
+
+		m_tLargeWireImageInfo[i] = new IMAGE_INFO[nImgNum];
+
+		int j = 0;
+		hFile = _findfirst(OBJ_LARGE_WIRE_DIR[i], &info);
+		while (_findnext(hFile, &info) != -1L) {
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+
+
+			ZeroMemory(&path, STR_LEN);
+			ZeroMemory(&name, STR_LEN);
+
+			strcpy_s(path, STR_LEN, OBJ_LARGE_WIRE_DIR[i]);
+			strtok_s(path, chE, &p);
+			strcat_s(path, info.name);
+
+			strcpy_s(name, STR_LEN, info.name);
+
+			strtok_s(name, chD, &p);
+
+			m_tLargeWireImageInfo[i][j].nImageNum = nImgNum;
+			strcpy_s(m_tLargeWireImageInfo[i][j].szName, STR_LEN, name);
+
+			CImage* pImg = new CImage;
+
+			pImg->Load(CString(path));
+			m_map.insert(make_pair(string(name), pImg));
+			m_tLargeWireImageInfo[i][j].nImageW = pImg->GetWidth();
+			m_tLargeWireImageInfo[i][j].nImageH = pImg->GetHeight();
+			j++;
+
+		}
+
+	}
+}
+
+void CBitmapManager::LoadSmallWireImg()
+{
+	char chE[2];
+	chE[0] = '*';
+	chE[1] = '\0';
+	char chD[2];
+	chD[0] = '.';
+	chD[1] = '\0';
+
+	char* p = nullptr;
+
+	char path[STR_LEN];
+	char name[STR_LEN];
+
+	struct _finddata_t info;
+	intptr_t hFile;
+
+	for (int i = 0; i < UNIT::SMALL_WIRE::SMALL_WIRE_END; ++i) {
+
+		int nImgNum = 0;
+		hFile = _findfirst(OBJ_SMALL_WIRE_DIR[i], &info);
+		if (-1 == hFile) return;
+
+		while (_findnext(hFile, &info) != -1L) {
+
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+			nImgNum++;
+		}
+
+		m_tSmallWireImageInfo[i] = new IMAGE_INFO[nImgNum];
+
+		int j = 0;
+		hFile = _findfirst(OBJ_SMALL_WIRE_DIR[i], &info);
+		while (_findnext(hFile, &info) != -1L) {
+			if (!strcmp(info.name, ".") || !strcmp(info.name, "..")) continue;
+
+
+			ZeroMemory(&path, STR_LEN);
+			ZeroMemory(&name, STR_LEN);
+
+			strcpy_s(path, STR_LEN, OBJ_SMALL_WIRE_DIR[i]);
+			strtok_s(path, chE, &p);
+			strcat_s(path, info.name);
+
+			strcpy_s(name, STR_LEN, info.name);
+
+			strtok_s(name, chD, &p);
+
+			m_tSmallWireImageInfo[i][j].nImageNum = nImgNum;
+			strcpy_s(m_tSmallWireImageInfo[i][j].szName, STR_LEN, name);
+
+			CImage* pImg = new CImage;
+
+			pImg->Load(CString(path));
+			m_map.insert(make_pair(string(name), pImg));
+			m_tSmallWireImageInfo[i][j].nImageW = pImg->GetWidth();
+			m_tSmallWireImageInfo[i][j].nImageH = pImg->GetHeight();
+			j++;
+
+		}
+
+	}
 }
 
 void CBitmapManager::LoadButtonImage()

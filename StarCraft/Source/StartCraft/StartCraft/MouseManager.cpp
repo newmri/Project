@@ -9,10 +9,10 @@ CMouseManager*	CMouseManager::m_pInstance = nullptr;
 void CMouseManager::Init()
 {
 	m_eCurrId = ARROW;
-	m_bIsSelectedObj = false;
 	m_bIsDragging = false;
+
 	m_nAnimationIdx = 0;
-	m_eSelectedPortraitId = PORTRAIT::PORTRAIT_END;
+	m_nSelectedUnitNum = 0;
 
 	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetAnimationInfo(CURSOR);
 
@@ -42,8 +42,6 @@ void CMouseManager::Init()
 		m_tSelectImage = new IMAGE_INFO[p->nImageNum];
 		memcpy(m_tSelectImage, p, sizeof(IMAGE_INFO) * p->nImageNum);
 
-
-
 		// Portrait
 		for (int i = 0; i < PORTRAIT::PORTRAIT_END; ++i) {
 			p = BITMAPMANAGER->GetPortraitImageInfo(static_cast<PORTRAIT::ID>(i));
@@ -52,13 +50,51 @@ void CMouseManager::Init()
 
 				memcpy(&pTemp->tInfo, &p[j], sizeof(IMAGE_INFO));
 
-				pTemp->tPos.x = RENDERMANAGER->GetWindowSize().x * 0.648f;
-				pTemp->tPos.y = RENDERMANAGER->GetWindowSize().y * 0.93;
-				pTemp->tDrawSize.x = RENDERMANAGER->GetWindowSize().x * 0.089;
-				pTemp->tDrawSize.y = RENDERMANAGER->GetWindowSize().y * 0.05;
+				pTemp->tPos.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.648f);
+				pTemp->tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.93f);
+				pTemp->tDrawSize.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.089f);
+				pTemp->tDrawSize.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.05f);
 				pTemp->tColor = RGB(0, 0, 0);
 
 				m_portraitList[i].push_back(pTemp);
+			}
+		}
+
+		// Large Wire
+		m_wireList[UNIT::LARGE] = new STATIC_UI_IMAGE_VECTOR_LIST[UNIT::LARGE_WIRE::LARGE_WIRE_END];
+		for (int i = 0; i < UNIT::LARGE_WIRE::LARGE_WIRE_END; ++i) {
+			p = BITMAPMANAGER->GetLargeWireImageInfo(static_cast<UNIT::LARGE_WIRE::LARGE_WIRE_ID>(i));
+			for (int j = 0; j < p[0].nImageNum; ++j) {
+				STATIC_UI_IMAGE_INFO* pTemp = new STATIC_UI_IMAGE_INFO;
+
+				memcpy(&pTemp->tInfo, &p[j], sizeof(IMAGE_INFO));
+
+				pTemp->tPos.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.27f);
+				pTemp->tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.92f);
+				pTemp->tDrawSize.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.13f);
+				pTemp->tDrawSize.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.06f);
+				pTemp->tColor = RGB(0, 0, 0);
+
+				m_wireList[UNIT::LARGE][i].push_back(pTemp);
+			}
+		}
+
+		// Small Wire
+		m_wireList[UNIT::SMALL] = new STATIC_UI_IMAGE_VECTOR_LIST[UNIT::SMALL_WIRE::SMALL_WIRE_END];
+		for (int i = 0; i < UNIT::SMALL_WIRE::SMALL_WIRE_END; ++i) {
+			p = BITMAPMANAGER->GetSmallWireImageInfo(static_cast<UNIT::SMALL_WIRE::SMALL_WIRE_ID>(i));
+			for (int j = 0; j < p[0].nImageNum; ++j) {
+				STATIC_UI_IMAGE_INFO* pTemp = new STATIC_UI_IMAGE_INFO;
+
+				memcpy(&pTemp->tInfo, &p[j], sizeof(IMAGE_INFO));
+
+				pTemp->tPos.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.27f);
+				pTemp->tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.92f);
+				pTemp->tDrawSize.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.05f);
+				pTemp->tDrawSize.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.04f);
+				pTemp->tColor = RGB(0, 0, 0);
+
+				m_wireList[UNIT::SMALL][i].push_back(pTemp);
 			}
 		}
 	
@@ -82,13 +118,13 @@ void CMouseManager::Update()
 	ScreenToClient(RENDERMANAGER->GethWnd(), &m_tPos);
 
 	if(HIGHSCROLL != m_eCurrId && LOWSCROLL != m_eCurrId)
-	if (m_tAnimationInfo[m_eCurrId].dwAnimationTime + 500 < GetTickCount()) {
+	if (m_tAnimationInfo[m_eCurrId].dwAnimationTime + 100 < GetTickCount()) {
 
 		m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % m_tAnimationInfo[m_eCurrId].nAnimationNum;
 		m_tAnimationInfo[m_eCurrId].dwAnimationTime = GetTickCount();
 	}
 
-	if (m_bIsSelectedObj) {
+	if (m_nSelectedUnitNum > 0) {
 		if(m_tPos.x + TILE_SIZE < m_tSelectRect.left ||
 			m_tPos.x + TILE_SIZE > m_tSelectRect.right ||
 			m_tPos.y < m_tSelectRect.top ||
@@ -119,16 +155,18 @@ void CMouseManager::Render()
 		CURSOR_SIZE,
 		CURSOR_SIZE, RGB(0, 0, 0));
 
-	if (m_bIsSelectedObj) {
-		BITMAPMANAGER->GetImage()[m_tSelectImage[m_eSelectedUnitsize].szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-			static_cast<int>(m_tSelectRenderRect.left + SCROLLMANAGER->GetScrollX()),
-			static_cast<int>(m_tSelectRenderRect.top + SCROLLMANAGER->GetScrollY()),
-			m_tSelectImage[m_eSelectedUnitsize].nImageW,
-			m_tSelectImage[m_eSelectedUnitsize].nImageH,
-			0,
-			0,
-			m_tSelectImage[m_eSelectedUnitsize].nImageW,
-			m_tSelectImage[m_eSelectedUnitsize].nImageH, RGB(255, 255, 255));
+	if (m_nSelectedUnitNum > 0) {
+		for (int i = 0; i < m_nSelectedUnitNum; ++i) {
+			BITMAPMANAGER->GetImage()[m_tSelectImage[m_tUnitSelect[i].eSelectedUnitsize].szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+				static_cast<int>(m_tUnitSelect[i].tSelectRenderRect.left + SCROLLMANAGER->GetScrollX()),
+				static_cast<int>(m_tUnitSelect[i].tSelectRenderRect.top + SCROLLMANAGER->GetScrollY()),
+				m_tSelectImage[m_tUnitSelect[i].eSelectedUnitsize].nImageW,
+				m_tSelectImage[m_tUnitSelect[i].eSelectedUnitsize].nImageH,
+				0,
+				0,
+				m_tSelectImage[m_tUnitSelect[i].eSelectedUnitsize].nImageW,
+				m_tSelectImage[m_tUnitSelect[i].eSelectedUnitsize].nImageH, RGB(255, 255, 255));
+		}
 
 		RenderUI();
 
@@ -168,12 +206,13 @@ void CMouseManager::RenderDragRect()
 void CMouseManager::RenderUI()
 {
 
-	STATIC_UI_IMAGE_INFO* p = m_portraitList[m_eSelectedPortraitId][m_nAnimationIdx];
+	STATIC_UI_IMAGE_INFO* p = m_portraitList[m_tUnitSelect[0].eSelectedPortraitId][m_nAnimationIdx];
 
 	if (m_dwAnimationTime + 50 < GetTickCount()) {
 		m_dwAnimationTime = GetTickCount();
 		m_nAnimationIdx = (m_nAnimationIdx + 1) % p->tInfo.nImageNum;
 	}
+
 	BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
 		p->tPos.x,
 		p->tPos.y,
@@ -183,6 +222,39 @@ void CMouseManager::RenderUI()
 		0,
 		p->tInfo.nImageW,
 		p->tInfo.nImageH, p->tColor);
+
+
+	if (UNIT::LARGE == m_tUnitSelect[0].eSelectedWireSizeId) {
+		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedLargeWireId][0];
+
+		BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			p->tPos.x,
+			p->tPos.y,
+			p->tDrawSize.x,
+			p->tDrawSize.y,
+			0,
+			0,
+			p->tInfo.nImageW,
+			p->tInfo.nImageH, p->tColor);
+		
+	}
+
+	else {
+		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedSmallWireId][0];
+		for (int i = 0; i < m_nSelectedUnitNum; ++i) {
+			BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+				m_tUnitSelect[i].tDrawPos.x,
+				m_tUnitSelect[i].tDrawPos.y,
+				p->tDrawSize.x,
+				p->tDrawSize.y,
+				0,
+				0,
+				p->tInfo.nImageW,
+				p->tInfo.nImageH, p->tColor);
+		}
+
+	}
+
 }
 
 void CMouseManager::CheckSwapTile()
@@ -195,30 +267,30 @@ void CMouseManager::CheckSwapTile()
 	dynamic_cast<CTile*>(pTile)->SwapTile();
 }
 
-void CMouseManager::CheckSelectObj()
+void CMouseManager::SelectObj()
 {
 	CObj* pTile = GetTile();
 
 	if (nullptr == pTile) return;
-
 	for (int i = BARRACK; i < OBJ_END; ++i) {
 		OBJLIST list = OBJMANAGER->GetObj(static_cast<OBJ_ID>(i));
 		for (auto& d : list) {
 			if (d->IsClicked(m_tPos)) {
-				m_bIsSelectedObj = true;
 				m_tSelectRect = d->GetSelectRect();
-				m_eSelectedUnitsize = d->GetSize();
-				m_tSelectRenderRect = d->GetSelectRect();
-				m_eSelectedPortraitId = d->GetPortraitId();
+				m_tUnitSelect[0].eSelectedUnitsize = d->GetSize();
+				m_tUnitSelect[0].tSelectRenderRect = d->GetSelectRect();
+				m_tUnitSelect[0].eSelectedPortraitId = d->GetPortraitId();
+				m_tUnitSelect[0].eSelectedWireSizeId = UNIT::WIRE_ID::LARGE;
+				m_tUnitSelect[0].eSelectedLargeWireId = d->GetLargeWireId();
 
-				switch (m_eSelectedUnitsize) {
+				switch (m_tUnitSelect[0].eSelectedUnitsize) {
 				case UNIT_SELECT3:
-					m_tSelectRenderRect.left -= TILE_SIZE;
-					m_tSelectRenderRect.top -= TILE_SIZE;
+					m_tUnitSelect[0].tSelectRenderRect.left -= TILE_SIZE;
+					m_tUnitSelect[0].tSelectRenderRect.top -= TILE_SIZE;
 					break;
 				case UNIT_SELECT9:
-					m_tSelectRenderRect.left -= 10;
-					m_tSelectRenderRect.top -= TILE_SIZE * 1.5f;
+					m_tUnitSelect[0].tSelectRenderRect.left -= 10;
+					m_tUnitSelect[0].tSelectRenderRect.top -= TILE_SIZE * 1.5f;
 
 					break;
 				}
@@ -231,16 +303,82 @@ void CMouseManager::CheckSelectObj()
 
 				m_dwAnimationTime = GetTickCount();
 				m_nAnimationIdx = 0;
+				m_nSelectedUnitNum = 1;
 
 				return;
 			}
 		}
 	}
-	m_bIsSelectedObj = false;
+	m_nSelectedUnitNum = 0;
+}
+
+void CMouseManager::DragSelectObj()
+{
+	CObj* pTile = GetTile();
+
+	if (nullptr == pTile) return;
+	POINT pos;
+	for (int i = BARRACK; i < OBJ_END; ++i) {
+		OBJLIST list = OBJMANAGER->GetObj(static_cast<OBJ_ID>(i));
+		auto itor_begin = list.begin();
+		auto itor_end = list.end();
+
+		while(itor_begin!= itor_end){
+			for (pos.y = m_tDragPos[DRAG_START_POS].y; pos.y < m_tDragPos[DRAG_END_POS].y; pos.y += TILE_SIZE) {
+				for (pos.x = m_tDragPos[DRAG_START_POS].x; pos.x < m_tDragPos[DRAG_END_POS].x; pos.x += TILE_SIZE) {
+					if ((*itor_begin)->IsClicked(pos)) {
+						if (PORTRAIT::ADVISOR == (*itor_begin)->GetPortraitId()) goto END;
+
+						m_tSelectRect = (*itor_begin)->GetSelectRect();
+						m_tUnitSelect[m_nSelectedUnitNum].eSelectedPortraitId = (*itor_begin)->GetPortraitId();
+						m_tUnitSelect[m_nSelectedUnitNum].eSelectedUnitsize = (*itor_begin)->GetSize();
+						m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect = (*itor_begin)->GetSelectRect();
+
+						m_tUnitSelect[m_nSelectedUnitNum].tDrawPos.x =
+							static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.28f) +
+							static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.05f) * (m_nSelectedUnitNum % (MAX_UNIT_SELECT_NUM / 2));
+				
+						m_tUnitSelect[m_nSelectedUnitNum].tDrawPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.91f);
+						if(MAX_UNIT_SELECT_NUM / 2 <= m_nSelectedUnitNum) m_tUnitSelect[m_nSelectedUnitNum].tDrawPos.y += static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.045f);
+
+
+						m_tUnitSelect[m_nSelectedUnitNum].eSelectedWireSizeId = UNIT::WIRE_ID::SMALL;
+						m_tUnitSelect[m_nSelectedUnitNum].eSelectedSmallWireId = (*itor_begin)->GetSmallWireId();
+						switch (m_tUnitSelect[m_nSelectedUnitNum].eSelectedUnitsize) {
+						case UNIT_SELECT3:
+							m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect.left -= TILE_SIZE;
+							m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect.top -= TILE_SIZE;
+							break;
+						case UNIT_SELECT9:
+							m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect.left -= 10;
+							m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect.top -= TILE_SIZE * 1.5f;
+
+							break;
+						}
+
+
+						if (GREEN == (*itor_begin)->GetOwnerId()) {
+							m_eCurrId = MAGG;
+							m_tAnimationInfo[m_eCurrId].nCnt = 0;
+						}
+
+						m_dwAnimationTime = GetTickCount();
+						m_nAnimationIdx = 0;
+						if (m_nSelectedUnitNum < MAX_UNIT_SELECT_NUM) ++m_nSelectedUnitNum;
+						goto END;
+					}
+				}
+			}
+			END:
+			++itor_begin;
+		}
+	
+	}
+
 
 }
 
-void CMouseManager::CheckDragSelectObj()
+void CMouseManager::CheckSelectObj()
 {
 	
 	// Update Mouse Pos
@@ -252,17 +390,17 @@ void CMouseManager::CheckDragSelectObj()
 			m_bIsDragging = false;
 			m_tAnimationInfo[m_eCurrId].nCnt = 0;
 			m_eCurrId = ARROW;
-
-			MOUSEMANAGER->CheckSelectObj();
+			MOUSEMANAGER->DragSelectObj();
 			return;
 		}
 	}
-
-
+	else {
+		if (KEYMANAGER->KeyDown(VK_LBUTTON)) MOUSEMANAGER->SelectObj();
+	}
 	if (KEYMANAGER->KeyPressing(VK_LBUTTON)) {
-		cout << m_tPos.x << ", " << m_tPos.y << endl;
-		cout << (float)m_tPos.y / (float)RENDERMANAGER->GetWindowSize().y << endl;
-		if (!m_bIsDragging && m_tPos.y < m_tMiniMapRect.top * 0.96f) {
+		//cout << m_tPos.x << ", " << m_tPos.y << endl;
+		//cout << (float)m_tPos.y / (float)RENDERMANAGER->GetWindowSize().y << endl;
+		if (!m_bIsDragging && m_tPos.y < m_tMiniMapRect.top * 0.96f && 0 == m_nSelectedUnitNum) {
 			m_tDragPos[DRAG_START_POS] = m_tPos;
 			m_bIsDragging = true;
 			m_tAnimationInfo[m_eCurrId].nCnt = 0;

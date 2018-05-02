@@ -59,7 +59,7 @@ void CUnit::LateInit()
 
 			if (nullptr == pTile) return;
 
-			dynamic_cast<CTile*>(pTile)->SwapTile();
+			dynamic_cast<CTile*>(pTile)->SetTileUnMovable();
 		}
 	}
 

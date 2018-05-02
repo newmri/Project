@@ -16,8 +16,9 @@ public:
 
 public:
 	void CheckSwapTile();
+	void SelectObj();
+	void DragSelectObj();
 	void CheckSelectObj();
-	void CheckDragSelectObj();
 	CObj* GetTile();
 
 public:
@@ -59,7 +60,6 @@ private:
 	RECT				m_tRect;
 	RECT				m_tMiniMapRect;
 	RECT				m_tSelectRect;
-	RECT				m_tSelectRenderRect;
 	RECT				m_tDragRenderRect;
 
 
@@ -67,18 +67,20 @@ private:
 private:
 	ANIMATION_INFO		m_tAnimationInfo[CURSOR_END];
 	IMAGE_INFO* m_tSelectImage;
+
+private:
 	STATIC_UI_IMAGE_VECTOR_LIST	m_portraitList[PORTRAIT::PORTRAIT_END];
+	STATIC_UI_IMAGE_VECTOR_LIST* m_wireList[WIRE_IMAGE_SIZE_NUM];
 
 private:
 	CURSOR_ID			m_eCurrId;
-	UNIT_SELECT			m_eSelectedUnitsize;
-	PORTRAIT::ID		m_eSelectedPortraitId;
+	UNIT_SELECT_INFO	m_tUnitSelect[MAX_UNIT_SELECT_NUM];
 
 private:
 	DWORD				m_dwAnimationTime;
 	int					m_nAnimationIdx;
+	int					m_nSelectedUnitNum;
 
 private:
-	bool				m_bIsSelectedObj;
 	bool				m_bIsDragging;
 };

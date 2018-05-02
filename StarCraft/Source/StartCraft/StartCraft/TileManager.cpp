@@ -42,7 +42,7 @@ void CTileManager::LateUpdate()
 
 void CTileManager::Render()
 {
-	int nScrollX = static_cast<int>(SCROLLMANAGER->GetScrollX());
+	/*int nScrollX = static_cast<int>(SCROLLMANAGER->GetScrollX());
 	int nScrollY = static_cast<int>(SCROLLMANAGER->GetScrollY());
 
 	int nCullX = -nScrollX / TILE_SIZE;
@@ -59,7 +59,7 @@ void CTileManager::Render()
 
 			m_vecTile[iIndex]->Render();
 		}
-	}
+	}*/
 
 }
 

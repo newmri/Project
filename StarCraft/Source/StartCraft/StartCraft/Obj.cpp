@@ -24,6 +24,7 @@ bool CObj::IsClicked(const POINT& pos) const
 	INTPOINT	mouseIdx = TILEMANAGER->GetIndex(pos);
 	INTPOINT	unitIdx;
 	POINT unitPos;
+
 	for (unitPos.x = m_tSelectRect.left; unitPos.x < m_tSelectRect.right; unitPos.x += TILE_SIZE) {
 		for (unitPos.y = m_tSelectRect.top; unitPos.y < m_tSelectRect.bottom; unitPos.y += TILE_SIZE) {
 			unitIdx = TILEMANAGER->GetIndex(unitPos);
@@ -33,6 +34,8 @@ bool CObj::IsClicked(const POINT& pos) const
 
 	return false;
 }
+
+
 
 
 CObj::CObj()

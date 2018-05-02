@@ -19,6 +19,8 @@ public:
 public:
 	void LoadObjImg();
 	void LoadPortraitImg();
+	void LoadLargeWireImg();
+	void LoadSmallWireImg();
 	void LoadButtonImage();
 	void LoadStaticImg();
 
@@ -31,6 +33,10 @@ public:
 public:
 	IMAGE_INFO* GetImageInfo(IMAGE_ID eId) { return m_tImageInfo[eId]; }
 	IMAGE_INFO* GetPortraitImageInfo(PORTRAIT::ID eId) { return m_tPortraitImageInfo[eId]; }
+	IMAGE_INFO* GetLargeWireImageInfo(UNIT::LARGE_WIRE::LARGE_WIRE_ID eId) { return m_tLargeWireImageInfo[eId]; }
+	IMAGE_INFO* GetSmallWireImageInfo(UNIT::SMALL_WIRE::SMALL_WIRE_ID eId) { return m_tSmallWireImageInfo[eId]; }
+
+
 
 public:
 	void RotateSizingImage(HDC hdc, HBITMAP hBmp, RECT rt,
@@ -74,9 +80,12 @@ private:
 private:
 	IMAGE_INFO*			   m_tImageInfo[IMAGE_END];
 	IMAGE_INFO*			   m_tPortraitImageInfo[PORTRAIT::PORTRAIT_END];
+	IMAGE_INFO*			   m_tLargeWireImageInfo[UNIT::LARGE_WIRE::LARGE_WIRE_END];
+	IMAGE_INFO*			   m_tSmallWireImageInfo[UNIT::SMALL_WIRE::SMALL_WIRE_END];
+
+
 
 	OBJ_ID				m_eId;
-	PORTRAIT::ID		m_ePortraitID;
 
 	BUTTON_ID			m_eButtonId;
 

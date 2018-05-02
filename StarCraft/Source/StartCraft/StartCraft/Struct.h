@@ -20,6 +20,10 @@ typedef struct tagInfo {
 	UNIT_SELECT			eUnitSize;
 	OBJ_ID				eObjId;
 	PORTRAIT::ID		ePortraitId;
+	UNIT::LARGE_WIRE::LARGE_WIRE_ID		eLargeWireId;
+	UNIT::SMALL_WIRE::SMALL_WIRE_ID		eSmallWireId;
+
+
 
 }INFO;
 
@@ -84,3 +88,18 @@ typedef struct tagStaticUIImageInfo
 	COLORREF	tColor;
 
 }STATIC_UI_IMAGE_INFO;
+
+
+typedef struct tagUnitSelectInfo
+{
+	UNIT_SELECT			eSelectedUnitsize;
+	PORTRAIT::ID		eSelectedPortraitId;
+	UNIT::WIRE_ID		eSelectedWireSizeId;
+	UNIT::LARGE_WIRE::LARGE_WIRE_ID		eSelectedLargeWireId;
+	UNIT::SMALL_WIRE::SMALL_WIRE_ID		eSelectedSmallWireId;
+
+	RECT				tSelectRenderRect;
+	POINT				tDrawPos;
+
+}UNIT_SELECT_INFO;
+
