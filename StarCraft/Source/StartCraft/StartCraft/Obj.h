@@ -16,6 +16,7 @@ public:
 	const INFO& GetInfo() const { return m_tInfo; }
 	const RECT& GetRect() const { return m_tRect; }
 	const RECT GetRectWithScroll() const;
+	const RECT GetSelectRectWithScroll() const;
 	const STAT& GetStat() const { return m_tStat; }
 	const OWNER_ID& GetOwnerId() const { return m_tInfo.eOwnerId; }
 	const UNIT_SELECT& GetSize() const { return  m_tInfo.eUnitSize; }
@@ -44,7 +45,8 @@ public:
 	void SetHP(int hp) { m_tStat.nMaxHP = hp; m_tStat.nHP = hp; }
 
 
-
+public:
+	void SetMove(node_t* node);
 
 public:
 	CObj();
@@ -59,6 +61,10 @@ protected:
 	bool	m_bIsDead;
 	bool	m_bIsInit;
 	bool	m_bIsUI;
+	bool	m_bMove;
+
+protected:
+	node_t* m_moveNode;
 
 protected:
 	ANIMATION_INFO*		m_tAnimationInfo;

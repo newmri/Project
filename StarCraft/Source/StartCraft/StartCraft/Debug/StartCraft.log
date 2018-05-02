@@ -1,2 +1,27 @@
-﻿  MouseManager.cpp
+﻿  CollisionManager.cpp
+  MouseManager.cpp
+  Obj.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(25): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(26): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(27): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(28): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(41): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(42): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(43): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(44): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  ObjectManager.cpp
+  PathManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\pathmanager.cpp(176): warning C4101: 'i': unreferenced local variable
+  SinglePlay.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\singleplay.cpp(83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Structure.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(44): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(45): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(46): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  Tile.cpp
+  TileManager.cpp
+  Unit.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(47): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(48): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  Generating Code...
   StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Debug\StartCraft.exe

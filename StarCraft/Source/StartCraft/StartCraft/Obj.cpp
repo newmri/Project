@@ -4,7 +4,6 @@
 void CObj::LateInit()
 {
 	if (!m_bIsInit) this->LateInit();
-
 	m_bIsInit = true;
 }
 
@@ -32,6 +31,22 @@ const RECT CObj::GetRectWithScroll() const
 	return rc;
 }
 
+const RECT CObj::GetSelectRectWithScroll() const
+{
+	float fScrollX = SCROLLMANAGER->GetScrollX();
+	float fScrollY = SCROLLMANAGER->GetScrollY();
+
+	RECT rc;
+
+	rc.left = m_tSelectRect.left + fScrollX;
+	rc.top = m_tSelectRect.top + fScrollY;
+	rc.right = m_tSelectRect.right + fScrollX;
+	rc.bottom = m_tSelectRect.bottom + fScrollY;
+
+
+	return rc;
+}
+
 bool CObj::IsClicked(const POINT& pos) const
 {
 	float fScrollX = SCROLLMANAGER->GetScrollX();
@@ -53,6 +68,12 @@ bool CObj::IsClicked(const POINT& pos) const
 
 
 
+
+void CObj::SetMove(node_t* node)
+{
+	m_bMove = true;
+	m_moveNode = node;
+}
 
 CObj::CObj()
 {

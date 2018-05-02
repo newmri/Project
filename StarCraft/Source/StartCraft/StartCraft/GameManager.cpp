@@ -10,6 +10,7 @@ void CGameManager::Init()
 	TILEMANAGER->Init();
 	TILEMANAGER->LateInit();
 	SCROLLMANAGER->Init();
+	PATHMANAGER->Init();
 
 
 }

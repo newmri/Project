@@ -156,6 +156,9 @@
     <ClInclude Include="Unit.h">
       <Filter>01.Object\04.Unit</Filter>
     </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>97.Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>01.Object\04.Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>97.Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -305,12 +305,16 @@ void CMouseManager::SelectObj()
 		OBJLIST list = OBJMANAGER->GetObj(static_cast<OBJ_ID>(i));
 		for (auto& d : list) {
 			if (d->IsClicked(m_tPos)) {
+				m_obj = d;
 				m_tSelectRect = d->GetSelectRect();
 				m_tUnitSelect[0].eSelectedUnitsize = d->GetSize();
 				m_tUnitSelect[0].tSelectRenderRect = d->GetSelectRect();
 				m_tUnitSelect[0].eSelectedPortraitId = d->GetPortraitId();
 				m_tUnitSelect[0].eSelectedWireSizeId = UNIT::WIRE_ID::LARGE;
 				m_tUnitSelect[0].eSelectedLargeWireId = d->GetLargeWireId();
+				m_tUnitSelect[0].tPos.x = d->GetSelectRectWithScroll().left;
+				m_tUnitSelect[0].tPos.y = d->GetSelectRectWithScroll().top;
+
 				wcscpy_s(m_tUnitSelect[0].szName, STR_LEN, OBJ_NAME[i]);
 				wsprintf(m_tUnitSelect[0].szHp, L"%d/%d", d->GetStat().nHP, d->GetStat().nMaxHP);
 
@@ -364,6 +368,8 @@ void CMouseManager::DragSelectObj()
 						m_tUnitSelect[m_nSelectedUnitNum].eSelectedPortraitId = (*itor_begin)->GetPortraitId();
 						m_tUnitSelect[m_nSelectedUnitNum].eSelectedUnitsize = (*itor_begin)->GetSize();
 						m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect = (*itor_begin)->GetSelectRect();
+						m_tUnitSelect[m_nSelectedUnitNum].tPos.x = (*itor_begin)->GetSelectRectWithScroll().left;
+						m_tUnitSelect[m_nSelectedUnitNum].tPos.y = (*itor_begin)->GetSelectRectWithScroll().top;
 
 						m_tUnitSelect[m_nSelectedUnitNum].tDrawPos.x =
 							static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.28f) +
@@ -446,14 +452,32 @@ void CMouseManager::CheckSelectObj()
 
 void CMouseManager::CheckMoveObj()
 {
+
+
 	if (0 < m_nSelectedUnitNum && KEYMANAGER->KeyUp(VK_RBUTTON)) {
 		CObj* pTile = GetTile();
 		m_tAnimationInfo[m_eCurrId].nCnt = 0;
-		if(dynamic_cast<CTile*>(pTile)->IsMovable()) m_eCurrId = TARGG;
-		else {
-			m_eCurrId = ILLEGAL;
-			m_tIllegalRect = dynamic_cast<CTile*>(pTile)->GetRectWithScroll();
+		if (dynamic_cast<CTile*>(pTile)->IsMovable()) {
+			m_eCurrId = TARGG;
+			for (int i = 0; i < m_nSelectedUnitNum; ++i) {
+				node_t* p = PATHMANAGER->FindPath(m_tPos, m_tUnitSelect[i].tPos);
+				m_obj->SetMove(p);
+				if (p != NULL) {
+					while (p) {
+						int nIdx = p->x + TILEMANAGER->GetTileNum().x * p->y;
+						CObj* pObj = TILEMANAGER->SelectTile(nIdx);
+						dynamic_cast<CTile*>(pObj)->SwapTile();
+						p = p->prev_node;
+		
+					}
+				}
+			}
+			return;
 		}
+	
+		m_eCurrId = ILLEGAL;
+		m_tIllegalRect = dynamic_cast<CTile*>(pTile)->GetRectWithScroll();
+		
 	}
 }
 

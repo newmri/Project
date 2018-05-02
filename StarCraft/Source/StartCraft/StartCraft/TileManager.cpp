@@ -34,6 +34,7 @@ void CTileManager::LateInit()
 
 void CTileManager::Update()
 {
+	
 }
 
 void CTileManager::LateUpdate()
@@ -42,7 +43,7 @@ void CTileManager::LateUpdate()
 
 void CTileManager::Render()
 {
-	/*int nScrollX = static_cast<int>(SCROLLMANAGER->GetScrollX());
+	int nScrollX = static_cast<int>(SCROLLMANAGER->GetScrollX());
 	int nScrollY = static_cast<int>(SCROLLMANAGER->GetScrollY());
 
 	int nCullX = -nScrollX / TILE_SIZE;
@@ -58,8 +59,19 @@ void CTileManager::Render()
 			if (0 > iIndex || m_vecTile.size() <= static_cast<size_t>(iIndex)) continue;
 
 			m_vecTile[iIndex]->Render();
+	/*		TCHAR ch[STR_LEN];
+			TCHAR ch2[STR_LEN];
+
+			SetBkMode(RENDERMANAGER->GetMemDC(), TRANSPARENT);
+			SetTextColor(RENDERMANAGER->GetMemDC(), RGB(255, 0, 0));
+			wsprintf(ch, L"%d", j);
+			wsprintf(ch2, L"%d", i);
+
+			TextOut(RENDERMANAGER->GetMemDC(), j * TILE_SIZE, i * TILE_SIZE, ch, _tcslen(ch));
+			TextOut(RENDERMANAGER->GetMemDC(), j * TILE_SIZE, (i * TILE_SIZE) + 15, ch2, _tcslen(ch2));*/
+
 		}
-	}*/
+	}
 
 }
 
@@ -77,6 +89,12 @@ void CTileManager::Undo()
 
 }
 
+
+bool CTileManager::IsUnMovable(int nIdx)
+{
+
+	return !dynamic_cast<CTile*>(m_vecTile[nIdx])->IsMovable();
+}
 
 INTPOINT CTileManager::GetIndex(const POINT& pos)
 {

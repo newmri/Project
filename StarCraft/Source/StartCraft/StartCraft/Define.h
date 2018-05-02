@@ -92,6 +92,8 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 
 };
 
+
+
 #define GAMEMANAGER CGameManager::GetInstance()
 #define SOUNDMANAGER CSoundManager::GetInstance()
 #define COLLISIONMANAGER CCollisionManager::GetInstance()
@@ -103,3 +105,4 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 #define MOUSEMANAGER CMouseManager::GetInstance()
 #define SCROLLMANAGER CScrollManager::GetInstance()
 #define TILEMANAGER CTileManager::GetInstance()
+#define PATHMANAGER CPathManager::GetInstance()

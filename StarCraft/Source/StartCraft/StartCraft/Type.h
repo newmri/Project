@@ -12,3 +12,6 @@ typedef vector<STATIC_UI_IMAGE_INFO*> STATIC_UI_IMAGE_VECTOR_LIST;
 
 
 
+
+
+

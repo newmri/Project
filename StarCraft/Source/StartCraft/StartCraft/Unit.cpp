@@ -9,6 +9,10 @@ void CUnit::Init()
 	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetAnimationInfo(m_tInfo.eObjId);
 	m_tAnimationInfo = new ANIMATION_INFO[pAnim->nStateNum];
 	for (int i = 0; i < pAnim->nStateNum; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(m_tAnimationInfo[i]));
+
+	m_tInfo.fSpeed = 1.f;
+	m_bMove = false;
+	m_moveNode = nullptr;
 }
 
 void CUnit::LateInit()
@@ -68,6 +72,10 @@ void CUnit::LateInit()
 int CUnit::Update()
 {
 	CObj::LateInit();
+	if (m_bMove && m_moveNode != nullptr) {
+
+		
+	}
 	return 0;
 }
 

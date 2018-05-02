@@ -150,6 +150,7 @@
     <ClInclude Include="BitmapManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="PathManager.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Editor.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="BitmapManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="Entry.cpp" />

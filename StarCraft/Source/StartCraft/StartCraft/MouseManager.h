@@ -82,6 +82,7 @@ private:
 	DWORD				m_dwAnimationTime;
 	int					m_nAnimationIdx;
 	int					m_nSelectedUnitNum;
+	CObj*				m_obj;
 
 private:
 	bool				m_bIsDragging;

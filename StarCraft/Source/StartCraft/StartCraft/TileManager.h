@@ -20,6 +20,7 @@ public:
 
 public:
 	bool IsRenderUnMovableTileOnly() { return m_bRenderUnOnly; }
+	bool IsUnMovable(int nIdx);
 
 public:
 	const INTPOINT& GetTileNum() { return m_nTileNum; }
