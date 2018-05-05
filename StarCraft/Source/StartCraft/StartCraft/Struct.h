@@ -19,6 +19,8 @@ typedef struct tagFloatPoint
 		fY = y;
 	}
 
+
+
 }FLOATPOINT;
 
 typedef struct tagInfo {
@@ -83,6 +85,11 @@ typedef struct tagIntPoint
 	int x;
 	int y;
 
+	void operator=(const tagIntPoint& other)
+	{
+		x = other.x;
+		y = other.y;
+	}
 }INTPOINT;
 
 typedef struct tagImageInfo

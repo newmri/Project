@@ -234,7 +234,7 @@ void CTileManager::LoadData()
 		if (0 == dwByte) break;
 
 	
-		m_vecTileObj[MINE].push_back(CFactoryManager<CMine>::CreateTileObj(NEUTRAL, UNIT::LARGE_WIRE::MINE, UNIT_SELECT11, pos, 1500));
+		m_vecTileObj[MINE].push_back(CFactoryManager<CMine>::CreateTileObj(NEUTRAL, UNIT::LARGE_WIRE::MINE, UNIT_SELECT15, pos, 1500));
 	}
 
 	CloseHandle(hFile);

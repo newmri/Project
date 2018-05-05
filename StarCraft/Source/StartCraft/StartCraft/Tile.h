@@ -17,6 +17,8 @@ public:
 public:
 	const TILE_ID& GetId() { return m_eId; }
 	bool IsMovable() { return (MOVABLE == m_eId); }
+	bool IsClickable() { return (CLICKABLE == m_eId); }
+
 
 public:
 	void SetId(TILE_ID eId) { m_eId = eId; }
@@ -25,6 +27,7 @@ public:
 	void SwapTile() { m_eId = static_cast<TILE_ID>((m_eId + 1) % TILE_END); }
 	void SetTileUnMovable() { m_eId = UNMOVABLE; }
 	void SetTileMovable() { m_eId = MOVABLE; }
+	void SetClickable() { m_eId = CLICKABLE; }
 
 
 

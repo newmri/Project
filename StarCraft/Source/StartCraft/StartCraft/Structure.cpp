@@ -60,7 +60,7 @@ void CStructure::LateInit()
 
 			if (nullptr == pTile) return;
 
-			dynamic_cast<CTile*>(pTile)->SetTileUnMovable();
+			dynamic_cast<CTile*>(pTile)->SetClickable();
 		}
 	}
 

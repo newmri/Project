@@ -14,8 +14,22 @@ public:
 	virtual void Release();
 
 public:
+	void Move();
+	void Attack();
+
+public:
 	void UpdateRect();
 
 private:
 	UNIT::STATE_ID m_eCurrId;
+
+private:
+	int m_nAttackAnim;
+	int m_nAttackCnt;
+	int m_nMaxAttackCnt;
+
+	CObj* m_pControlTarget;
+
+	bool m_bIsRetunning;
+
 };

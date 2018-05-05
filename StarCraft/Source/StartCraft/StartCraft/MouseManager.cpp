@@ -189,6 +189,9 @@ void CMouseManager::Render()
 				pos.x -= TILE_SIZE / 2;
 				pos.y -= TILE_SIZE / 2;
 				break;
+			case UNIT_SELECT15:
+				pos.x -= TILE_SIZE / 3;
+				break;
 
 			}
 
@@ -370,6 +373,10 @@ void CMouseManager::SelectObj()
 		
 		wsprintf(m_tUnitSelect[0].szHp, L"%d/%d", p->GetStat().nHP, p->GetStat().nMaxHP);
 
+		if (NEUTRAL == p->GetOwnerId()) {
+			m_tAnimationInfo[m_eCurrId].nCnt = 0;
+			m_eCurrId = MAGY;
+		}
 		m_dwAnimationTime = GetTickCount();
 		m_nAnimationIdx = 0;
 		m_nSelectedUnitNum = 1;
@@ -491,11 +498,62 @@ void CMouseManager::CheckMoveObj()
 				node_t* p = PATHMANAGER->FindPath(src, m_tIntPos);
 				m_selectedObj[i]->SetMove(p);
 
-				
 			}
 			return;
 		}
+		if (dynamic_cast<CTile*>(pTile)->IsClickable()) {
+			m_eCurrId = TARGG;
+			INTPOINT dest[4];
+			
+			for (int i = 0; i < m_nSelectedUnitNum; ++i) {
+
+				for (int i = 0; i < 4; ++i) dest[i] = m_tIntPos;
+
+				INTPOINT src;
+				src.x = m_selectedObj[i]->GetSelectRect().left;
+				src.y = m_selectedObj[i]->GetSelectRect().top;
+				node_t* node[4];
+
+				// T L B R
+				dest[0].y -= TILE_SIZE;
+				dest[1].x -= TILE_SIZE;
+				dest[2].y += TILE_SIZE;
+				dest[3].x += TILE_SIZE;
+
+				for (int i = 0; i < 4; ++i) {
+					node[i] = PATHMANAGER->FindPath(src, dest[i]);
+				}
 	
+
+				for (int i = 0; i < 4; ++i) {
+					if (0 > node[i]->value_factor) node[i]->value_factor = 999;
+				}
+
+				int min = node[0]->value_factor;
+
+				for (int i = 0; i < 4; ++i) {
+					if (min > node[i]->value_factor) min = node[i]->value_factor;
+				}
+	
+
+				for (int j = 0; j < 4; ++j) {
+					if (min == node[j]->value_factor) {
+						node[j] = PATHMANAGER->FindPath(src, dest[j]);
+						m_selectedObj[i]->SetMove(node[j]);
+						j = (j + 2) % 4;
+
+						m_selectedObj[i]->SetAttack(m_tIntPos, static_cast<float>((j + 1) * 90.f));
+						
+						break;
+
+		
+					}
+				}
+
+			}
+			return;
+		}
+
 		m_eCurrId = ILLEGAL;
 		m_tIllegalRect = dynamic_cast<CTile*>(pTile)->GetRectWithScroll();
 		
