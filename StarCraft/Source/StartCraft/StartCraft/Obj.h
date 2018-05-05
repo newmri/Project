@@ -28,12 +28,12 @@ public:
 
 public:
 	const bool& IsUI() const { return m_bIsUI; }
-	bool IsClicked(const POINT& pos) const;
+	bool IsClicked(const INTPOINT& pos) const;
 
 
 public:
 	void SetDead() { m_bIsDead = true; }
-	void SetPos(float fX, float fY) { m_tInfo.fX = fX, m_tInfo.fY = fY; }
+	void SetPos(FLOATPOINT tPos) { m_tInfo.tPos = tPos; }
 	void SetSpeed(float fSpeed) { m_tInfo.fSpeed = fSpeed; }
 	void SetStat(STAT tagStat) { m_tStat = tagStat; }
 	void SetOwnerId(OWNER_ID eId) { m_tInfo.eOwnerId = eId; }
@@ -57,17 +57,25 @@ protected:
 	STAT	m_tStat;
 	RECT	m_tRect;
 	RECT	m_tSelectRect;
+	INTPOINT	m_tSelectRectIdx;
 
 	bool	m_bIsDead;
 	bool	m_bIsInit;
 	bool	m_bIsUI;
 	bool	m_bMove;
 
+
 protected:
-	node_t* m_moveNode;
+	list<INTPOINT> m_route;
 
 protected:
 	ANIMATION_INFO*		m_tAnimationInfo;
 
+	DWORD m_dwTime;
+	FLOATPOINT m_tMovePos;
+
+	int m_cnt;
+	int m_maxCnt;
+	int m_nBoforeIdx;
 };
 

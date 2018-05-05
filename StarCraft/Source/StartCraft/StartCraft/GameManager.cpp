@@ -18,6 +18,7 @@ void CGameManager::Init()
 void CGameManager::Update()
 {
 	SCENEMANAGER->Update();
+	TILEMANAGER->Update();
 }
 
 void CGameManager::LateUpdate()

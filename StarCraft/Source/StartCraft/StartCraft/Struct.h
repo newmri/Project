@@ -2,19 +2,35 @@
 
 #include <atlstr.h>
 
+typedef struct tagFloatPoint
+{
+	float fX;
+	float fY;
+
+	tagFloatPoint()
+	{
+		fX = 0.f;
+		fY = 0.f;
+	}
+
+	tagFloatPoint(float x, float y)
+	{
+		fX = x;
+		fY = y;
+	}
+
+}FLOATPOINT;
+
 typedef struct tagInfo {
 	 
-	float		fX;
-	float		fY;
+	FLOATPOINT		tPos;
 
 	int			nW;
 	int			nH;
 
 	float		fSpeed;
-	int			nJumpPower;
 	float		fAcc;
-	float		fJumpUpAcc;
-	float		fJumpDownAcc;
+	float		fAngle;
 
 	OWNER_ID			eOwnerId;
 	UNIT_SELECT			eUnitSize;
@@ -100,7 +116,7 @@ typedef struct tagUnitSelectInfo
 
 	RECT				tSelectRenderRect;
 	POINT				tDrawPos;
-	POINT				tPos;
+	INTPOINT				tPos;
 	TCHAR 				szName[STR_LEN];
 	TCHAR 				szHp[STR_LEN];
 
@@ -118,7 +134,7 @@ typedef struct node_s {
 	int distance;                        //이 노드로부터 목적지까지의 거리
 	int value_factor;                   //평가치 값( degree + distance ) 
 
-	int x, y;                           //이 노드의 위치 (그리드의 위치) 
+	INTPOINT pos;                           //이 노드의 위치 (그리드의 위치) 
 	struct node_s* direct[8];       //확장 가능한 8방향에 대한 노드
 	struct node_s* prev_node;    //링크드 리스트 이전 노드 
 	struct node_s* next_node;     //링크드 리스트 다음 노드 

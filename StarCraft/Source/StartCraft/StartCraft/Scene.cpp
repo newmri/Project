@@ -156,10 +156,10 @@ void CScene::ChangeAnimation(UI_STATE_ID eId)
 
 void CScene::UpdateRect()
 {
-	m_tRect.left = m_tInfo.fX;
-	m_tRect.right = m_tInfo.fX + m_tAnimationInfo[m_eCurrId].nImageW;
-	m_tRect.top = m_tInfo.fY;
-	m_tRect.bottom = m_tInfo.fY + m_tAnimationInfo[m_eCurrId].nImageH;
+	m_tRect.left = m_tInfo.tPos.fX;
+	m_tRect.right = m_tInfo.tPos.fX + m_tAnimationInfo[m_eCurrId].nImageW;
+	m_tRect.top = m_tInfo.tPos.fY;
+	m_tRect.bottom = m_tInfo.tPos.fY + m_tAnimationInfo[m_eCurrId].nImageH;
 }
 
 

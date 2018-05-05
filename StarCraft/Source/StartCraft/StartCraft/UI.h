@@ -22,7 +22,7 @@ public:
 
 
 public:
-	void SetPos(float fX, float fY) { m_tInfo.fX = fX, m_tInfo.fY = fY; }
+	void SetPos(FLOATPOINT tPos) { m_tInfo.tPos = tPos; }
 	void SetColor(COLORREF color) { m_tRGB = color; }
 
 public:

@@ -52,6 +52,9 @@
     <Filter Include="01.Object\04.Unit">
       <UniqueIdentifier>{b9d54d87-5d71-4281-b601-0d013d62123a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Object\05.Mine">
+      <UniqueIdentifier>{153a9fb9-0fc7-49d8-83c4-54674aa9d4a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -159,6 +162,12 @@
     <ClInclude Include="PathManager.h">
       <Filter>97.Managers</Filter>
     </ClInclude>
+    <ClInclude Include="MathManager.h">
+      <Filter>97.Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
+      <Filter>01.Object\05.Mine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -238,6 +247,12 @@
     </ClCompile>
     <ClCompile Include="PathManager.cpp">
       <Filter>97.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MathManager.cpp">
+      <Filter>97.Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>01.Object\05.Mine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -28,10 +28,10 @@ void CTile::Init()
 
 void CTile::LateInit()
 {
-	m_tRect.left = static_cast<LONG>(m_tInfo.fX);
-	m_tRect.right = static_cast<LONG>(m_tInfo.fX + m_tImageInfo[m_eId].nImageW);
-	m_tRect.top = static_cast<LONG>(m_tInfo.fY);
-	m_tRect.bottom = static_cast<LONG>(m_tInfo.fY + m_tImageInfo[m_eId].nImageH);
+	m_tRect.left = static_cast<LONG>(m_tInfo.tPos.fX);
+	m_tRect.right = static_cast<LONG>(m_tInfo.tPos.fX + m_tImageInfo[m_eId].nImageW);
+	m_tRect.top = static_cast<LONG>(m_tInfo.tPos.fY);
+	m_tRect.bottom = static_cast<LONG>(m_tInfo.tPos.fY + m_tImageInfo[m_eId].nImageH);
 }
 
 int CTile::Update()

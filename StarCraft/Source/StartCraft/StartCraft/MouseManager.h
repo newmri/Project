@@ -22,7 +22,7 @@ public:
 	void CheckMoveObj();
 
 	CObj* GetTile();
-
+	const POINT& GetPos() { return m_tPos; }
 public:
 	void MouseScroll();
 	
@@ -58,6 +58,7 @@ private:
 private:
 	POINT				m_tImageSize;
 	POINT				m_tPos;
+	INTPOINT			m_tIntPos;
 	POINT				m_tDragPos[DRAG_POS_END];
 	RECT				m_tRect;
 	RECT				m_tMiniMapRect;
@@ -82,7 +83,7 @@ private:
 	DWORD				m_dwAnimationTime;
 	int					m_nAnimationIdx;
 	int					m_nSelectedUnitNum;
-	CObj*				m_obj;
+	CObj*				m_selectedObj[MAX_UNIT_SELECT_NUM];
 
 private:
 	bool				m_bIsDragging;

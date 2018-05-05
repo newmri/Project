@@ -27,26 +27,26 @@ void CMainMenu::Init()
 	float h = static_cast<float>(RENDERMANAGER->GetWindowSize().y);
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(w * 0.2f, h * 0.2f);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(w * 0.2f, h * 0.2f));
 		dynamic_cast<CButton*>(p)->SetId(SINGLE_PLAY_BUTTON);
 		AddUI(p, BUTTON);
 	}
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(w * 0.3f, h * 0.6f);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(w * 0.3f, h * 0.6f));
 		dynamic_cast<CButton*>(p)->SetId(MULTI_PLAY_BUTTON);
 		p->SetColor(RGB(255, 255, 255));
 		AddUI(p, BUTTON);
 	}
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(w * 0.6f, h * 0.3f);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(w * 0.6f, h * 0.3f));
 		dynamic_cast<CButton*>(p)->SetId(EDITOR_BUTTON);
 		AddUI(p, BUTTON);
 	}
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(w * 0.7f, h * 0.6f);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(w * 0.7f, h * 0.6f));
 		dynamic_cast<CButton*>(p)->SetId(EXIT_BUTTON);
 		AddUI(p, BUTTON);
 	}
@@ -59,7 +59,7 @@ void CMainMenu::LateInit()
 	CUI* pButton = GetButton(SINGLE_PLAY_BUTTON);
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(pButton->GetRect().left, pButton->GetRect().top - 15);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(pButton->GetRect().left, pButton->GetRect().top - 15));
 		dynamic_cast<CButton*>(p)->SetId(SINGLE_PLAY_STR_BUTTON);
 		AddUI(p, BUTTON);
 	}
@@ -67,7 +67,7 @@ void CMainMenu::LateInit()
 	pButton = GetButton(MULTI_PLAY_BUTTON);
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(pButton->GetRect().left - 10, pButton->GetRect().top - 15);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(pButton->GetRect().left - 10, pButton->GetRect().top - 15));
 		dynamic_cast<CButton*>(p)->SetId(MULTI_PLAY_STR_BUTTON);
 		AddUI(p, BUTTON);
 	}
@@ -75,7 +75,7 @@ void CMainMenu::LateInit()
 	pButton = GetButton(EDITOR_BUTTON);
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(pButton->GetRect().left, pButton->GetRect().top - 20);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(pButton->GetRect().left, pButton->GetRect().top - 20));
 		dynamic_cast<CButton*>(p)->SetId(EDITOR_STR_BUTTON);
 		AddUI(p, BUTTON);
 	}
@@ -83,7 +83,7 @@ void CMainMenu::LateInit()
 	pButton = GetButton(EXIT_BUTTON);
 
 	{
-		CUI* p = CFactoryManager<CButton>::CreateUI(pButton->GetRect().left, pButton->GetRect().top - 20);
+		CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(pButton->GetRect().left, pButton->GetRect().top - 20));
 		dynamic_cast<CButton*>(p)->SetId(EXIT_STR_BUTTON);
 		AddUI(p, BUTTON);
 	}

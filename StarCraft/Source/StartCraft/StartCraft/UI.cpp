@@ -72,10 +72,10 @@ void CUI::ChangeAnimation(UI_STATE_ID eId)
 void CUI::UpdateRect()
 {
 
-	m_tRect.left = static_cast<LONG>(m_tInfo.fX);
-	m_tRect.right = static_cast<LONG>(m_tInfo.fX + m_tAnimationInfo[m_eCurrId].nImageW);
-	m_tRect.top = static_cast<LONG>(m_tInfo.fY);
-	m_tRect.bottom = static_cast<LONG>(m_tInfo.fY + m_tAnimationInfo[m_eCurrId].nImageH);
+	m_tRect.left = static_cast<LONG>(m_tInfo.tPos.fX);
+	m_tRect.right = static_cast<LONG>(m_tInfo.tPos.fX + m_tAnimationInfo[m_eCurrId].nImageW);
+	m_tRect.top = static_cast<LONG>(m_tInfo.tPos.fY);
+	m_tRect.bottom = static_cast<LONG>(m_tInfo.tPos.fY + m_tAnimationInfo[m_eCurrId].nImageH);
 }
 
 CUI::CUI()

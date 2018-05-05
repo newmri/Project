@@ -8,9 +8,6 @@ void CSinglePlay::Init()
 {
 	m_eId = SCENE::SINGLE_PLAY;
 
-	m_tInfo.fX = 0;
-	m_tInfo.fY = 0;
-
 	m_bIsUI = true;
 
 	
@@ -71,16 +68,16 @@ void CSinglePlay::Init()
 	}
 
 	CObj* pObj = CFactoryManager<CStructure>::CreateObj(GREEN, CONTROL, PORTRAIT::ADVISOR,
-		UNIT::LARGE_WIRE::CONTROL, UNIT_SELECT9, 300, 180, 1500);
+		UNIT::LARGE_WIRE::CONTROL, UNIT_SELECT9, FLOATPOINT(300, 180), 1500);
 	OBJMANAGER->AddObject(pObj, CONTROL);
 
 	pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, PORTRAIT::ADVISOR,
-		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, 120, 300, 1500);
+		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, FLOATPOINT(120, 300), 1500);
 	OBJMANAGER->AddObject(pObj, BARRACK);
 
-	for (int i = 300 - TILE_SIZE; i < 300 + TILE_SIZE * 6; i += TILE_SIZE) {
+	for (int i = 300 - TILE_SIZE; i < 300 + TILE_SIZE * 6; i += TILE_SIZE * 2) {
 		pObj = CFactoryManager<CUnit>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
-			UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT3, i, 300, 60);
+			UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT2, FLOATPOINT(i, 300), 60);
 		OBJMANAGER->AddObject(pObj, SCV);
 	}
 

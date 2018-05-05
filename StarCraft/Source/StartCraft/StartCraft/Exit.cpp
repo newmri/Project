@@ -14,7 +14,7 @@ void CExit::LateInit()
 {
 	UpdateRect();
 
-	CUI* p = CFactoryManager<CButton>::CreateUI(static_cast<float>(m_tRect.left + 80), static_cast<float>(m_tRect.top - 20));
+	CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(static_cast<float>(m_tRect.left + 80), static_cast<float>(m_tRect.top - 20)));
 	dynamic_cast<CButton*>(p)->SetId(EXIT_STR_BUTTON);
 	AddUI(p, BUTTON);
 }

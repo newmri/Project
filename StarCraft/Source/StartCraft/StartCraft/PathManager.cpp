@@ -47,16 +47,19 @@ void CPathManager::init_astar()
 bool CPathManager::is_available_grid(int x, int y)
 {
 	int nIdx = x + TILEMANAGER->GetTileNum().x * y;
+
+	if (0 > nIdx) return false;
+	
 	CObj* p = TILEMANAGER->SelectTile(nIdx);
 	return dynamic_cast<CTile*>(p)->IsMovable();
 }
 
-node_t * CPathManager::is_open(int x, int y)
+node_t* CPathManager::is_open(INTPOINT pos)
 {
 	node_t *temp = OPEN;
 
 	while (temp) {
-		if (temp->x == x && temp->y == y)
+		if (temp->pos.x == pos.x && temp->pos.y == pos.y)
 			return temp;
 		temp = temp->next_node;
 	}
@@ -64,12 +67,12 @@ node_t * CPathManager::is_open(int x, int y)
 	return NULL;
 }
 
-node_t * CPathManager::is_closed(int x, int y)
+node_t * CPathManager::is_closed(INTPOINT pos)
 {
 	node_t *temp = CLOSED;
 
 	while (temp) {
-		if (temp->x == x && temp->y == y)
+		if (temp->pos.x == pos.x && temp->pos.y == pos.y)
 			return temp;
 		temp = temp->next_node;
 	}
@@ -170,13 +173,16 @@ void CPathManager::insert_node(node_t * present)
 	}
 }
 
-void CPathManager::extend_child_node(node_t * node, int x, int y, int dest_x, int dest_y, int cur_direct)
+void CPathManager::extend_child_node(node_t * node, int x, int y, INTPOINT tDest, int cur_direct)
 {
 	node_t* old = NULL, *child = NULL;
 	int i;
 	int degree = node->degree + 1;
+	INTPOINT tSrc;
+	tSrc.x = x;
+	tSrc.y = y;
 
-	if (old = is_open(x, y)) {
+	if (old = is_open(tSrc)) {
 
 		node->direct[cur_direct] = old;
 
@@ -188,7 +194,7 @@ void CPathManager::extend_child_node(node_t * node, int x, int y, int dest_x, in
 		}//if()
 
 	}
-	else if (old = is_closed(x, y)) {
+	else if (old = is_closed(tSrc)) {
 
 		node->direct[cur_direct] = old;
 
@@ -209,10 +215,9 @@ void CPathManager::extend_child_node(node_t * node, int x, int y, int dest_x, in
 
 		child->prev_node = node;
 		child->degree = degree;
-		child->distance = (x - dest_x)*(x - dest_x) + (y - dest_y)*(y - dest_y);
+		child->distance = (tSrc.x - tDest.x) * (tSrc.x - tDest.x) + (tSrc.y - tDest.y) * (tSrc.y - tDest.y);
 		child->value_factor = child->distance + child->degree;
-		child->x = x;
-		child->y = y;
+		child->pos = tSrc;
 
 		insert_node(child);
 
@@ -221,14 +226,15 @@ void CPathManager::extend_child_node(node_t * node, int x, int y, int dest_x, in
 	}
 }
 
-char CPathManager::make_child(node_t * node, int dest_x, int dest_y)
+char CPathManager::make_child(node_t * node, INTPOINT tDest)
 {
 	int x, y;
 	char flag = 0;
 	char checkis_available_grid[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
-	x = node->x;
-	y = node->y;
+	x = node->pos.x;
+	y = node->pos.y;
+
 
 	//이동 가능한지 여부 판단.
 	checkis_available_grid[DIRECTION_RIGHTDOWN] = is_available_grid(x, y + 1);
@@ -242,42 +248,42 @@ char CPathManager::make_child(node_t * node, int dest_x, int dest_y)
 
 	//각 이동 가능한 노드에 대한 자식 노드 생성 
 	if (checkis_available_grid[DIRECTION_LEFT]) {
-		extend_child_node(node, x - 1, y, dest_x, dest_y, DIRECTION_LEFT);
+		extend_child_node(node, x - 1, y, tDest, DIRECTION_LEFT);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_RIGHT]) {
-		extend_child_node(node, x + 1, y, dest_x, dest_y, DIRECTION_RIGHT);
+		extend_child_node(node, x + 1, y, tDest, DIRECTION_RIGHT);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_UP]) {
-		extend_child_node(node, x, y - 1, dest_x, dest_y, DIRECTION_UP);
+		extend_child_node(node, x, y - 1, tDest, DIRECTION_UP);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_DOWN]) {
-		extend_child_node(node, x, y + 1, dest_x, dest_y, DIRECTION_DOWN);
+		extend_child_node(node, x, y + 1, tDest, DIRECTION_DOWN);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_RIGHTDOWN] && checkis_available_grid[DIRECTION_RIGHT] && checkis_available_grid[DIRECTION_DOWN]) {
-		extend_child_node(node, x + 1, y + 1, dest_x, dest_y, DIRECTION_RIGHTDOWN);
+		extend_child_node(node, x + 1, y + 1, tDest, DIRECTION_RIGHTDOWN);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_LEFTUP] && checkis_available_grid[DIRECTION_LEFT] && checkis_available_grid[DIRECTION_UP]) {
-		extend_child_node(node, x - 1, y - 1, dest_x, dest_y, DIRECTION_LEFTUP);
+		extend_child_node(node, x - 1, y - 1, tDest, DIRECTION_LEFTUP);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_RIGHTUP] && checkis_available_grid[DIRECTION_RIGHT] && checkis_available_grid[DIRECTION_UP]) {
-		extend_child_node(node, x + 1, y - 1, dest_x, dest_y, DIRECTION_RIGHTUP);
+		extend_child_node(node, x + 1, y - 1, tDest, DIRECTION_RIGHTUP);
 		flag = 1;
 	}//if()
 
 	if (checkis_available_grid[DIRECTION_LEFTDOWN] && checkis_available_grid[DIRECTION_LEFT] && checkis_available_grid[DIRECTION_DOWN]) {
-		extend_child_node(node, x - 1, y + 1, dest_x, dest_y, DIRECTION_LEFTDOWN);
+		extend_child_node(node, x - 1, y + 1, tDest, DIRECTION_LEFTDOWN);
 		flag = 1;
 	}//if()
 
@@ -287,51 +293,57 @@ char CPathManager::make_child(node_t * node, int dest_x, int dest_y)
 
 
 
-node_t* CPathManager::FindPath(POINT tSrc, POINT tDest)
+node_t* CPathManager::FindPath(INTPOINT tSrc, INTPOINT tDest)
 {
-	
-	INTPOINT src = TILEMANAGER->GetIndex(tSrc);
-	INTPOINT dest = TILEMANAGER->GetIndex(tDest);
+	init_astar();
 
-		node_t* present, *best = NULL;
-		int count = 0;
+	INTPOINT s = TILEMANAGER->GetIndex(tSrc);
+	INTPOINT src;
+	src.x = s.x;
+	src.y = s.y;
 
-		//시작 위치 노드 추가 
-		present = (node_t*)calloc(1, sizeof(node_t));
-		present->degree = 0;
-		present->distance = (dest.x - src.x)*(dest.x - src.x) + (dest.y - src.y)*(dest.y - src.y);
-		present->value_factor = present->distance;
-		present->x = dest.x;
-		present->y = dest.y;
+	INTPOINT d = TILEMANAGER->GetIndex(tDest);
+	INTPOINT dest;
+	dest.x = d.x;
+	dest.y = d.y;
 
-		OPEN = present;
+	node_t* present, *best = NULL;
+	int count = 0;
 
-		while (count< FINDPATH_LIMIT) {
+	//시작 위치 노드 추가 
+	present = (node_t*)calloc(1, sizeof(node_t));
+	present->degree = 0;
+	present->distance = (dest.x - src.x)*(dest.x - src.x) + (dest.y - src.y)*(dest.y - src.y);
+	present->value_factor = present->distance;
+	present->pos.x = src.x;
+	present->pos.y = src.y;
 
-			if (OPEN == NULL)
-				return best;
+	OPEN = present;
 
-			best = OPEN;					   //매 루프문을 돌면서 OpenNode의 후보로부터 탐색을 우선 시도합니다. 
-			OPEN = best->next_node;     //그리고 그 다음 노드가 OpenNode의 최상위 후보노드로 지정되며 
-			best->next_node = CLOSED;  //지금까지 구축된 최적의 노드를 이번에 탐색할 best노드와 연결함으로써 
-									   //현재까지 탐색된  최적의 길을 유지하게 됩니다. 
-			CLOSED = best;						//이 best노드는 이번 루프에서 탐색 시도되므로 close노드로 들어가게 되는거죠. 
+	while (count < FINDPATH_LIMIT) {
+
+		if (OPEN == NULL) return best;
+
+		best = OPEN;					   //매 루프문을 돌면서 OpenNode의 후보로부터 탐색을 우선 시도합니다. 
+		OPEN = best->next_node;     //그리고 그 다음 노드가 OpenNode의 최상위 후보노드로 지정되며 
+		best->next_node = CLOSED;  //지금까지 구축된 최적의 노드를 이번에 탐색할 best노드와 연결함으로써 
+								   //현재까지 탐색된  최적의 길을 유지하게 됩니다. 
+		CLOSED = best;						//이 best노드는 이번 루프에서 탐색 시도되므로 close노드로 들어가게 되는거죠. 
 
 
-			if (best == NULL)
-				return NULL;
+		if (best == NULL) return NULL;
 
-			//목적지 도착.
-			if (best->x == src.x && best->y == src.y) return best;
+		//목적지 도착.
+		if (best->pos.x == dest.x && best->pos.y == dest.y) return best;
+		
+		if (make_child(best, dest) == 0 && count == 0) return NULL;
+		
 
-			if (make_child(best, src.x, src.y) == 0 && count == 0)
-				return NULL;
+		count++;
 
-			count++;
+	}
 
-		}
-
-		return best;
+	return best;
 
 	
 }

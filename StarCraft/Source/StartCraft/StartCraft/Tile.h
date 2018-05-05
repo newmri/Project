@@ -24,6 +24,8 @@ public:
 public:
 	void SwapTile() { m_eId = static_cast<TILE_ID>((m_eId + 1) % TILE_END); }
 	void SetTileUnMovable() { m_eId = UNMOVABLE; }
+	void SetTileMovable() { m_eId = MOVABLE; }
+
 
 
 public:

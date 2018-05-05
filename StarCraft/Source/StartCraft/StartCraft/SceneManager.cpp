@@ -56,7 +56,6 @@ void CSceneManager::LateInit()
 void CSceneManager::Update()
 {
 	if (KEYMANAGER->KeyDown(VK_F1)) m_bShowCollisionBox = !m_bShowCollisionBox;
-	if (KEYMANAGER->KeyDown(VK_F2)) m_bInvincibility = !m_bInvincibility;
 
 	SCENE::SCENE_ID eSceneId = SCENE::SCENE_ID::NO_EVENT;
 

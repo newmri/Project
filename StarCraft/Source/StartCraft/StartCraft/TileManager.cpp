@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Tile.h"
+#include "Mine.h"
 
 CTileManager* CTileManager::m_pInstance = nullptr;
 
@@ -21,7 +22,7 @@ void CTileManager::Init()
 			x = static_cast<float>(TILE_SIZE * j);
 			y = static_cast<float>(TILE_SIZE * i);
 
-			m_vecTile.push_back(CFactoryManager<CTile>::CreateObj(NEUTRAL, UNIT_SELECT1, x, y));
+			m_vecTile.push_back(CFactoryManager<CTile>::CreateObj(NEUTRAL, UNIT_SELECT1, FLOATPOINT(x, y)));
 		}
 
 	}
@@ -34,7 +35,11 @@ void CTileManager::LateInit()
 
 void CTileManager::Update()
 {
-	
+	for (int i = 0; i < TILE_OBJ_END; ++i) {
+		for (auto& d : m_vecTileObj[i]) {
+			d->Update();
+		}
+	}
 }
 
 void CTileManager::LateUpdate()
@@ -59,17 +64,13 @@ void CTileManager::Render()
 			if (0 > iIndex || m_vecTile.size() <= static_cast<size_t>(iIndex)) continue;
 
 			m_vecTile[iIndex]->Render();
-	/*		TCHAR ch[STR_LEN];
-			TCHAR ch2[STR_LEN];
 
-			SetBkMode(RENDERMANAGER->GetMemDC(), TRANSPARENT);
-			SetTextColor(RENDERMANAGER->GetMemDC(), RGB(255, 0, 0));
-			wsprintf(ch, L"%d", j);
-			wsprintf(ch2, L"%d", i);
+		}
+	}
 
-			TextOut(RENDERMANAGER->GetMemDC(), j * TILE_SIZE, i * TILE_SIZE, ch, _tcslen(ch));
-			TextOut(RENDERMANAGER->GetMemDC(), j * TILE_SIZE, (i * TILE_SIZE) + 15, ch2, _tcslen(ch2));*/
-
+	for (int i = 0; i < TILE_OBJ_END; ++i) {
+		for (auto& d : m_vecTileObj[i]) {
+			d->Render();
 		}
 	}
 
@@ -96,7 +97,7 @@ bool CTileManager::IsUnMovable(int nIdx)
 	return !dynamic_cast<CTile*>(m_vecTile[nIdx])->IsMovable();
 }
 
-INTPOINT CTileManager::GetIndex(const POINT& pos)
+INTPOINT CTileManager::GetIndex(const INTPOINT& pos)
 {
 	INTPOINT retPos;
 
@@ -104,6 +105,21 @@ INTPOINT CTileManager::GetIndex(const POINT& pos)
 	retPos.y = pos.y / TILE_SIZE;
 
 	return retPos;
+}
+
+void CTileManager::SetTileMovable(int nIdx)
+{
+	if (m_vecTile.empty()) return;
+	dynamic_cast<CTile*>(m_vecTile[nIdx])->SetTileMovable();
+
+}
+
+void CTileManager::SetTileUnMovable(int nIdx)
+{
+	if (m_vecTile.empty()) return;
+	dynamic_cast<CTile*>(m_vecTile[nIdx])->SetTileUnMovable();
+
+
 }
 
 
@@ -147,6 +163,22 @@ void CTileManager::SaveData()
 		nLog = pLog;
 		WriteFile(hFile, &nLog, sizeof(int), &dwByte, nullptr);
 	}
+
+	CloseHandle(hFile);
+
+	hFile = CreateFile(L"Data/Mine.dat", GENERIC_WRITE, 0, 0,
+		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+	FLOATPOINT pos;
+
+	dwByte = 0;
+
+	for (auto& d : m_vecTileObj[MINE]) {
+		pos = d->GetInfo().tPos;
+		WriteFile(hFile, &pos, sizeof(FLOATPOINT), &dwByte, nullptr);
+	}
+	
+	CloseHandle(hFile);
 }
 
 void CTileManager::LoadData()
@@ -172,7 +204,7 @@ void CTileManager::LoadData()
 
 	CloseHandle(hFile);
 
-	hFile = CreateFile(L"Data/TileLog.dat", GENERIC_READ, 0, 0,
+	hFile = CreateFile(L"Data/Mine.dat", GENERIC_READ, 0, 0,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
 
 	int nLog = 0;
@@ -187,4 +219,73 @@ void CTileManager::LoadData()
 		m_listLog.push_back(nLog);
 	}
 
+	CloseHandle(hFile);
+
+	hFile = CreateFile(L"Data/Mine.dat", GENERIC_READ, 0, 0,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+	FLOATPOINT pos;
+
+	dwByte = 0;
+
+	while (true) {
+		ReadFile(hFile, &pos, sizeof(FLOATPOINT), &dwByte, nullptr);
+
+		if (0 == dwByte) break;
+
+	
+		m_vecTileObj[MINE].push_back(CFactoryManager<CMine>::CreateTileObj(NEUTRAL, UNIT::LARGE_WIRE::MINE, UNIT_SELECT11, pos, 1500));
+	}
+
+	CloseHandle(hFile);
+
+
+}
+
+void CTileManager::AddTileObj(TILE_OBJ_ID eId, CObj* obj)
+{
+
+	m_vecTileObj[eId].push_back(obj);
+}
+
+void CTileManager::DeleteTileObj(TILE_OBJ_ID eId)
+{
+
+	for (auto& d : m_vecTileObj[eId]) {
+		float fScrollX = SCROLLMANAGER->GetScrollX();
+		float fScrollY = SCROLLMANAGER->GetScrollY();
+		RECT rc = d->GetSelectRect();
+		for (int posY = rc.top; posY < rc.bottom; posY += TILE_SIZE) {
+
+			for (int posX = rc.left; posX < rc.right; posX += TILE_SIZE) {
+
+				int x = (posX - static_cast<int>(fScrollX)) / TILE_SIZE;
+				int y = (posY - static_cast<int>(fScrollY)) / TILE_SIZE;
+				int k = TILEMANAGER->GetTileNum().x;
+				int nIdx = x + TILEMANAGER->GetTileNum().x * y;
+
+				CObj* pTile = TILEMANAGER->SelectTile(nIdx);
+
+				if (nullptr == pTile) return;
+
+				dynamic_cast<CTile*>(pTile)->SetTileMovable();
+			}
+		}
+
+
+		SafeDelete(d);
+	}
+	m_vecTileObj[eId].clear();
+}
+
+CObj* CTileManager::TileObjSelect(INTPOINT pos)
+{
+	for (int i = 0; i < TILE_OBJ_END; ++i) {
+		for (auto& d : m_vecTileObj[i]) {
+			if (d->IsClicked(pos)) return d;
+			
+		}
+	}
+
+	return nullptr;
 }

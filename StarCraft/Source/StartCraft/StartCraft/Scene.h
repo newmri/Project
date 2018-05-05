@@ -30,7 +30,7 @@ public:
 	const bool& IsUI() const { return m_bIsUI; }
 
 public:
-	void SetPos(float fX, float fY) { m_tInfo.fX = fX, m_tInfo.fY = fY; }
+	void SetPos(FLOATPOINT tPos) { m_tInfo.tPos = tPos; }
 
 public:
 	void SetMouseOver();

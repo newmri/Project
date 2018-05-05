@@ -24,15 +24,25 @@ public:
 
 public:
 	const INTPOINT& GetTileNum() { return m_nTileNum; }
-	INTPOINT GetIndex(const POINT& pos);
+	INTPOINT GetIndex(const INTPOINT& pos);
 
 public:
-	CObj * SelectTile(int nIdx);
+	void SetTileMovable(int nIdx);
+	void SetTileUnMovable(int nIdx);
+
+public:
+	CObj* SelectTile(int nIdx);
 
 public:
 	void SaveData();
 	void LoadData();
 
+public:
+	void AddTileObj(TILE_OBJ_ID eId, CObj* obj);
+	void DeleteTileObj(TILE_OBJ_ID eId);
+
+public:
+	CObj* TileObjSelect(INTPOINT pos);
 
 public:
 	static CTileManager* GetInstance()
@@ -50,6 +60,7 @@ private:
 
 private:
 	vector<CObj*>		m_vecTile;
+	list<CObj*>			m_vecTileObj[TILE_OBJ_END];
 	list<int>			m_listLog;
 
 	INTPOINT				m_nTileNum;

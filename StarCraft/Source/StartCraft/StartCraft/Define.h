@@ -24,6 +24,8 @@ static const int MAX_UNIT_SELECT_NUM = 12;
 
 static const int WIRE_IMAGE_SIZE_NUM = 2;
 
+static const int DEGREE_INCREMENT = 10;
+
 const TCHAR OBJ_NAME[OBJ_END - 1][STR_LEN] = 
 {
 	{L"Terran Barrack"},
@@ -36,7 +38,8 @@ const char OBJ_DIR[OBJ_END][STR_LEN] =
 	{ "Resources/Image/Structure/Barrack/*.*" },
 	{ "Resources/Image/Structure/Control/*.*" },
 	{ "Resources/Image/Unit/Scv/*.*" },
-	{ "Resources/Image/Cursor/*.*" }
+	{ "Resources/Image/Cursor/*.*" },
+
 };
 
 const char OBJ_PORTRAIT_DIR[PORTRAIT::PORTRAIT_END][STR_LEN] =
@@ -50,7 +53,9 @@ const char OBJ_LARGE_WIRE_DIR[UNIT::LARGE_WIRE::LARGE_WIRE_END][STR_LEN] =
 {
 	{ "Resources/Image/Wire/Large/Barrack/*.*" },
 	{ "Resources/Image/Wire/Large/Control/*.*" },
-	{ "Resources/Image/Wire/Large/SCV/*.*" }
+	{ "Resources/Image/Wire/Large/SCV/*.*" },
+	{ "Resources/Image/Wire/Large/Mine/*.*" }
+
 
 };
 
@@ -73,11 +78,6 @@ const char BUTTON_DIR[BUTTON_END][STR_LEN] =
 
 };
 
-const char MAP_DIR[MAP_END][STR_LEN] =
-{
-	{ "Resources/Image/Map/Tile/*.*" },
-	{ "Resources/Image/Map/Beginner/*.*" }
-};
 
 const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 {
@@ -87,7 +87,8 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 	{ "Resources/Image/Map/MiniMap/*.*" },
 	{ "Resources/Image/Map/Tile/*.*" },
 	{ "Resources/Image/UI/ResourcesIcon/*.*" },
-	{ "Resources/Image/Select/*.*" }
+	{ "Resources/Image/Select/*.*" },
+	{ "Resources/Image/Map/Mine/*.*" }
 
 
 };
@@ -106,3 +107,4 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 #define SCROLLMANAGER CScrollManager::GetInstance()
 #define TILEMANAGER CTileManager::GetInstance()
 #define PATHMANAGER CPathManager::GetInstance()
+#define MATHMANAGER CMathManager::GetInstance()

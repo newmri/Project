@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Editor.h"
 #include "Button.h"
+#include "Mine.h"
 
 #ifdef _DEBUG
 
@@ -13,8 +14,7 @@
 void CEditor::Init()
 {
 	m_eId = SCENE::EDITOR;
-	m_tInfo.fX = 0;
-	m_tInfo.fY = 0;
+
 
 	m_bIsUI = true;
 	m_eCurrId = static_cast<UI_STATE_ID>(MAIN_MAP);
@@ -65,6 +65,17 @@ void CEditor::LateUpdate()
 	if (KEYMANAGER->KeyDown('S')) TILEMANAGER->SaveData();
 	if (KEYMANAGER->KeyDown('L')) TILEMANAGER->LoadData();
 
+	if (KEYMANAGER->KeyDown(VK_F2)) {
+		POINT mousePos = MOUSEMANAGER->GetPos();
+		FLOATPOINT pos;
+		pos.fX = mousePos.x;
+		pos.fY = mousePos.y - TILE_SIZE;
+
+		CObj* obj = CFactoryManager<CMine>::CreateObj(pos);
+		TILEMANAGER->AddTileObj(MINE, obj);
+	}
+
+	if (KEYMANAGER->KeyDown(VK_F3)) TILEMANAGER->DeleteTileObj(MINE);
 
 }
 

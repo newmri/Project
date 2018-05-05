@@ -14,7 +14,7 @@ void CMultiPlay::LateInit()
 {
 	UpdateRect();
 
-	CUI* p = CFactoryManager<CButton>::CreateUI(m_tRect.left - 10, m_tRect.top - 30);
+	CUI* p = CFactoryManager<CButton>::CreateUI(FLOATPOINT(m_tRect.left - 10, m_tRect.top - 30));
 	dynamic_cast<CButton*>(p)->SetId(MULTI_PLAY_STR_BUTTON);
 
 	AddUI(p, BUTTON);

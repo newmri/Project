@@ -10,24 +10,15 @@ public:
 
 	void init_astar();
 	bool is_available_grid(int x, int y);
-	node_t* is_open(int x, int y);
-	node_t* is_closed(int x, int y);
+	node_t* is_open(INTPOINT pos);
+	node_t* is_closed(INTPOINT pos);
 	void push_into_stack(node_t* node);
 	node_t* pop_from_stack();
-
-
-
-
 	void make_sort(node_t *old);
-
-
-
 	void insert_node(node_t* present);
-
-
-	void extend_child_node(node_t* node, int x, int y, int dest_x, int dest_y, int cur_direct);
-	char make_child(node_t* node, int dest_x, int dest_y);
-	node_t* FindPath(POINT tSrc, POINT tDest);
+	void extend_child_node(node_t* node, int x, int y, INTPOINT tDest, int cur_direct);
+	char make_child(node_t* node, INTPOINT tDest);
+	node_t* FindPath(INTPOINT tSrc, INTPOINT tDest);
 
 
 
