@@ -14,10 +14,18 @@ public:
 	void SetState(const SCENE::SCENE_ID eSceneID);
 	void Release();
 
+public:
+	void RenderResourcesValue();
+
+public:
+	void UpdateResourcesValue(TILE_OBJ_ID eId, int nValue) { m_tResources[eId].nValue += nValue; }
+
 
 public:
 	CButton* GetButton(BUTTON_ID eId);
 	const POINT& GetMapSize() { return m_tMapSize; }
+	RESOURCES* GetResources() { return m_tResources; }
+	const int& GetReSourcesValue(TILE_OBJ_ID eId) { return m_tResources[eId].nValue; }
 
 public:
 	void SetMapSize(int x, int y) { m_tMapSize.x = x; m_tMapSize.y = y; }
@@ -63,5 +71,8 @@ private:
 
 private:
 	POINT		m_tMapSize;
+
+private:
+	RESOURCES m_tResources[3];
 
 };

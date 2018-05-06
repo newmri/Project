@@ -52,6 +52,7 @@ void CSinglePlay::Init()
 		MOUSEMANAGER->SetMiniMapArea(rc);
 	}
 
+	RESOURCES* rc = SCENEMANAGER->GetResources();
 	// Resources Icon
 	p = BITMAPMANAGER->GetImageInfo(RESOURCES_ICON_IMAGE);
 	for (int i = 0; i < p[0].nImageNum; ++i) {
@@ -60,11 +61,14 @@ void CSinglePlay::Init()
 		memcpy(&pTemp->tInfo, &p[i], sizeof(IMAGE_INFO));
 
 		pTemp->tPos.x = (RENDERMANAGER->GetWindowSize().x - 600) + (i * 200 );
-		pTemp->tPos.y = 0;
+		pTemp->tPos.y = 10;
 		pTemp->tDrawSize.x = p[i].nImageW * 2;
 		pTemp->tDrawSize.y = p[i].nImageH * 2;
 		pTemp->tColor = RGB(0, 0, 0);
 		m_listStaticUImage.push_back(pTemp);
+
+		rc[i].tPos.x = pTemp->tPos.x + pTemp->tDrawSize.x + 10;
+		rc[i].tPos.y = pTemp->tPos.y + 3;
 	}
 
 	CObj* pObj = CFactoryManager<CStructure>::CreateObj(GREEN, CONTROL, PORTRAIT::ADVISOR,
@@ -72,7 +76,7 @@ void CSinglePlay::Init()
 	OBJMANAGER->AddObject(pObj, CONTROL);
 
 	pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, PORTRAIT::ADVISOR,
-		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, FLOATPOINT(120, 300), 1500);
+		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, FLOATPOINT(120, 300), 1000);
 	OBJMANAGER->AddObject(pObj, BARRACK);
 
 	for (int i = 300 - TILE_SIZE; i < 300 + TILE_SIZE * 6; i += TILE_SIZE * 2) {
@@ -123,9 +127,9 @@ void CSinglePlay::Render()
 {
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
+	HDC hDC = RENDERMANAGER->GetMemDC();
 
-
-	BITMAPMANAGER->GetImage()[m_tMapImageInfo[0].szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+	BITMAPMANAGER->GetImage()[m_tMapImageInfo[0].szName]->TransparentBlt(hDC,
 		static_cast<int>(m_tRect.left + fScrollX),
 		static_cast<int>(m_tRect.top + fScrollY),
 		m_tMapImageInfo[0].nImageW,
@@ -136,7 +140,7 @@ void CSinglePlay::Render()
 		m_tMapImageInfo[0].nImageH, RGB(0, 0, 0));
 
 	for (auto& image : m_listStaticUImage) {
-		BITMAPMANAGER->GetImage()[image->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+		BITMAPMANAGER->GetImage()[image->tInfo.szName]->TransparentBlt(hDC,
 			image->tPos.x,
 			image->tPos.y,
 			image->tDrawSize.x,
@@ -147,7 +151,10 @@ void CSinglePlay::Render()
 			image->tInfo.nImageH, image->tColor);
 	}
 
+
+
 	RENDERMANAGER->RenderMiniMapFrame();
+	SCENEMANAGER->RenderResourcesValue();
 	TILEMANAGER->Render();
 	CScene::Render();
 }

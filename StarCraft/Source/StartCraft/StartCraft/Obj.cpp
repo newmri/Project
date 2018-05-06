@@ -134,6 +134,7 @@ CObj::CObj()
 	m_bIsInit = false;
 	m_bIsUI = false;
 	m_bAttack = false;
+	m_bIsStructure = false;
 
 	m_tReturnPos.x = -1;
 }

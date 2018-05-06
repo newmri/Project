@@ -24,7 +24,7 @@ void CMine::LateInit()
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
 	m_tSelectRect.left = m_tRect.left + fScrollX;
-	m_tSelectRect.top = (m_tRect.top + fScrollY) + TILE_SIZE;
+	m_tSelectRect.top = (m_tRect.top + fScrollY);
 	m_tSelectRect.right = m_tSelectRect.left + TILE_SIZE * 2;
 	m_tSelectRect.bottom = m_tSelectRect.top + TILE_SIZE;
 
@@ -33,7 +33,7 @@ void CMine::LateInit()
 	pos.y = m_tSelectRect.top;
 
 	m_tSelectRectIdx = TILEMANAGER->GetIndex(pos);
-
+	bool bUnmovable = true;
 	for (int posY = m_tSelectRect.top; posY < m_tSelectRect.bottom; posY += TILE_SIZE) {
 
 		for (int posX = m_tSelectRect.left; posX < m_tSelectRect.right; posX += TILE_SIZE) {
@@ -46,9 +46,10 @@ void CMine::LateInit()
 			CObj* pTile = TILEMANAGER->SelectTile(nIdx);
 
 			if (nullptr == pTile) return;
-
-			dynamic_cast<CTile*>(pTile)->SetClickable();
+			if(bUnmovable) dynamic_cast<CTile*>(pTile)->SetTileUnMovable();
+			else dynamic_cast<CTile*>(pTile)->SetClickable();
 		}
+		bUnmovable = false;
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "Button.h"
 #include "Tile.h"
 #include "Mine.h"
+#include "Structure.h"
 
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
@@ -11,6 +12,7 @@ void CMouseManager::Init()
 {
 	m_eCurrId = ARROW;
 	m_bIsDragging = false;
+	m_bIsClickedBuildIcon = false;
 
 	m_nAnimationIdx = 0;
 	m_nSelectedUnitNum = 0;
@@ -98,6 +100,11 @@ void CMouseManager::Init()
 				m_wireList[UNIT::SMALL][i].push_back(pTemp);
 			}
 		}
+
+
+		
+
+		
 	
 }
 
@@ -129,9 +136,10 @@ void CMouseManager::Update()
 		}
 	}
 
+
 	if (0 < m_nSelectedUnitNum && TARGG != m_eCurrId && ILLEGAL != m_eCurrId) {
 		if(m_tPos.x < m_tSelectRect.left ||
-			m_tPos.x  > m_tSelectRect.right &&
+			m_tPos.x  > m_tSelectRect.right ||
 			m_tPos.y < m_tSelectRect.top ||
 			m_tPos.y > m_tSelectRect.bottom){
 			m_tAnimationInfo[m_eCurrId].nCnt = 0;
@@ -141,8 +149,8 @@ void CMouseManager::Update()
 	}
 
 	if (ILLEGAL == m_eCurrId) {
-		if (m_tPos.x  < m_tIllegalRect.left ||
-			m_tPos.x > m_tIllegalRect.right &&
+		if (m_tPos.x < m_tIllegalRect.left ||
+			m_tPos.x > m_tIllegalRect.right ||
 			m_tPos.y < m_tIllegalRect.top ||
 			m_tPos.y > m_tIllegalRect.bottom) {
 			m_tAnimationInfo[m_eCurrId].nCnt = 0;
@@ -159,19 +167,7 @@ void CMouseManager::Render()
 
 	UpdateRect();
 
-	if (SCENEMANAGER->ShowCollisionBox()) {
-		Rectangle(RENDERMANAGER->GetMemDC(), m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-	}
 
-	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		m_tPos.x - CURSOR_SIZE / 2,
-		m_tPos.y - CURSOR_SIZE / 2,
-		CURSOR_SIZE,
-		CURSOR_SIZE,
-		0,
-		0,
-		CURSOR_SIZE,
-		CURSOR_SIZE, RGB(0, 0, 0));
 
 	// Rendser Circle
 	if (m_nSelectedUnitNum > 0) {
@@ -211,6 +207,20 @@ void CMouseManager::Render()
 	}
 
 	if (m_bIsDragging) RenderDragRect();
+
+	if (SCENEMANAGER->ShowCollisionBox()) {
+		Rectangle(RENDERMANAGER->GetMemDC(), m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	}
+
+	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+		m_tPos.x - CURSOR_SIZE / 2,
+		m_tPos.y - CURSOR_SIZE / 2,
+		CURSOR_SIZE,
+		CURSOR_SIZE,
+		0,
+		0,
+		CURSOR_SIZE,
+		CURSOR_SIZE, RGB(0, 0, 0));
 }
 
 void CMouseManager::Release()
@@ -309,6 +319,10 @@ void CMouseManager::RenderUI()
 
 	}
 
+	if (m_tUnitSelect[0].bIsStructure) dynamic_cast<CStructure*>(m_selectedObj[0])->RenderUI();
+		
+	
+
 
 }
 
@@ -336,11 +350,13 @@ void CMouseManager::SelectObj()
 			if (d->IsClicked(pos)) {
 				m_selectedObj[0] = d;
 				m_tSelectRect = d->GetSelectRect();
+				m_tUnitSelect[0].eId = static_cast<OBJ_ID>(i);
 				m_tUnitSelect[0].eSelectedUnitsize = d->GetSize();
 				m_tUnitSelect[0].tSelectRenderRect = d->GetSelectRect();
 				m_tUnitSelect[0].eSelectedPortraitId = d->GetPortraitId();
 				m_tUnitSelect[0].eSelectedWireSizeId = UNIT::WIRE_ID::LARGE;
 				m_tUnitSelect[0].eSelectedLargeWireId = d->GetLargeWireId();
+				m_tUnitSelect[0].bIsStructure = d->IsStructure();
 
 				wcscpy_s(m_tUnitSelect[0].szName, STR_LEN, OBJ_NAME[i]);
 				wsprintf(m_tUnitSelect[0].szHp, L"%d/%d", d->GetStat().nHP, d->GetStat().nMaxHP);
@@ -359,15 +375,21 @@ void CMouseManager::SelectObj()
 		}
 	}
 
+	pos.y -= TILE_SIZE;
 	CObj* p = TILEMANAGER->TileObjSelect(pos);
 	if (nullptr != p) {
 		m_selectedObj[0] = p;
 		m_tSelectRect = p->GetSelectRect();
+		m_tSelectRect.top += TILE_SIZE;
+
+		m_tSelectRect.bottom += TILE_SIZE;
+
 		m_tUnitSelect[0].eSelectedUnitsize = p->GetSize();
 		m_tUnitSelect[0].tSelectRenderRect = p->GetSelectRect();
 		m_tUnitSelect[0].eSelectedPortraitId = PORTRAIT::PORTRAIT_END;
 		m_tUnitSelect[0].eSelectedWireSizeId = UNIT::WIRE_ID::LARGE;
 		m_tUnitSelect[0].eSelectedLargeWireId = p->GetLargeWireId();
+		m_tUnitSelect[0].bIsStructure = p->IsStructure();
 
 		if (UNIT::LARGE_WIRE::MINE == p->GetLargeWireId()) wcscpy_s(m_tUnitSelect[0].szName, STR_LEN, L"Mineral");
 		
@@ -383,6 +405,8 @@ void CMouseManager::SelectObj()
 
 		return;
 	}
+
+
 
 	m_nSelectedUnitNum = 0;
 }
@@ -408,6 +432,7 @@ void CMouseManager::DragSelectObj()
 						m_tUnitSelect[m_nSelectedUnitNum].eSelectedPortraitId = (*itor_begin)->GetPortraitId();
 						m_tUnitSelect[m_nSelectedUnitNum].eSelectedUnitsize = (*itor_begin)->GetSize();
 						m_tUnitSelect[m_nSelectedUnitNum].tSelectRenderRect = (*itor_begin)->GetSelectRect();
+						m_tUnitSelect[0].bIsStructure = (*itor_begin)->IsStructure();
 
 
 						m_tUnitSelect[m_nSelectedUnitNum].tDrawPos.x =
@@ -460,7 +485,20 @@ void CMouseManager::CheckSelectObj()
 		}
 	}
 	else {
-		if (KEYMANAGER->KeyDown(VK_LBUTTON)) MOUSEMANAGER->SelectObj();
+		if (KEYMANAGER->KeyDown(VK_LBUTTON)) {
+
+			// Build Icon Click
+			if (0 < m_nSelectedUnitNum && m_tUnitSelect[0].bIsStructure) {
+				m_bIsClickedBuildIcon = false;
+				m_bIsClickedBuildIcon = dynamic_cast<CStructure*>(m_selectedObj[0])->CheckBuildUnit(m_tPos);
+			
+				
+			}
+			
+			if (!m_bIsClickedBuildIcon) MOUSEMANAGER->SelectObj();
+
+
+		}
 	}
 	if (KEYMANAGER->KeyPressing(VK_LBUTTON)) {
 		if (!m_bIsDragging && m_tPos.y < m_tMiniMapRect.top * 0.96f && 0 == m_nSelectedUnitNum) {
@@ -474,6 +512,7 @@ void CMouseManager::CheckSelectObj()
 		
 	}
 
+
 }
 
 void CMouseManager::CheckMoveObj()
@@ -486,7 +525,6 @@ void CMouseManager::CheckMoveObj()
 
 		m_tIntPos.x = m_tPos.x - SCROLLMANAGER->GetScrollX();
 		m_tIntPos.y = m_tPos.y - SCROLLMANAGER->GetScrollY();
-
 		CObj* pTile = GetTile();
 		m_tAnimationInfo[m_eCurrId].nCnt = 0;
 		if (dynamic_cast<CTile*>(pTile)->IsMovable()) {
@@ -503,47 +541,48 @@ void CMouseManager::CheckMoveObj()
 		}
 		if (dynamic_cast<CTile*>(pTile)->IsClickable()) {
 			m_eCurrId = TARGG;
-			INTPOINT dest[4];
+			INTPOINT dest[3];
 			
 			for (int i = 0; i < m_nSelectedUnitNum; ++i) {
 
-				for (int i = 0; i < 4; ++i) dest[i] = m_tIntPos;
+				for (int i = 0; i < 3; ++i) dest[i] = m_tIntPos;
 
 				INTPOINT src;
 				src.x = m_selectedObj[i]->GetSelectRect().left;
 				src.y = m_selectedObj[i]->GetSelectRect().top;
-				node_t* node[4];
+				node_t* node[3];
 
-				// T L B R
-				dest[0].y -= TILE_SIZE;
-				dest[1].x -= TILE_SIZE;
-				dest[2].y += TILE_SIZE;
-				dest[3].x += TILE_SIZE;
+				// L B R
+				dest[0].x -= TILE_SIZE;
+				dest[1].y += TILE_SIZE;
+				dest[2].x += TILE_SIZE;
 
-				for (int i = 0; i < 4; ++i) {
+				for (int i = 0; i < 3; ++i) {
 					node[i] = PATHMANAGER->FindPath(src, dest[i]);
 				}
 	
 
-				for (int i = 0; i < 4; ++i) {
+				for (int i = 0; i < 3; ++i) {
 					if (0 > node[i]->value_factor) node[i]->value_factor = 999;
 				}
 
 				int min = node[0]->value_factor;
 
-				for (int i = 0; i < 4; ++i) {
+				for (int i = 0; i < 3; ++i) {
 					if (min > node[i]->value_factor) min = node[i]->value_factor;
 				}
 	
 
-				for (int j = 0; j < 4; ++j) {
+				for (int j = 0; j < 3; ++j) {
 					if (min == node[j]->value_factor) {
 						node[j] = PATHMANAGER->FindPath(src, dest[j]);
 						m_selectedObj[i]->SetMove(node[j]);
-						j = (j + 2) % 4;
+						float fAngle;
+						if (0 == j) fAngle = RIGHT;
+						else if (1 == j) fAngle = TOP;
+						else if (2 == j) fAngle = LEFT;
 
-						m_selectedObj[i]->SetAttack(m_tIntPos, static_cast<float>((j + 1) * 90.f));
-						
+						m_selectedObj[i]->SetAttack(m_tIntPos, fAngle);
 						break;
 
 		

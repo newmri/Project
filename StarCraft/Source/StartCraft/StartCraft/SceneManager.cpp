@@ -89,6 +89,8 @@ void CSceneManager::Render()
 	if (m_pScene)  m_pScene->Render();
 	OBJMANAGER->Render();
 
+
+
 }
 
 void CSceneManager::Release()
@@ -101,6 +103,18 @@ void CSceneManager::Release()
 	}
 }
 
+
+void CSceneManager::RenderResourcesValue()
+{
+	HDC hDC = RENDERMANAGER->GetMemDC();
+	for (int i = 0; i < 3; ++i) {
+		SetBkMode(hDC, TRANSPARENT);
+		SetTextColor(hDC, RGB(0, 255, 0));
+		wsprintf(m_tResources[i].szValue, L"%d", m_tResources[i].nValue);
+		TextOut(hDC, m_tResources[i].tPos.x, m_tResources[i].tPos.y, m_tResources[i].szValue, _tcslen(m_tResources[i].szValue));
+
+	}
+}
 
 CButton* CSceneManager::GetButton(BUTTON_ID eId)
 {

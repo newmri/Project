@@ -161,6 +161,7 @@ void CUnit::Move()
 			m_route.pop_front();
 			if (m_route.empty()) {
 				if (m_bIsRetunning) {
+					SCENEMANAGER->UpdateResourcesValue(MINE, 5);
 					// Return to mineral
 					m_bIsRetunning = false;
 					m_nAttackAnim = 1;
@@ -171,41 +172,45 @@ void CUnit::Move()
 					src.x = m_tSelectRect.left;
 					src.y = m_tSelectRect.top;
 
-					INTPOINT dest[4];
+					INTPOINT dest[3];
 
-					for (int i = 0; i < 4; ++i) dest[i] = m_tReturnPos;
+					for (int i = 0; i < 3; ++i) dest[i] = m_tReturnPos;
 
 					node_t* node[4];
 
-					// T L B R
-					dest[0].y -= TILE_SIZE;
-					dest[1].x -= TILE_SIZE;
-					dest[2].y += TILE_SIZE;
-					dest[3].x += TILE_SIZE;
+					// L B R
+					dest[0].x -= TILE_SIZE;
+					dest[1].y += TILE_SIZE;
+					dest[2].x += TILE_SIZE;
 
-					for (int i = 0; i < 4; ++i) {
+					for (int i = 0; i < 3; ++i) {
 						node[i] = PATHMANAGER->FindPath(src, dest[i]);
 					}
 
 
-					for (int i = 0; i < 4; ++i) {
+					for (int i = 0; i < 3; ++i) {
 						if (0 > node[i]->value_factor) node[i]->value_factor = 999;
 					}
 
 					int min = node[0]->value_factor;
 
-					for (int i = 0; i < 4; ++i) {
+					for (int i = 0; i < 3; ++i) {
 						if (min > node[i]->value_factor) min = node[i]->value_factor;
 					}
 
 
-					for (int j = 0; j < 4; ++j) {
+					for (int j = 0; j < 3; ++j) {
 						if (min == node[j]->value_factor) {
 							node[j] = PATHMANAGER->FindPath(src, dest[j]);
 							SetMove(node[j]);
-							j = (j + 2) % 4;
+							float fAngle;
+							if (0 == j) fAngle = RIGHT;
+							else if (1 == j) fAngle = TOP;
+							else if (2 == j) fAngle = LEFT;
 
-							SetAttack(m_tReturnPos, static_cast<float>((j + 1) * 90.f));
+
+							SetAttack(m_tReturnPos, fAngle);
+
 							return;
 
 
@@ -223,7 +228,6 @@ void CUnit::Move()
 					angle = static_cast<int>(m_tInfo.fAngle);
 					switch (angle) {
 					case TOP: m_tAnimationInfo[m_eCurrId].nCnt = 8; break;
-					case BOTTOM + 1: m_tAnimationInfo[m_eCurrId].nCnt = 22; break;
 					case LEFT: m_tAnimationInfo[m_eCurrId].nCnt = 16; break;
 					case RIGHT: m_tAnimationInfo[m_eCurrId].nCnt = 0; break;
 

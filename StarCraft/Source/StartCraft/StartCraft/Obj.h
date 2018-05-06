@@ -25,11 +25,11 @@ public:
 	const PORTRAIT::ID& GetPortraitId() { return m_tInfo.ePortraitId; }
 	const UNIT::LARGE_WIRE::LARGE_WIRE_ID& GetLargeWireId() { return m_tInfo.eLargeWireId; }
 	const UNIT::SMALL_WIRE::SMALL_WIRE_ID& GetSmallWireId() { return m_tInfo.eSmallWireId; }
-
+	
 public:
 	const bool& IsUI() const { return m_bIsUI; }
 	bool IsClicked(const INTPOINT& pos) const;
-
+	const bool& IsStructure() const { return m_bIsStructure; }
 
 public:
 	void SetDead() { m_bIsDead = true; }
@@ -64,7 +64,7 @@ protected:
 	bool	m_bIsUI;
 	bool	m_bMove;
 	bool	m_bAttack;
-
+	bool	m_bIsStructure;
 
 protected:
 	list<INTPOINT> m_route;

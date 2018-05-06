@@ -8,6 +8,10 @@ typedef list<CScene*> SCENELIST;
 typedef list<CUI*> UILIST;
 typedef list<STATIC_UI_IMAGE_INFO*> STATIC_UI_IMAGE_LIST;
 typedef vector<STATIC_UI_IMAGE_INFO*> STATIC_UI_IMAGE_VECTOR_LIST;
+typedef vector<BUILD_INFO*> BUILD_VECTOR_LIST;
+typedef list<BUILD_INFO*> BUILD_LIST;
+
+
 
 
 

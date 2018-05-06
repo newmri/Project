@@ -12,10 +12,30 @@ public:
 	virtual void LateUpdate();
 	virtual void Render();
 	virtual void Release();
+	
+public:
+	void RenderUI();
 
 public:
 	void UpdateRect();
 
+public:
+	bool CheckBuildUnit(POINT tMousePos);
+
+public:
+	void BuildUnit();
+
 private:
 	STRUCTURE_STATE_ID m_eCurrId;
+
+	STATIC_UI_IMAGE_INFO m_unitQueue;
+	STATIC_UI_IMAGE_INFO m_unitProgress[2];
+	BUILD_VECTOR_LIST			m_BuildList[OBJ_ID::CURSOR];
+	BUILD_LIST					m_BuildQueueList;
+
+private:
+	DWORD dwUnitBuildTime;
+
+private:
+	float fUnitBuildReMainPercent;
 };

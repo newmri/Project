@@ -20,7 +20,6 @@ public:
 
 private:
 	STATIC_UI_IMAGE_LIST m_listStaticUImage;
-	//STATIC_UI_IMAGE_INFO m_tBottomImage;
 	IMAGE_INFO* m_tMapImageInfo;
 
 };

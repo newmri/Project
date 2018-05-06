@@ -75,17 +75,21 @@ private:
 	STATIC_UI_IMAGE_VECTOR_LIST	m_portraitList[PORTRAIT::PORTRAIT_END];
 	STATIC_UI_IMAGE_VECTOR_LIST* m_wireList[WIRE_IMAGE_SIZE_NUM];
 
+
+
 private:
 	CURSOR_ID			m_eCurrId;
 	UNIT_SELECT_INFO	m_tUnitSelect[MAX_UNIT_SELECT_NUM];
 
 private:
 	DWORD				m_dwAnimationTime;
+
 	int					m_nAnimationIdx;
 	int					m_nSelectedUnitNum;
 	CObj*				m_selectedObj[MAX_UNIT_SELECT_NUM];
 
 private:
 	bool				m_bIsDragging;
+	bool				m_bIsClickedBuildIcon;
 
 };

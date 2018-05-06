@@ -112,14 +112,33 @@ typedef struct tagStaticUIImageInfo
 
 }STATIC_UI_IMAGE_INFO;
 
+typedef struct tagBuildInfo
+{
+	STATIC_UI_IMAGE_INFO tImage;
+	
+	INTPOINT tClickArea;
+	int nMineCost;
+	int nGasCost;
+
+	tagBuildInfo()
+	{
+		nMineCost = 0;
+		nGasCost = 0;
+
+	}
+
+}BUILD_INFO;
 
 typedef struct tagUnitSelectInfo
 {
+	OBJ_ID				eId;
 	UNIT_SELECT			eSelectedUnitsize;
 	PORTRAIT::ID		eSelectedPortraitId;
 	UNIT::WIRE_ID		eSelectedWireSizeId;
 	UNIT::LARGE_WIRE::LARGE_WIRE_ID		eSelectedLargeWireId;
 	UNIT::SMALL_WIRE::SMALL_WIRE_ID		eSelectedSmallWireId;
+
+	bool				bIsStructure;
 
 	RECT				tSelectRenderRect;
 	POINT				tDrawPos;
@@ -155,3 +174,16 @@ typedef struct node_stack_s {
 	node_t*  node;                            //이 스택 위치에서 가리키고 있는 노드 
 	struct node_stack_s*  next_node;    //이 스택의 다음 위치  
 } node_stack_t;
+
+typedef struct tagResources
+{
+	int nValue;
+	TCHAR szValue[STR_LEN];
+
+	INTPOINT tPos;
+
+	tagResources()
+	{
+		nValue = 1000;
+	}
+}RESOURCES;
