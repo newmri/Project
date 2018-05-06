@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Structure.h"
 #include "Tile.h"
-
+#include "Unit.h"
 void CStructure::Init()
 {
 	m_eCurrId = STRUCTURE_IDLE;
@@ -320,6 +320,7 @@ void CStructure::BuildUnit()
 		if(0.0f < fUnitBuildReMainPercent) fUnitBuildReMainPercent -= 0.1f;
 		else {
 			if (0 < m_BuildQueueList.size()) {
+
 				m_BuildQueueList.pop_front();
 				int nSize = m_BuildQueueList.size();
 				float fX = 0.416f;
@@ -333,6 +334,34 @@ void CStructure::BuildUnit()
 				}
 				fUnitBuildReMainPercent = 1.f;
 
+
+				float fScrollX = SCROLLMANAGER->GetScrollX();
+				float fScrollY = SCROLLMANAGER->GetScrollY();
+
+				INTPOINT pos;
+				pos.y = m_tSelectRect.bottom;
+
+				INTPOINT area;
+				area.x = m_tSelectRect.right;
+				area.y = pos.y + TILE_SIZE * 4;
+
+				for (; pos.y < area.y; pos.y += TILE_SIZE) {
+					for (pos.x = m_tSelectRect.left; pos.x < area.x; pos.x += TILE_SIZE) {
+						INTPOINT idx = TILEMANAGER->GetIndex(pos);
+						int nIdx = idx.x + TILEMANAGER->GetTileNum().x * idx.y;
+						CObj* pTile = TILEMANAGER->SelectTile(nIdx);
+
+						if (dynamic_cast<CTile*>(pTile)->IsMovable()) {
+							CObj* pObj = CFactoryManager<CUnit>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
+								UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
+							OBJMANAGER->AddObject(pObj, SCV);
+							return;
+
+						}
+
+					}
+
+				}
 			}
 		}
 

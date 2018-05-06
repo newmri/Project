@@ -79,11 +79,7 @@ void CSinglePlay::Init()
 		UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, FLOATPOINT(120, 300), 1000);
 	OBJMANAGER->AddObject(pObj, BARRACK);
 
-	for (int i = 300 - TILE_SIZE; i < 300 + TILE_SIZE * 6; i += TILE_SIZE * 2) {
-		pObj = CFactoryManager<CUnit>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
-			UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT2, FLOATPOINT(i, 300), 60);
-		OBJMANAGER->AddObject(pObj, SCV);
-	}
+
 
 
 }
