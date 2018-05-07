@@ -45,6 +45,8 @@ public:
 	void SetHP(int hp) { m_tStat.nMaxHP = hp; m_tStat.nHP = hp; }
 	void SetAttack(INTPOINT returnPos, float fAngle) { m_tReturnPos = returnPos; m_bAttack = true; m_fAttackAngle = fAngle; }
 
+	void BuildStructure(OBJ_ID eId, INTPOINT pos, float fAngle);
+
 public:
 	void SetMove(node_t* node);
 
@@ -65,7 +67,7 @@ protected:
 	bool	m_bMove;
 	bool	m_bAttack;
 	bool	m_bIsStructure;
-
+	bool	m_bBuild;
 protected:
 	list<INTPOINT> m_route;
 
@@ -83,5 +85,8 @@ protected:
 	int m_cnt;
 	int m_maxCnt;
 	int m_nBoforeIdx;
+
+	OBJ_ID m_eBuildId;
+	INTPOINT m_BuildPos;
 };
 

@@ -1,11 +1,16 @@
-﻿  Structure.cpp
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(48): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(49): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(50): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(227): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(356): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\factorymanager.h(74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  s:\jusin\project\api\starcraft\source\startcraft\startcraft\factorymanager.h(63): note: while compiling class template member function 'CObj *CFactoryManager<CUnit>::CreateObj(OWNER_ID,OBJ_ID,PORTRAIT::ID,UNIT::LARGE_WIRE::LARGE_WIRE_ID,UNIT::SMALL_WIRE::SMALL_WIRE_ID,UNIT_SELECT,FLOATPOINT,float)'
-  s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(355): note: see reference to function template instantiation 'CObj *CFactoryManager<CUnit>::CreateObj(OWNER_ID,OBJ_ID,PORTRAIT::ID,UNIT::LARGE_WIRE::LARGE_WIRE_ID,UNIT::SMALL_WIRE::SMALL_WIRE_ID,UNIT_SELECT,FLOATPOINT,float)' being compiled
-  s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(355): note: see reference to class template instantiation 'CFactoryManager<CUnit>' being compiled
+﻿  Unit.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(56): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(57): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(320): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(321): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(338): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(339): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(340): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(341): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(420): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(442): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(467): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(476): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(481): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(554): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Debug\StartCraft.exe

@@ -12,10 +12,17 @@ public:
 	virtual void LateUpdate();
 	virtual void Render();
 	virtual void Release();
+	
+public:
+	bool CheckCommand(POINT tMousePos);
+
+public:
+	void RenderUI();
 
 public:
 	void Move();
 	void Attack();
+	void Build();
 
 public:
 	void UpdateRect();
@@ -28,8 +35,20 @@ private:
 	int m_nAttackCnt;
 	int m_nMaxAttackCnt;
 
+	int m_nBuildCnt;
+
 	CObj* m_pControlTarget;
 
 	bool m_bIsRetunning;
+
+private:
+	SCV_COMMAND m_eCommand;
+
+private:
+	COMMAND_VECTOR_LIST		m_commandList;
+	BUILD_VECTOR_LIST		m_buildList[2];
+	STATIC_UI_IMAGE_VECTOR_LIST m_buildImageList[2];
+private:
+	DWORD m_dwBuildTime;
 
 };

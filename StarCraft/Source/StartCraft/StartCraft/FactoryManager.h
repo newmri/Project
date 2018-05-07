@@ -95,6 +95,7 @@ public:
 	}
 
 
+
 	static CScene* CreateScene(FLOATPOINT tPos)
 	{
 		CScene* pObj = new T;

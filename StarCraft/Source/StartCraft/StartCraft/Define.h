@@ -90,8 +90,13 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 	{ "Resources/Image/Select/*.*" },
 	{ "Resources/Image/UI/UnitSummonQueue/*.*" },
 	{ "Resources/Image/UI/Progress/*.*" },
+	{ "Resources/Image/Build/BarrackBuild/*.*" },
 	{ "Resources/Image/UI/BuildIcon/Barrack/*.*" },
 	{ "Resources/Image/UI/BuildIcon/Control/*.*" },
+	{ "Resources/Image/UI/UnitCommandIcon/Scv/*.*" },
+	{ "Resources/Image/UI/UnitCommandIcon/BasicBuild/*.*" },
+	{ "Resources/Image/UI/Build/*.*" },
+
 	{ "Resources/Image/Map/Mine/*.*" }
 
 

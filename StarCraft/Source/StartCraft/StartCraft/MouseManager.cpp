@@ -5,14 +5,18 @@
 #include "Tile.h"
 #include "Mine.h"
 #include "Structure.h"
+#include "Unit.h"
 
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
 void CMouseManager::Init()
 {
 	m_eCurrId = ARROW;
+	m_eBuildId = OBJ_END;
+
 	m_bIsDragging = false;
 	m_bIsClickedBuildIcon = false;
+	m_bCanBuild = false;
 
 	m_nAnimationIdx = 0;
 	m_nSelectedUnitNum = 0;
@@ -102,7 +106,21 @@ void CMouseManager::Init()
 		}
 
 
+		p = BITMAPMANAGER->GetImageInfo(BUILD_IMAGE);
+
+		float fScrollX = SCROLLMANAGER->GetScrollX();
+		float fScrollY = SCROLLMANAGER->GetScrollY();
+		for (int i = 0; i < p[0].nImageNum; ++i) {
+			memcpy(&m_tBuildImage[i].tInfo, &p[i], sizeof(IMAGE_INFO));
+
+			m_tBuildImage[i].tPos.x = m_tRect.left + fScrollX;
+			m_tBuildImage[i].tPos.y = (m_tRect.top + fScrollY) + TILE_SIZE;
+			m_tBuildImage[i].tDrawSize.x = m_tBuildImage[i].tPos.x + (TILE_SIZE * 4);
+			m_tBuildImage[i].tDrawSize.y = m_tBuildImage[i].tPos.y + (TILE_SIZE * 3);
+
+			m_tBuildImage[i].tColor = RGB(0, 0, 0);
 		
+		} 
 
 		
 	
@@ -212,6 +230,68 @@ void CMouseManager::Render()
 		Rectangle(RENDERMANAGER->GetMemDC(), m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
 	}
 
+	if (OBJ_END != m_eBuildId) {
+		RECT rc;
+		rc.left = m_tPos.x - m_tBuildImage[m_eBuildId].tInfo.nImageW / 2;
+		rc.right = rc.left + TILE_SIZE * 4;
+		rc.top = m_tPos.y - m_tBuildImage[m_eBuildId].tInfo.nImageH / 2;
+		rc.bottom = rc.top + TILE_SIZE * 3;
+
+
+		HBRUSH greenBrush = CreateSolidBrush(RGB(0, 255, 0));
+		HBRUSH redBrush = CreateSolidBrush(RGB(255, 0, 0));
+
+		HBRUSH oldBrush = (HBRUSH)SelectObject(RENDERMANAGER->GetMemDC(), greenBrush);
+
+
+		int tileNum = TILEMANAGER->GetTileNum().x;
+		int cnt = 0;
+		for (int y = rc.top; y < rc.bottom; y += TILE_SIZE) {
+			for (int x = rc.left; x < rc.right; x += TILE_SIZE) {
+				INTPOINT leftTopIdx = TILEMANAGER->GetIndex(INTPOINT(x, y));
+				INTPOINT rightBottomIdx = TILEMANAGER->GetIndex(INTPOINT(x + TILE_SIZE, y + TILE_SIZE));
+
+
+				int nLeftTop = leftTopIdx.x + tileNum * leftTopIdx.y;
+				int nRightBottom = rightBottomIdx.x + tileNum * rightBottomIdx.y;
+
+				CObj* LT = TILEMANAGER->SelectTile(nLeftTop);
+				CObj* RB = TILEMANAGER->SelectTile(nRightBottom);
+
+				if (dynamic_cast<CTile*>(LT)->IsMovable() && dynamic_cast<CTile*>(RB)->IsMovable())
+					HBRUSH oldBrush = (HBRUSH)SelectObject(RENDERMANAGER->GetMemDC(), greenBrush);
+
+				else {
+					cnt++;
+					HBRUSH oldBrush = (HBRUSH)SelectObject(RENDERMANAGER->GetMemDC(), redBrush);
+				}
+				Rectangle(RENDERMANAGER->GetMemDC(), x,
+					y, x + TILE_SIZE, y + TILE_SIZE);
+			}
+
+		}
+		SelectObject(RENDERMANAGER->GetMemDC(), oldBrush);
+		DeleteObject(greenBrush);
+		DeleteObject(redBrush);
+
+		if (0 == cnt) m_bCanBuild = true;
+		else m_bCanBuild = false;
+
+		BITMAPMANAGER->GetImage()[m_tBuildImage[m_eBuildId].tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			rc.left,
+			rc.top,
+			m_tBuildImage[m_eBuildId].tInfo.nImageW,
+			m_tBuildImage[m_eBuildId].tInfo.nImageH,
+			0,
+			0,
+			m_tBuildImage[m_eBuildId].tInfo.nImageW,
+			m_tBuildImage[m_eBuildId].tInfo.nImageH, RGB(0, 0, 0));
+
+
+	}
+
+	// Render Cursor
+
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
 		m_tPos.x - CURSOR_SIZE / 2,
 		m_tPos.y - CURSOR_SIZE / 2,
@@ -221,6 +301,9 @@ void CMouseManager::Render()
 		0,
 		CURSOR_SIZE,
 		CURSOR_SIZE, RGB(0, 0, 0));
+
+
+
 }
 
 void CMouseManager::Release()
@@ -320,9 +403,9 @@ void CMouseManager::RenderUI()
 	}
 
 	if (m_tUnitSelect[0].bIsStructure) dynamic_cast<CStructure*>(m_selectedObj[0])->RenderUI();
-		
-	
+	if (dynamic_cast<CUnit*>(m_selectedObj[0])) dynamic_cast<CUnit*>(m_selectedObj[0])->RenderUI();
 
+	
 
 }
 
@@ -488,13 +571,75 @@ void CMouseManager::CheckSelectObj()
 		if (KEYMANAGER->KeyDown(VK_LBUTTON)) {
 
 			// Build Icon Click
-			if (0 < m_nSelectedUnitNum && m_tUnitSelect[0].bIsStructure) {
+			if (0 < m_nSelectedUnitNum) {
 				m_bIsClickedBuildIcon = false;
-				m_bIsClickedBuildIcon = dynamic_cast<CStructure*>(m_selectedObj[0])->CheckBuildUnit(m_tPos);
+				if(m_tUnitSelect[0].bIsStructure)
+					m_bIsClickedBuildIcon = dynamic_cast<CStructure*>(m_selectedObj[0])->CheckBuildUnit(m_tPos);
+				else if (dynamic_cast<CUnit*>(m_selectedObj[0])) {
+					m_bIsClickedBuildIcon = dynamic_cast<CUnit*>(m_selectedObj[0])->CheckCommand(m_tPos);
+				}
 			
-				
+				if (m_bCanBuild) {
+					m_tIntPos.x = m_tPos.x - SCROLLMANAGER->GetScrollX();
+					m_tIntPos.y = m_tPos.y - SCROLLMANAGER->GetScrollY();
+
+					INTPOINT dest[3];
+
+					for (int i = 0; i < 3; ++i) dest[i] = m_tIntPos;
+
+					INTPOINT src;
+					src.x = m_selectedObj[0]->GetSelectRect().left;
+					src.y = m_selectedObj[0]->GetSelectRect().top;
+					node_t* node[3];
+
+					// L B R
+					dest[0].x -= TILE_SIZE * 3;
+					dest[1].y += TILE_SIZE * 2;
+					dest[2].x += TILE_SIZE * 3;
+
+					for (int i = 0; i < 3; ++i) {
+						node[i] = PATHMANAGER->FindPath(src, dest[i]);
+					}
+
+
+					for (int i = 0; i < 3; ++i) {
+						if (0 > node[i]->value_factor) node[i]->value_factor = 999;
+					}
+
+					int min = node[0]->value_factor;
+
+					for (int i = 0; i < 3; ++i) {
+						if (min > node[i]->value_factor) min = node[i]->value_factor;
+					}
+
+
+					for (int j = 0; j < 3; ++j) {
+						if (min == node[j]->value_factor) {
+							node[j] = PATHMANAGER->FindPath(src, dest[j]);
+							m_selectedObj[0]->SetMove(node[j]);
+
+							float fAngle;
+							if (0 == j) fAngle = RIGHT;
+							else if (1 == j) fAngle = TOP;
+							else if (2 == j) fAngle = LEFT;
+							INTPOINT spawnPos;
+							spawnPos.x = m_tIntPos.x - TILE_SIZE * 2;
+							spawnPos.y = m_tIntPos.y - TILE_SIZE * 2;
+
+							m_selectedObj[0]->BuildStructure(m_eBuildId, spawnPos, fAngle);
+							m_eBuildId = OBJ_END;
+							break;
+
+
+						}
+					}
+
+					m_bCanBuild = false;
+					return;
+
+				}
 			}
-			
+		
 			if (!m_bIsClickedBuildIcon) MOUSEMANAGER->SelectObj();
 
 
@@ -675,6 +820,12 @@ void CMouseManager::SetMiniMapArea(RECT rc)
 {
 	m_tMiniMapRect = rc;
 	RENDERMANAGER->LateInit();
+}
+
+void CMouseManager::SetBuild(OBJ_ID eId)
+{
+	m_eBuildId = eId;
+
 }
 
 void CMouseManager::MoveScrollByMouse()

@@ -90,6 +90,9 @@ typedef struct tagIntPoint
 		x = other.x;
 		y = other.y;
 	}
+	tagIntPoint() {}
+	tagIntPoint(int x, int y) : x(x), y(y) {}
+
 }INTPOINT;
 
 typedef struct tagImageInfo
@@ -128,6 +131,21 @@ typedef struct tagBuildInfo
 	}
 
 }BUILD_INFO;
+
+typedef struct tagCommandInfo
+{
+	STATIC_UI_IMAGE_INFO tImage;
+
+	INTPOINT tClickArea;
+	bool bRender;
+
+	tagCommandInfo()
+	{
+		bRender = false;
+
+	}
+
+}COMMAND_INFO;
 
 typedef struct tagUnitSelectInfo
 {

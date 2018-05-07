@@ -69,6 +69,14 @@ bool CObj::IsClicked(const INTPOINT& pos) const
 
 
 
+void CObj::BuildStructure(OBJ_ID eId, INTPOINT pos, float fAngle)
+{
+	m_eBuildId = eId;
+	m_BuildPos = pos;
+	m_fAttackAngle = fAngle;
+	m_bBuild = true;
+}
+
 void CObj::SetMove(node_t* node)
 {
 	m_bMove = true;
@@ -135,7 +143,7 @@ CObj::CObj()
 	m_bIsUI = false;
 	m_bAttack = false;
 	m_bIsStructure = false;
-
+	m_bBuild = false;
 	m_tReturnPos.x = -1;
 }
 

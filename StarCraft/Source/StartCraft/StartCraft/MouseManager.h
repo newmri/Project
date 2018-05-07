@@ -31,6 +31,7 @@ public:
 
 public:
 	void SetMiniMapArea(RECT rc);
+	void SetBuild(OBJ_ID eId);
 
 public:
 	void MoveScrollByMouse();
@@ -91,5 +92,8 @@ private:
 private:
 	bool				m_bIsDragging;
 	bool				m_bIsClickedBuildIcon;
-
+	bool				m_bCanBuild;
+private:
+	OBJ_ID				m_eBuildId;
+	STATIC_UI_IMAGE_INFO m_tBuildImage[2];
 };

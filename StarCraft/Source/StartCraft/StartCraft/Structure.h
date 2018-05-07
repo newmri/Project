@@ -14,6 +14,9 @@ public:
 	virtual void Release();
 	
 public:
+	void SetState(STRUCTURE_STATE_ID eId) { m_eCurrId = eId; }
+
+public:
 	void RenderUI();
 
 public:

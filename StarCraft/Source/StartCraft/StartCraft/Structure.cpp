@@ -44,12 +44,24 @@ void CStructure::LateInit()
 	float fScrollX = SCROLLMANAGER->GetScrollX();
 	float fScrollY = SCROLLMANAGER->GetScrollY();
 
+	INTPOINT pos(m_tRect.left, m_tRect.top);
 
-	m_tSelectRect.left = m_tRect.left + fScrollX;
+	INTPOINT t = TILEMANAGER->GetIndex(pos);
+
+
+	if (t.x & 1) {
+		m_tSelectRect.left = m_tRect.left + fScrollX;
+		m_tSelectRect.right = m_tSelectRect.left + fScrollX + TILE_SIZE * 4;
+
+	}
+
+	else {
+		m_tSelectRect.left = m_tRect.left + fScrollX + TILE_SIZE;
+		m_tSelectRect.right = m_tRect.right + fScrollX + TILE_SIZE;
+	}
+
 	m_tSelectRect.top = (m_tRect.top + fScrollY) + TILE_SIZE;
-	m_tSelectRect.right = m_tRect.right + fScrollX + TILE_SIZE;
 	m_tSelectRect.bottom = m_tSelectRect.top + TILE_SIZE * 3;
-
 
 	for (int posY = m_tSelectRect.top; posY < m_tSelectRect.bottom; posY += TILE_SIZE) {
 
@@ -64,7 +76,7 @@ void CStructure::LateInit()
 
 			if (nullptr == pTile) return;
 
-			dynamic_cast<CTile*>(pTile)->SetClickable();
+			dynamic_cast<CTile*>(pTile)->SetTileUnMovable();
 		}
 	}
 
@@ -166,7 +178,9 @@ int CStructure::Update()
 {
 	CObj::LateInit();
 	BuildUnit();
-
+	//if (m_eCurrId == STRUCTURE_BUILD && m_tInfo.eObjId == BARRACK) {
+	//	m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % 3;
+	//}
 	return 0;
 }
 
@@ -178,15 +192,41 @@ void CStructure::Render()
 {
 	if (0 == m_tAnimationInfo[m_eCurrId].nImageW) return;
 
-	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-		static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
-		static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH,
-		0,
-		0,
-		m_tAnimationInfo[m_eCurrId].nImageW,
-		m_tAnimationInfo[m_eCurrId].nImageH, RGB(0,0,0));
+	if (STRUCTURE_PRODUCE_UNIT == m_eCurrId) {
+		BITMAPMANAGER->GetImage()[m_tAnimationInfo[STRUCTURE_IDLE].tName[m_tAnimationInfo[STRUCTURE_IDLE].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+			m_tAnimationInfo[STRUCTURE_IDLE].nImageW,
+			m_tAnimationInfo[STRUCTURE_IDLE].nImageH,
+			0,
+			0,
+			m_tAnimationInfo[STRUCTURE_IDLE].nImageW,
+			m_tAnimationInfo[STRUCTURE_IDLE].nImageH, RGB(0, 0, 0));
+
+
+
+		BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX() - 1),
+			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY() - 28),
+			m_tAnimationInfo[m_eCurrId].nImageW,
+			m_tAnimationInfo[m_eCurrId].nImageH,
+			0,
+			0,
+			m_tAnimationInfo[m_eCurrId].nImageW,
+			m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+	}
+
+	else
+		BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+			m_tAnimationInfo[m_eCurrId].nImageW,
+			m_tAnimationInfo[m_eCurrId].nImageH,
+			0,
+			0,
+			m_tAnimationInfo[m_eCurrId].nImageW,
+			m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+
 }
 
 void CStructure::Release()
@@ -303,6 +343,7 @@ bool CStructure::CheckBuildUnit(POINT tMousePos)
 						p->tImage.tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.97f);
 					}
 					m_BuildQueueList.push_back(p);
+
 					return true;
 				}
 		
@@ -317,6 +358,10 @@ void CStructure::BuildUnit()
 {
 	if (0 < m_BuildQueueList.size() && dwUnitBuildTime + 100 < GetTickCount()) {
 		dwUnitBuildTime = GetTickCount();
+		if(STRUCTURE_IDLE == m_eCurrId) m_eCurrId = STRUCTURE_PRODUCE_UNIT;
+		else m_eCurrId = STRUCTURE_IDLE;
+
+
 		if(0.0f < fUnitBuildReMainPercent) fUnitBuildReMainPercent -= 0.1f;
 		else {
 			if (0 < m_BuildQueueList.size()) {
@@ -366,4 +411,6 @@ void CStructure::BuildUnit()
 		}
 
 	}
+
+	if(0 == m_BuildQueueList.size()) m_eCurrId = STRUCTURE_IDLE;
 }
