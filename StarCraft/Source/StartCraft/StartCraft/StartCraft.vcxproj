@@ -150,6 +150,7 @@
     <ClInclude Include="BitmapManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="Marine.h" />
     <ClInclude Include="MathManager.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="PathManager.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="BitmapManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="Marine.cpp" />
     <ClCompile Include="MathManager.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="PathManager.cpp" />

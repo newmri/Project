@@ -3,6 +3,8 @@
 #include "Tile.h"
 #include "Unit.h"
 #include "Scv.h"
+#include "Marine.h"
+
 void CStructure::Init()
 {
 	m_eCurrId = STRUCTURE_IDLE;
@@ -194,27 +196,42 @@ void CStructure::Render()
 	if (0 == m_tAnimationInfo[m_eCurrId].nImageW) return;
 
 	if (STRUCTURE_PRODUCE_UNIT == m_eCurrId) {
-		BITMAPMANAGER->GetImage()[m_tAnimationInfo[STRUCTURE_IDLE].tName[m_tAnimationInfo[STRUCTURE_IDLE].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-			static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
-			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
-			m_tAnimationInfo[STRUCTURE_IDLE].nImageW,
-			m_tAnimationInfo[STRUCTURE_IDLE].nImageH,
-			0,
-			0,
-			m_tAnimationInfo[STRUCTURE_IDLE].nImageW,
-			m_tAnimationInfo[STRUCTURE_IDLE].nImageH, RGB(0, 0, 0));
+		if (CONTROL == m_tInfo.eObjId) {
+			BITMAPMANAGER->GetImage()[m_tAnimationInfo[STRUCTURE_IDLE].tName[m_tAnimationInfo[STRUCTURE_IDLE].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+				static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+				static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+				m_tAnimationInfo[STRUCTURE_IDLE].nImageW,
+				m_tAnimationInfo[STRUCTURE_IDLE].nImageH,
+				0,
+				0,
+				m_tAnimationInfo[STRUCTURE_IDLE].nImageW,
+				m_tAnimationInfo[STRUCTURE_IDLE].nImageH, RGB(0, 0, 0));
 
 
+			BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+				static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX() - 1),
+				static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY() - 28),
+				m_tAnimationInfo[m_eCurrId].nImageW,
+				m_tAnimationInfo[m_eCurrId].nImageH,
+				0,
+				0,
+				m_tAnimationInfo[m_eCurrId].nImageW,
+				m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+		}
+		else {
+			m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % m_tAnimationInfo[m_eCurrId].nAnimationNum;
+			BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+				static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+				static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+				m_tAnimationInfo[m_eCurrId].nImageW,
+				m_tAnimationInfo[m_eCurrId].nImageH,
+				0,
+				0,
+				m_tAnimationInfo[m_eCurrId].nImageW,
+				m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
 
-		BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(RENDERMANAGER->GetMemDC(),
-			static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX() - 1),
-			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY() - 28),
-			m_tAnimationInfo[m_eCurrId].nImageW,
-			m_tAnimationInfo[m_eCurrId].nImageH,
-			0,
-			0,
-			m_tAnimationInfo[m_eCurrId].nImageW,
-			m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+		}
+
 	}
 
 	else
@@ -367,20 +384,6 @@ void CStructure::BuildUnit()
 		else {
 			if (0 < m_BuildQueueList.size()) {
 
-				m_BuildQueueList.pop_front();
-				int nSize = m_BuildQueueList.size();
-				float fX = 0.416f;
-				BUILD_LIST::iterator itor = m_BuildQueueList.begin();
-
-				for (int i = 0; i < nSize; ++i) {
-					if (0 == i) (*itor)->tImage.tPos.y  = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.935f);	
-					else (*itor)->tImage.tPos.x -= static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.05f);
-					
-					++itor;
-				}
-				fUnitBuildReMainPercent = 1.f;
-
-
 				float fScrollX = SCROLLMANAGER->GetScrollX();
 				float fScrollY = SCROLLMANAGER->GetScrollY();
 
@@ -396,13 +399,31 @@ void CStructure::BuildUnit()
 						INTPOINT idx = TILEMANAGER->GetIndex(pos);
 						int nIdx = idx.x + TILEMANAGER->GetTileNum().x * idx.y;
 						CObj* pTile = TILEMANAGER->SelectTile(nIdx);
-
 						if (dynamic_cast<CTile*>(pTile)->IsMovable()) {
-							CObj* pObj = CFactoryManager<CScv>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
-								UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
-							OBJMANAGER->AddObject(pObj, SCV);
-							return;
+							if (!strcmp(m_BuildQueueList.front()->tImage.tInfo.szName, "ControlUnitIcon01")) {
+								CObj* pObj = CFactoryManager<CScv>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
+									UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
+								OBJMANAGER->AddObject(pObj, SCV);
+							}
+							else if (!strcmp(m_BuildQueueList.front()->tImage.tInfo.szName, "BarrackUnitIcon01")) {
+								CObj* pObj = CFactoryManager<CMarine>::CreateObj(GREEN, MARINE, PORTRAIT::MARINE,
+									UNIT::LARGE_WIRE::MARINE, UNIT::SMALL_WIRE::MARINE, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
+								OBJMANAGER->AddObject(pObj, MARINE);
+							}
+							m_BuildQueueList.pop_front();
+							int nSize = m_BuildQueueList.size();
 
+							BUILD_LIST::iterator itor = m_BuildQueueList.begin();
+
+							for (int i = 0; i < nSize; ++i) {
+								if (0 == i) (*itor)->tImage.tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.935f);
+								else (*itor)->tImage.tPos.x -= static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.05f);
+
+								++itor;
+							}
+							fUnitBuildReMainPercent = 1.f;
+
+							return;
 						}
 
 					}

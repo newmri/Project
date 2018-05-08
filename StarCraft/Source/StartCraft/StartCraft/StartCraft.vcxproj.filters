@@ -58,6 +58,9 @@
     <Filter Include="01.Object\04.Unit\00.SCV">
       <UniqueIdentifier>{510c3bd9-ad8a-4132-8959-9e6610db9250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Object\04.Unit\01.Marine">
+      <UniqueIdentifier>{6061a652-2e88-48cf-9fbc-056de16f4d16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="Scv.h">
       <Filter>01.Object\04.Unit\00.SCV</Filter>
     </ClInclude>
+    <ClInclude Include="Marine.h">
+      <Filter>01.Object\04.Unit\01.Marine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -262,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="Scv.cpp">
       <Filter>01.Object\04.Unit\00.SCV</Filter>
+    </ClCompile>
+    <ClCompile Include="Marine.cpp">
+      <Filter>01.Object\04.Unit\01.Marine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

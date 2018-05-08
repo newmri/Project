@@ -5,13 +5,13 @@
 
 void CUnit::Init()
 {
-	m_eCurrId = UNIT::IDLE;
+	m_eCurrId = UNIT::MOVE;
 
 	BITMAP_ANIMATION_INFO* pAnim = BITMAPMANAGER->GetAnimationInfo(m_tInfo.eObjId);
 	m_tAnimationInfo = new ANIMATION_INFO[pAnim->nStateNum];
 	for (int i = 0; i < pAnim->nStateNum; ++i) ZeroMemory(&m_tAnimationInfo[i], sizeof(m_tAnimationInfo[i]));
 
-	m_tInfo.fSpeed = TILE_SIZE / 2.f;
+	m_tInfo.fSpeed = TILE_SIZE / 8.f;
 	m_bMove = false;
 	m_tInfo.fAngle = BOTTOM;
 	m_nMaxAttackCnt = 10;
@@ -79,8 +79,8 @@ void CUnit::LateInit()
 		}
 	}
 
-	m_tAnimationInfo[m_eCurrId].nCnt = (static_cast<int>(m_tInfo.fAngle) / 10);
-	m_tAnimationInfo[m_eCurrId].nCnt -= 2;
+	m_tAnimationInfo[m_eCurrId].nCnt = (static_cast<int>(m_tInfo.fAngle) / 2.98f);
+
 
 }
 

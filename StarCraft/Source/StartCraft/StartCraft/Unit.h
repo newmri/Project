@@ -43,4 +43,6 @@ protected:
 	bool	m_bMove;
 	bool	m_bAttack;
 	bool	m_bBuild;
+
+	int nAnimationCnt;
 };
