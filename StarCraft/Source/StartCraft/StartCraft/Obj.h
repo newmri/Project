@@ -43,9 +43,7 @@ public:
 	void SetLargeWireId(UNIT::LARGE_WIRE::LARGE_WIRE_ID eId) { m_tInfo.eLargeWireId = eId; }
 	void SetSmallWireId(UNIT::SMALL_WIRE::SMALL_WIRE_ID eId) { m_tInfo.eSmallWireId = eId; }
 	void SetHP(int hp) { m_tStat.nMaxHP = hp; m_tStat.nHP = hp; }
-	void SetAttack(INTPOINT returnPos, float fAngle) { m_tReturnPos = returnPos; m_bAttack = true; m_fAttackAngle = fAngle; }
 
-	void BuildStructure(OBJ_ID eId, INTPOINT pos, float fAngle);
 
 public:
 	void SetMove(node_t* node);
@@ -64,10 +62,9 @@ protected:
 	bool	m_bIsDead;
 	bool	m_bIsInit;
 	bool	m_bIsUI;
-	bool	m_bMove;
-	bool	m_bAttack;
 	bool	m_bIsStructure;
-	bool	m_bBuild;
+	bool	m_bMove;
+
 protected:
 	list<INTPOINT> m_route;
 
@@ -78,7 +75,6 @@ protected:
 	DWORD m_dwAttackTime;
 
 	FLOATPOINT m_tMovePos;
-	INTPOINT m_tReturnPos;
 
 	float m_fAttackAngle;
 
@@ -86,7 +82,5 @@ protected:
 	int m_maxCnt;
 	int m_nBoforeIdx;
 
-	OBJ_ID m_eBuildId;
-	INTPOINT m_BuildPos;
 };
 

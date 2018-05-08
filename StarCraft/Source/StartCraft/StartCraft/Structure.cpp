@@ -2,6 +2,7 @@
 #include "Structure.h"
 #include "Tile.h"
 #include "Unit.h"
+#include "Scv.h"
 void CStructure::Init()
 {
 	m_eCurrId = STRUCTURE_IDLE;
@@ -397,7 +398,7 @@ void CStructure::BuildUnit()
 						CObj* pTile = TILEMANAGER->SelectTile(nIdx);
 
 						if (dynamic_cast<CTile*>(pTile)->IsMovable()) {
-							CObj* pObj = CFactoryManager<CUnit>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
+							CObj* pObj = CFactoryManager<CScv>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
 								UNIT::LARGE_WIRE::SCV, UNIT::SMALL_WIRE::SCV, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
 							OBJMANAGER->AddObject(pObj, SCV);
 							return;

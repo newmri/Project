@@ -6,7 +6,7 @@
 #include "Mine.h"
 #include "Structure.h"
 #include "Unit.h"
-
+#include "Scv.h"
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
 void CMouseManager::Init()
@@ -626,7 +626,7 @@ void CMouseManager::CheckSelectObj()
 							spawnPos.x = m_tIntPos.x - TILE_SIZE * 2;
 							spawnPos.y = m_tIntPos.y - TILE_SIZE * 2;
 
-							m_selectedObj[0]->BuildStructure(m_eBuildId, spawnPos, fAngle);
+							dynamic_cast<CScv*>(m_selectedObj[0])->BuildStructure(m_eBuildId, spawnPos, fAngle);
 							m_eBuildId = OBJ_END;
 							break;
 
@@ -727,7 +727,7 @@ void CMouseManager::CheckMoveObj()
 						else if (1 == j) fAngle = TOP;
 						else if (2 == j) fAngle = LEFT;
 
-						m_selectedObj[i]->SetAttack(m_tIntPos, fAngle);
+						dynamic_cast<CUnit*>(m_selectedObj[i])->SetAttack(m_tIntPos, fAngle);
 						break;
 
 		

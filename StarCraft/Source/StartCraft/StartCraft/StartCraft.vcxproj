@@ -153,6 +153,7 @@
     <ClInclude Include="MathManager.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="PathManager.h" />
+    <ClInclude Include="Scv.h" />
     <ClInclude Include="Structure.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Editor.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="MathManager.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="PathManager.cpp" />
+    <ClCompile Include="Scv.cpp" />
     <ClCompile Include="Structure.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="Entry.cpp" />

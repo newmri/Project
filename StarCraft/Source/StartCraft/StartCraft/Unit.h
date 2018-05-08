@@ -8,47 +8,39 @@ public:
 	// Obj을(를) 통해 상속됨
 	virtual void Init();
 	virtual void LateInit();
-	virtual int Update();
-	virtual void LateUpdate();
+	virtual int Update() = 0;
+	virtual void LateUpdate() = 0;
 	virtual void Render();
 	virtual void Release();
 	
 public:
-	bool CheckCommand(POINT tMousePos);
+	virtual bool CheckCommand(POINT tMousePos) = 0;
 
 public:
-	void RenderUI();
+	virtual void RenderUI() = 0;
 
 public:
-	void Move();
-	void Attack();
-	void Build();
+	virtual void Move() = 0;
+	virtual void Attack() = 0;
+
+public:
+	void SetAttack(INTPOINT returnPos, float fAngle) { m_tReturnPos = returnPos; m_bAttack = true; m_fAttackAngle = fAngle; }
 
 public:
 	void UpdateRect();
 
-private:
+protected:
 	UNIT::STATE_ID m_eCurrId;
 
-private:
+protected:
+	INTPOINT m_tReturnPos;
+
+protected:
 	int m_nAttackAnim;
 	int m_nAttackCnt;
 	int m_nMaxAttackCnt;
 
-	int m_nBuildCnt;
-
-	CObj* m_pControlTarget;
-
-	bool m_bIsRetunning;
-
-private:
-	SCV_COMMAND m_eCommand;
-
-private:
-	COMMAND_VECTOR_LIST		m_commandList;
-	BUILD_VECTOR_LIST		m_buildList[2];
-	STATIC_UI_IMAGE_VECTOR_LIST m_buildImageList[2];
-private:
-	DWORD m_dwBuildTime;
-
+	bool	m_bMove;
+	bool	m_bAttack;
+	bool	m_bBuild;
 };

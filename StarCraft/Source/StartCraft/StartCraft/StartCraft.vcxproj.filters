@@ -55,6 +55,9 @@
     <Filter Include="01.Object\05.Mine">
       <UniqueIdentifier>{153a9fb9-0fc7-49d8-83c4-54674aa9d4a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Object\04.Unit\00.SCV">
+      <UniqueIdentifier>{510c3bd9-ad8a-4132-8959-9e6610db9250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -168,6 +171,9 @@
     <ClInclude Include="Mine.h">
       <Filter>01.Object\05.Mine</Filter>
     </ClInclude>
+    <ClInclude Include="Scv.h">
+      <Filter>01.Object\04.Unit\00.SCV</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -253,6 +259,9 @@
     </ClCompile>
     <ClCompile Include="Mine.cpp">
       <Filter>01.Object\05.Mine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scv.cpp">
+      <Filter>01.Object\04.Unit\00.SCV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
