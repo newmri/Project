@@ -35,10 +35,12 @@ private:
 	STATIC_UI_IMAGE_INFO m_unitProgress[2];
 	BUILD_VECTOR_LIST			m_BuildList[OBJ_ID::CURSOR];
 	BUILD_LIST					m_BuildQueueList;
+	STATIC_UI_IMAGE_VECTOR_LIST		m_fireList[FIRE_END];
 
 private:
 	DWORD dwUnitBuildTime;
 
 private:
 	float fUnitBuildReMainPercent;
+	int	  m_nFireIdx[FIRE_END];
 };

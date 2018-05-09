@@ -14,6 +14,7 @@ CMainMenu::~CMainMenu()
 
 void CMainMenu::Init()
 {
+	
 	SOUNDMANAGER->PlayeSound(MAINMENUBGM);
 	m_eId = SCENE::MAIN_MENU;
 

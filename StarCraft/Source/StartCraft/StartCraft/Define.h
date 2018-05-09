@@ -114,7 +114,8 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 	{ "Resources/Image/Effect/Ghost/*.*" },
 	{ "Resources/Image/Effect/Marine/*.*" },
 	{ "Resources/Image/SKill/Ghost/*.*" },
-
+	{ "Resources/Image/Fire/FireOne/*.*" },
+	{ "Resources/Image/Fire/FireTwo/*.*" },
 	{ "Resources/Image/Map/Mine/*.*" }
 
 

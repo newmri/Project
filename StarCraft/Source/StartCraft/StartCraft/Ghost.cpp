@@ -17,7 +17,7 @@ void CGhost::Init()
 	m_nNuclearIdx = 0;
 
 	m_fNuclearDmg = 500.f;
-	m_fNuclearArea = 60.f;
+	m_fNuclearArea = 120.f;
 
 	m_tStat.nDamage = 20;
 	m_nAttackTime = 150;
@@ -133,8 +133,11 @@ void CGhost::UpdateNuclear()
 		}
 
 		if (3 <= m_nNuclearIdx) {
+			SOUNDMANAGER->PlayerEffectSound(GHOST_NUCLEAR_EXP);
+
 			if (m_nNuclearIdx < m_SkillList[0]->tInfo.nImageNum - 1) m_nNuclearIdx++;
 			else {
+
 				m_bNuclearOn = false;
 				m_nNuclearIdx = 0;
 				OBJLIST* p = OBJMANAGER->GetObj();
@@ -144,6 +147,7 @@ void CGhost::UpdateNuclear()
 						FLOATPOINT pos1(m_tNuclearPos.x, m_tNuclearPos.y);
 						FLOATPOINT pos2(rc.left, rc.top);
 						float dist = MATHMANAGER->CalcDistance(pos2, pos1);
+
 						if (m_fNuclearArea >= dist) {
 							int nHP = d->GetStat().nMaxHP;
 							if (750 <= nHP) d->SetDamage(nHP / 2);
@@ -161,7 +165,7 @@ void CGhost::UpdateNuclear()
 
 void CGhost::SetNuclear(POINT tMousePos)
 {
-	SOUNDMANAGER->PlayerEffectSound(GHOST_NUCLEAR);
+	SOUNDMANAGER->PlayerEffectSound(GHOST_NUCLEAR_LASER);
 	 m_bNuclearOn = true; 
 	 m_tNuclearPos.x = m_tRect.left;
 	 m_tNuclearPos.y = m_tRect.top; 

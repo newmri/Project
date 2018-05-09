@@ -67,6 +67,16 @@ bool CObj::IsClicked(const INTPOINT& pos) const
 }
 
 
+void CObj::SetDamage(int dmg)
+{
+	m_tStat.nHP -= dmg;
+	if (CONTROL == m_tInfo.eObjId) {
+		if (!m_bUnderAttackSound) SOUNDMANAGER->PlayerEffectSound(BASE_UNDER_ATTACK);
+		m_bUnderAttackSound = true;
+		
+	}
+}
+
 void CObj::SetMove(node_t* node)
 {
 	m_bMove = true;
@@ -139,7 +149,7 @@ CObj::CObj()
 	m_bIsUI = false;
 	m_bIsStructure = false;
 	m_tReturnPos.x = -1;
-
+	m_bUnderAttackSound = false;
 }
 
 CObj::~CObj()

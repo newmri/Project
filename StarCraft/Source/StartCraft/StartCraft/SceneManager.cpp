@@ -46,8 +46,6 @@ void CSceneManager::Init()
 	m_bInvincibility = false;
 	for (int i = 0; i < 3; ++i) m_tResources[i].nValue = 1000;
 
-
-	
 	LateInit();
 
 }

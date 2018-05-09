@@ -1,19 +1,2 @@
-﻿  Scv.cpp
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(65): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(66): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(240): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(241): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(300): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(299): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(430): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(431): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(448): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(449): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(450): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(451): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(531): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(553): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(578): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(587): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(592): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+﻿  SinglePlay.cpp
   StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Debug\StartCraft.exe

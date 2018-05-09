@@ -35,8 +35,8 @@ void CSoundManager::SetUpSound()
 	FMOD_System_CreateStream(g_psystem, "Resources/Sound/MainMenu/MainMenu.mp3", FMOD_LOOP_NORMAL, 0, &g_psound[MAINMENUBGM]);
 	FMOD_System_CreateStream(g_psystem, "Resources/Sound/Game/TerranBGM.mp3", FMOD_LOOP_NORMAL, 0, &g_psound[TERRAN_BGM]);
 
-	
-	
+
+
 }
 
 
@@ -48,7 +48,6 @@ void CSoundManager::PlayeSound(SOUNDKIND eSound)
 
 void CSoundManager::SetUpEffectSound()
 {
-	char str[STR_LEN];
 
 	//사운드 시스템 생성
 	FMOD_System_Create(&effg_psystem);
@@ -56,12 +55,7 @@ void CSoundManager::SetUpEffectSound()
 	//채널 수 , 모드, 0
 	FMOD_System_Init(effg_psystem, EFFSD_END, FMOD_INIT_NORMAL, NULL);
 
-	//사운드 경로
-	for (int i = 0; i < EFFSD_END; i++) {
-		sprintf_s(str, "Sound/effsound%d.wav", i + 1);
-		FMOD_System_CreateSound(effg_psystem, (const char*)str, FMOD_DEFAULT, 0, &effg_psound[i]);
-	}
-	
+
 	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/MainMenu/MouseClick.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::MAIN_MENU_CLICK]);
 	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/IllegalClick.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::ILLEGAL_CLICK]);
 
@@ -87,8 +81,12 @@ void CSoundManager::SetUpEffectSound()
 	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostDead.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_DEAD]);
 	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostMove.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_MOVE]);
 	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostSelect.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_SELECT]);
-	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostNuclear.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_NUCLEAR]);
+	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostNuclearLaser.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_NUCLEAR_LASER]);
+	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostNuclearExplosion.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_NUCLEAR_EXP]);
+
 	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/GhostBullet.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::GHOST_BULLET]);
+	FMOD_System_CreateSound(effg_psystem, "Resources/Sound/Game/BaseUnderAttack.wav", FMOD_DEFAULT, 0, &effg_psound[EFFSOUNDKIND::BASE_UNDER_ATTACK]);
+
 
 
 

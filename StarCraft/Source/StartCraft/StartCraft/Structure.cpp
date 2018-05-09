@@ -4,6 +4,7 @@
 #include "Unit.h"
 #include "Scv.h"
 #include "Marine.h"
+#include "Ghost.h"
 
 void CStructure::Init()
 {
@@ -14,6 +15,8 @@ void CStructure::Init()
 	m_bIsStructure = true;
 	fUnitBuildReMainPercent = 1.f;
 	dwUnitBuildTime = 0;
+	for (int i = 0; i < FIRE_END; ++i) m_nFireIdx[i] = 0;
+	
 }
 
 void CStructure::LateInit()
@@ -175,15 +178,34 @@ void CStructure::LateInit()
 		m_BuildList[CONTROL].push_back(pTemp);
 	}
 
+	// Fire
+	p = BITMAPMANAGER->GetImageInfo(FIRE1);
+	for (int i = 0; i < p[0].nImageNum; ++i) {
+		STATIC_UI_IMAGE_INFO* pTemp = new STATIC_UI_IMAGE_INFO;
+		memcpy(&pTemp->tInfo, &p[i], sizeof(IMAGE_INFO));
+
+		pTemp->tColor = RGB(0, 0, 0);
+
+		m_fireList[FIRE_ONE].push_back(pTemp);
+	}
+	
+	// Fire
+	p = BITMAPMANAGER->GetImageInfo(FIRE2);
+	for (int i = 0; i < p[0].nImageNum; ++i) {
+		STATIC_UI_IMAGE_INFO* pTemp = new STATIC_UI_IMAGE_INFO;
+		memcpy(&pTemp->tInfo, &p[i], sizeof(IMAGE_INFO));
+
+		pTemp->tColor = RGB(0, 0, 0);
+
+		m_fireList[FIRE_TWO].push_back(pTemp);
+	}
 }
 
 int CStructure::Update()
 {
 	CObj::LateInit();
 	BuildUnit();
-	//if (m_eCurrId == STRUCTURE_BUILD && m_tInfo.eObjId == BARRACK) {
-	//	m_tAnimationInfo[m_eCurrId].nCnt = (m_tAnimationInfo[m_eCurrId].nCnt + 1) % 3;
-	//}
+
 	return 0;
 }
 
@@ -244,6 +266,47 @@ void CStructure::Render()
 			0,
 			m_tAnimationInfo[m_eCurrId].nImageW,
 			m_tAnimationInfo[m_eCurrId].nImageH, RGB(0, 0, 0));
+
+
+	// Fire
+	if (0.7f > GetHpPercent()) {
+		m_nFireIdx[FIRE_ONE] = (m_nFireIdx[FIRE_ONE] + 1) % m_fireList[FIRE_ONE][0]->tInfo.nImageNum;
+		BITMAPMANAGER->GetImage()[m_fireList[FIRE_ONE][m_nFireIdx[FIRE_ONE]]->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
+			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+			m_fireList[FIRE_ONE][m_nFireIdx[FIRE_ONE]]->tInfo.nImageW,
+			m_fireList[FIRE_ONE][m_nFireIdx[FIRE_ONE]]->tInfo.nImageH,
+			0,
+			0,
+			m_fireList[FIRE_ONE][m_nFireIdx[FIRE_ONE]]->tInfo.nImageW,
+			m_fireList[FIRE_ONE][m_nFireIdx[FIRE_ONE]]->tInfo.nImageH, RGB(0, 0, 0));
+
+	}
+	if (0.6f > GetHpPercent()) {
+		m_nFireIdx[FIRE_TWO] = (m_nFireIdx[FIRE_TWO] + 1) % m_fireList[FIRE_TWO][0]->tInfo.nImageNum;
+		BITMAPMANAGER->GetImage()[m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			static_cast<int>(m_tRect.left + TILE_SIZE +  SCROLLMANAGER->GetScrollX()),
+			static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageW,
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageH,
+			0,
+			0,
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageW,
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageH, RGB(0, 0, 0));
+
+	}
+	if (0.4f > GetHpPercent()) {
+		BITMAPMANAGER->GetImage()[m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
+			static_cast<int>(m_tRect.left + TILE_SIZE * 2 + SCROLLMANAGER->GetScrollX()),
+			static_cast<int>(m_tRect.top + TILE_SIZE + SCROLLMANAGER->GetScrollY()),
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageW,
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageH,
+			0,
+			0,
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageW,
+			m_fireList[FIRE_TWO][m_nFireIdx[FIRE_TWO]]->tInfo.nImageH, RGB(0, 0, 0));
+
+	}
 
 }
 
@@ -413,7 +476,7 @@ void CStructure::BuildUnit()
 								OBJMANAGER->AddObject(pObj, MARINE);
 							}
 							else if (!strcmp(m_BuildQueueList.front()->tImage.tInfo.szName, "BarrackUnitIcon07")) {
-								CObj* pObj = CFactoryManager<CMarine>::CreateObj(GREEN, GHOST, PORTRAIT::GHOST,
+								CObj* pObj = CFactoryManager<CGhost>::CreateObj(GREEN, GHOST, PORTRAIT::GHOST,
 									UNIT::LARGE_WIRE::GHOST, UNIT::SMALL_WIRE::GHOST, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
 								OBJMANAGER->AddObject(pObj, GHOST);
 							}

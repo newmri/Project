@@ -44,7 +44,7 @@ public:
 	void SetLargeWireId(UNIT::LARGE_WIRE::LARGE_WIRE_ID eId) { m_tInfo.eLargeWireId = eId; }
 	void SetSmallWireId(UNIT::SMALL_WIRE::SMALL_WIRE_ID eId) { m_tInfo.eSmallWireId = eId; }
 	void SetHP(int hp) { m_tStat.nMaxHP = hp; m_tStat.nHP = hp; }
-	void SetDamage(int dmg) { m_tStat.nHP -= dmg; }
+	void SetDamage(int dmg);
 
 public:
 	void SetMove(node_t* node);
@@ -65,7 +65,7 @@ protected:
 	bool	m_bIsUI;
 	bool	m_bIsStructure;
 	bool	m_bMove;
-
+	bool    m_bUnderAttackSound;
 protected:
 	list<INTPOINT> m_route;
 
@@ -74,7 +74,7 @@ protected:
 
 	DWORD m_dwTime;
 	DWORD m_dwAttackTime;
-
+	
 	FLOATPOINT m_tMovePos;
 
 	float m_fAttackAngle;

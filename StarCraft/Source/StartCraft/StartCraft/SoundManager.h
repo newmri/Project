@@ -7,7 +7,6 @@ enum SOUNDKIND
 {
 	MAINMENUBGM = 0,
 	TERRAN_BGM,
-	STAGE1BGM,
 	SD_END
 };
 
@@ -37,11 +36,10 @@ enum EFFSOUNDKIND
 	GHOST_DEAD,
 	GHOST_MOVE,
 	GHOST_SELECT,
-	GHOST_NUCLEAR,
+	GHOST_NUCLEAR_LASER,
+	GHOST_NUCLEAR_EXP,
 	GHOST_BULLET,
-
-
-
+	BASE_UNDER_ATTACK,
 
 	EFFSD_END
 };
@@ -61,7 +59,7 @@ public:
 	void PlayerEffectSound(EFFSOUNDKIND eSound);
 
 private:
-	FMOD_SYSTEM* GetBgmSystem() { return g_psystem; }
+	FMOD_SYSTEM * GetBgmSystem() { return g_psystem; }
 	FMOD_SOUND** GetBgmSound() { return g_psound; }
 	FMOD_CHANNEL** GetBgmChannel() { return g_pchannel; }
 
@@ -86,7 +84,7 @@ private:
 	static CSoundManager* m_pInstance;
 
 private:
-	FMOD_SYSTEM*	g_psystem;
+	FMOD_SYSTEM * g_psystem;
 	FMOD_SOUND*		g_psound[SD_END];
 	FMOD_CHANNEL*	g_pchannel[SD_END];
 

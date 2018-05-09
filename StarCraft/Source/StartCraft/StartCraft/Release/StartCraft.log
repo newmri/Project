@@ -1,7 +1,142 @@
-﻿  TileManager.cpp
+﻿  stdafx.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\struct.h(105): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  BitmapManager.cpp
+  Button.cpp
+  CollisionManager.cpp
+  Editor.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\editor.cpp(71): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\editor.cpp(72): warning C4244: '=': conversion from 'LONG' to 'float', possible loss of data
+  Entry.cpp
+  Exit.cpp
+  GameManager.cpp
+  Ghost.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(73): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(72): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(84): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(83): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(96): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(95): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(155): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(173): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\ghost.cpp(174): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  KeyManager.cpp
+  MainMenu.cpp
+  Marine.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\marine.cpp(18): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  MathManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mathmanager.cpp(36): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Mine.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mine.cpp(26): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mine.cpp(27): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  MouseManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(118): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(119): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(197): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(198): warning C4244: '=': conversion from 'const float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(627): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(628): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(718): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\mousemanager.cpp(719): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  MultiPlay.cpp
+  Obj.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(25): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(26): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(27): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(28): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(41): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(42): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(43): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(44): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(59): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(117): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\obj.cpp(124): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  ObjectManager.cpp
+  PathManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\pathmanager.cpp(179): warning C4101: 'i': unreferenced local variable
+  RenderManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(36): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(37): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(38): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(39): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(44): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(52): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(90): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(91): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(92): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(93): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(98): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\rendermanager.cpp(106): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+  Scene.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(159): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(160): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(161): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scene.cpp(162): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  Compiling...
+  SceneManager.cpp
+  ScrollManager.cpp
+  Scv.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(65): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(66): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(240): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(241): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(300): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(299): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(430): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(431): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(448): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(449): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(450): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(451): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(531): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(553): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(578): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(587): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\scv.cpp(592): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  SinglePlay.cpp
+  SoundManager.cpp
+  Structure.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(59): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(60): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(65): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(66): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(69): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(348): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\factorymanager.h(74): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  s:\jusin\project\api\starcraft\source\startcraft\startcraft\factorymanager.h(63): note: while compiling class template member function 'CObj *CFactoryManager<CGhost>::CreateObj(OWNER_ID,OBJ_ID,PORTRAIT::ID,UNIT::LARGE_WIRE::LARGE_WIRE_ID,UNIT::SMALL_WIRE::SMALL_WIRE_ID,UNIT_SELECT,FLOATPOINT,float)'
+  s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(479): note: see reference to function template instantiation 'CObj *CFactoryManager<CGhost>::CreateObj(OWNER_ID,OBJ_ID,PORTRAIT::ID,UNIT::LARGE_WIRE::LARGE_WIRE_ID,UNIT::SMALL_WIRE::SMALL_WIRE_ID,UNIT_SELECT,FLOATPOINT,float)' being compiled
+  s:\jusin\project\api\starcraft\source\startcraft\startcraft\structure.cpp(479): note: see reference to class template instantiation 'CFactoryManager<CGhost>' being compiled
+  Tile.cpp
+  TileManager.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\factorymanager.h(91): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  s:\jusin\project\api\starcraft\source\startcraft\startcraft\factorymanager.h(82): note: while compiling class template member function 'CObj *CFactoryManager<CMine>::CreateTileObj(OWNER_ID,UNIT::LARGE_WIRE::LARGE_WIRE_ID,UNIT_SELECT,FLOATPOINT,float)'
+  s:\jusin\project\api\starcraft\source\startcraft\startcraft\tilemanager.cpp(241): note: see reference to function template instantiation 'CObj *CFactoryManager<CMine>::CreateTileObj(OWNER_ID,UNIT::LARGE_WIRE::LARGE_WIRE_ID,UNIT_SELECT,FLOATPOINT,float)' being compiled
+  s:\jusin\project\api\starcraft\source\startcraft\startcraft\tilemanager.cpp(241): note: see reference to class template instantiation 'CFactoryManager<CMine>' being compiled
+  UI.cpp
+  Unit.cpp
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(59): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(60): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(87): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(172): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(171): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(216): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(237): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(238): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(239): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(240): warning C4244: '+=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(253): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(272): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(280): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(284): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(301): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(331): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(357): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(358): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(407): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+s:\jusin\project\api\starcraft\source\startcraft\startcraft\unit.cpp(481): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Generating code
-  3 of 893 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  95 of 1473 functions ( 6.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    27 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   StartCraft.vcxproj -> S:\Jusin\Project\API\StarCraft\Source\StartCraft\Release\StartCraft.exe
