@@ -48,6 +48,21 @@ void CTileManager::LateUpdate()
 
 void CTileManager::Render()
 {
+
+	for (int i = 0; i < TILE_OBJ_END; ++i) {
+		for (auto& d : m_vecTileObj[i]) {
+			d->Render();
+		}
+	}
+
+}
+
+void CTileManager::Release()
+{
+}
+
+void CTileManager::RenderTile()
+{
 	int nScrollX = static_cast<int>(SCROLLMANAGER->GetScrollX());
 	int nScrollY = static_cast<int>(SCROLLMANAGER->GetScrollY());
 
@@ -67,17 +82,6 @@ void CTileManager::Render()
 
 		}
 	}
-
-	for (int i = 0; i < TILE_OBJ_END; ++i) {
-		for (auto& d : m_vecTileObj[i]) {
-			d->Render();
-		}
-	}
-
-}
-
-void CTileManager::Release()
-{
 }
 
 void CTileManager::Undo()

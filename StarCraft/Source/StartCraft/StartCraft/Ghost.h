@@ -13,6 +13,11 @@ public:
 	virtual void Render();
 	virtual void Release();
 
+public:
+	void UpdateNuclear();
+
+public:
+	void SetNuclear(POINT tMousePos);
 
 public:
 	virtual bool CheckCommand(POINT tMousePos);
@@ -24,6 +29,20 @@ public:
 	virtual void Move();
 	virtual void Attack();
 
+private:
+	STATIC_UI_IMAGE_VECTOR_LIST	m_SkillList;
+
+private:
+	bool m_bNuclearOn;
+	bool m_bNuclearLaunchOn;
+	int	 m_nNuclearIdx;
 
 
+	float m_fNuclearArea;
+	float m_fNuclearDmg;
+
+private:
+	INTPOINT m_tNuclearPos;
+	INTPOINT m_tNuclearTargetPos;
+	DWORD	 m_dwNuclearLaunchTime;
 };

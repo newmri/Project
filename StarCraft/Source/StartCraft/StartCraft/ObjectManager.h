@@ -13,7 +13,7 @@ public:
 	void Release();
 
 	OBJLIST GetObj(OBJ_ID eId) { return m_objList[eId]; }
-
+	OBJLIST* GetObj() { return m_objList; }
 public:
 	void ReSet();
 

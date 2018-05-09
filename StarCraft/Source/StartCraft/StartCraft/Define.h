@@ -104,12 +104,17 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 	{ "Resources/Image/Build/ControlBuild/*.*" },
 	{ "Resources/Image/UI/BuildIcon/Barrack/*.*" },
 	{ "Resources/Image/UI/BuildIcon/Control/*.*" },
+	{ "Resources/Image/UI/UnitCommandIcon/Ghost/*.*" },
 	{ "Resources/Image/UI/UnitCommandIcon/Marine/*.*" },
 	{ "Resources/Image/UI/UnitCommandIcon/Scv/*.*" },
 	{ "Resources/Image/UI/UnitCommandIcon/BasicBuild/*.*" },
+	{ "Resources/Image/UI/UnitCommandIcon/AdvancedBuild/*.*" },
+
 	{ "Resources/Image/UI/Build/*.*" },
 	{ "Resources/Image/Effect/Ghost/*.*" },
 	{ "Resources/Image/Effect/Marine/*.*" },
+	{ "Resources/Image/SKill/Ghost/*.*" },
+
 	{ "Resources/Image/Map/Mine/*.*" }
 
 

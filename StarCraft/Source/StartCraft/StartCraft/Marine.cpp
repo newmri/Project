@@ -4,12 +4,16 @@
 
 void CMarine::Init()
 {
+	SOUNDMANAGER->PlayerEffectSound(MARINE_BORN);
+
 	CUnit::Init();
 
 	m_tStat.nAttackRange = TILE_SIZE * 4;
 
 	m_fMoveAnimDivide = 2.98f;
 	m_fAttackAnimDivide = 8.15f;
+	m_tStat.nDamage = 10;
+	m_nAttackTime = 150;
 
 	m_tAnimationInfo[m_eCurrId].nCnt = (static_cast<int>(m_tInfo.fAngle) / m_fMoveAnimDivide);
 }

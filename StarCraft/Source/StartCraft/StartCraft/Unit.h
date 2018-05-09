@@ -37,7 +37,6 @@ protected:
 	UNIT::STATE_ID m_eCurrId;
 
 protected:
-	INTPOINT m_tReturnPos;
 	INTPOINT m_tAttackTargetPos;
 protected:
 	CObj* m_pTarget;
@@ -54,6 +53,7 @@ protected:
 	int nAnimationCnt;
 	int nAnimationMinNum;
 	int m_nEffectIdx;
+	int m_nAttackTime;
 
 protected:
 	COMMAND_VECTOR_LIST		m_commandList;

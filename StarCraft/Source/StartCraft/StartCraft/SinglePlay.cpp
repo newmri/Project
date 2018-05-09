@@ -4,9 +4,14 @@
 #include "Structure.h"
 #include "Unit.h"
 #include "Marine.h"
+#include "Ghost.h"
+
 
 void CSinglePlay::Init()
 {
+	SOUNDMANAGER->BGSoundOff();
+	SOUNDMANAGER->PlayeSound(TERRAN_BGM);
+
 	m_eId = SCENE::SINGLE_PLAY;
 
 	m_bIsUI = true;
@@ -81,7 +86,7 @@ void CSinglePlay::Init()
 		UNIT::LARGE_WIRE::MARINE, UNIT::SMALL_WIRE::MARINE, UNIT_SELECT2, FLOATPOINT((5 * TILE_SIZE) - 19, (5 * TILE_SIZE) - 17), 60);
 	OBJMANAGER->AddObject(pObj, MARINE);
 
-	pObj = CFactoryManager<CMarine>::CreateObj(GREEN, GHOST, PORTRAIT::GHOST,
+	pObj = CFactoryManager<CGhost>::CreateObj(GREEN, GHOST, PORTRAIT::GHOST,
 		UNIT::LARGE_WIRE::GHOST, UNIT::SMALL_WIRE::GHOST, UNIT_SELECT2, FLOATPOINT((6 * TILE_SIZE) - 19, (5 * TILE_SIZE) - 17), 60);
 	OBJMANAGER->AddObject(pObj, GHOST);
 
@@ -97,8 +102,12 @@ void CSinglePlay::LateInit()
 
 SCENE::SCENE_ID CSinglePlay::Update()
 {
-	if (KEYMANAGER->KeyDown(VK_ESCAPE)) return SCENE::MAIN_MENU;
-
+	if (KEYMANAGER->KeyDown(VK_ESCAPE)) {
+		OBJMANAGER->ReSet();
+		MOUSEMANAGER->Init();
+		SCENEMANAGER->Init();
+		return SCENE::MAIN_MENU;
+	}
 
 	if (KEYMANAGER->KeyPressing(VK_LEFT)) SCROLLMANAGER->SetScrollX(SCROLL_SPEED);
 	else if (KEYMANAGER->KeyPressing(VK_RIGHT)) SCROLLMANAGER->SetScrollX(-SCROLL_SPEED);

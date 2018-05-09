@@ -14,6 +14,7 @@ CMainMenu::~CMainMenu()
 
 void CMainMenu::Init()
 {
+	SOUNDMANAGER->PlayeSound(MAINMENUBGM);
 	m_eId = SCENE::MAIN_MENU;
 
 	CScene::Init();
@@ -92,13 +93,23 @@ void CMainMenu::LateInit()
 
 SCENE::SCENE_ID CMainMenu::Update()
 {
-	if (KEYMANAGER->KeyDown(VK_ESCAPE)) DestroyWindow(RENDERMANAGER->GethWnd());
-	if (KEYMANAGER->KeyDown('X')) DestroyWindow(RENDERMANAGER->GethWnd());
-	if (KEYMANAGER->KeyDown('S')) return SCENE::SINGLE_PLAY;
+	if (KEYMANAGER->KeyDown(VK_ESCAPE)) {
+		SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+		DestroyWindow(RENDERMANAGER->GethWnd());
+	}
+	if (KEYMANAGER->KeyDown('X')) {
+		SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+		DestroyWindow(RENDERMANAGER->GethWnd());
+	}
+	if (KEYMANAGER->KeyDown('S')) {
+		SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+		return SCENE::SINGLE_PLAY;
+	}
+	if (KEYMANAGER->KeyDown('C')) {
+		SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+		return SCENE::EDITOR;
 
-	if (KEYMANAGER->KeyDown('C')) return SCENE::EDITOR;
-
-
+	}
 	CScene::LateInit();
 	CScene::Update();
 	
@@ -108,10 +119,18 @@ SCENE::SCENE_ID CMainMenu::Update()
 		auto it_OBJ_END = m_uiList[BUTTON].end();
 		for (; it_begin != it_OBJ_END;) {
 			if (((*it_begin)->IsMouseOver())) {
-				if (SINGLE_PLAY_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) return SCENE::SINGLE_PLAY;
-				else if (EDITOR_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) return SCENE::EDITOR;
-
-				else if (EXIT_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) DestroyWindow(RENDERMANAGER->GethWnd());
+				if (SINGLE_PLAY_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) {
+					SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+					return SCENE::SINGLE_PLAY;
+				}
+				else if (EDITOR_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) {
+					SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+					return SCENE::EDITOR;
+				}
+				else if (EXIT_BUTTON == dynamic_cast<CButton*>((*it_begin))->GetId()) {
+					SOUNDMANAGER->PlayerEffectSound(MAIN_MENU_CLICK);
+					DestroyWindow(RENDERMANAGER->GethWnd());
+				}
 			}
 			it_begin++;
 		}

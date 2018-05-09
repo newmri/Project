@@ -19,7 +19,17 @@ typedef struct tagFloatPoint
 		fY = y;
 	}
 
+	tagFloatPoint(int x, int y)
+	{
+		fX = static_cast<float>(x);
+		fY = static_cast<float>(y);
+	}
 
+	tagFloatPoint(LONG x, LONG y)
+	{
+		fX = static_cast<float>(x);
+		fY = static_cast<float>(y);
+	}
 
 }FLOATPOINT;
 

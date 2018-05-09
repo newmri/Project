@@ -366,6 +366,7 @@ bool CStructure::CheckBuildUnit(POINT tMousePos)
 				}
 		
 			}
+			else SOUNDMANAGER->PlayerEffectSound(MORE_MINERAL);
 		}
 	}
 

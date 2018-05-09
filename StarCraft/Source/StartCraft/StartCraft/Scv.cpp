@@ -29,6 +29,7 @@ void CScv::Init()
 
 	m_tReturnPos.x = -1;
 
+	SOUNDMANAGER->PlayerEffectSound(SCV_BORN);
 
 }
 
@@ -160,16 +161,44 @@ void CScv::LateInit()
 			tPos.fY += 0.04f;
 		}
 
-		m_buildList[0].push_back(pTemp);
+		m_buildList[BASIC_BUILD].push_back(pTemp);
 	}
-	m_buildList[0][1]->nMineCost = 400;
-	m_buildList[0][3]->nMineCost = 100;
-	m_buildList[0][5]->nMineCost = 150;
-	m_buildList[0][7]->nMineCost = 125;
-	m_buildList[0][9]->nMineCost = 100;
-	m_buildList[0][11]->nMineCost = 75;
-	m_buildList[0][13]->nMineCost = 150;
+	m_buildList[BASIC_BUILD][1]->nMineCost = 400;
+	m_buildList[BASIC_BUILD][3]->nMineCost = 100;
+	m_buildList[BASIC_BUILD][5]->nMineCost = 150;
+	m_buildList[BASIC_BUILD][7]->nMineCost = 125;
+	m_buildList[BASIC_BUILD][9]->nMineCost = 100;
+	m_buildList[BASIC_BUILD][11]->nMineCost = 75;
+	m_buildList[BASIC_BUILD][13]->nMineCost = 150;
 
+	// Advanced Build
+	p = BITMAPMANAGER->GetImageInfo(SCV_ADVANCED_BUILD_ICON);
+	tPos.fX = 0.795f;
+	tPos.fY = 0.875f;
+	for (int i = 0; i < p[0].nImageNum; ++i) {
+		BUILD_INFO* pTemp = new BUILD_INFO;
+		memcpy(&pTemp->tImage.tInfo, &p[i], sizeof(IMAGE_INFO));
+
+		pTemp->tImage.tPos.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * tPos.fX);
+		pTemp->tImage.tPos.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * tPos.fY);
+		pTemp->tImage.tDrawSize.x = static_cast<int>(RENDERMANAGER->GetWindowSize().x * 0.05f);
+		pTemp->tImage.tDrawSize.y = static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.025);
+		pTemp->tImage.tColor = RGB(0, 0, 0);
+
+		pTemp->tClickArea.x = pTemp->tImage.tPos.x + pTemp->tImage.tDrawSize.x;
+		pTemp->tClickArea.y = pTemp->tImage.tPos.y + pTemp->tImage.tDrawSize.y;
+
+		if (i & 1) tPos.fX += 0.070f;
+
+
+
+		if (((i + 1) % 6) == 0) {
+			tPos.fX = 0.795f;
+			tPos.fY += 0.04f;
+		}
+
+		m_buildList[ADVANCED_BUILD].push_back(pTemp);
+	}
 
 	p = BITMAPMANAGER->GetImageInfo(BARRACK_BUILD);
 	for (int i = 0; i < p[0].nImageNum; ++i) {
@@ -195,9 +224,48 @@ int CScv::Update()
 {
 	CObj::LateInit();
 	
+
 	Move();
 	Attack();
 	Build();
+
+	if (0 >= m_tStat.nHP) {
+		SOUNDMANAGER->PlayerEffectSound(SCV_DEAD);
+
+		MOUSEMANAGER->ReSetSelectUnit();
+		// Swap Tail
+		float fScrollX = SCROLLMANAGER->GetScrollX();
+		float fScrollY = SCROLLMANAGER->GetScrollY();
+
+		m_tSelectRect.left = m_tRect.left + fScrollX + TILE_SIZE;
+		m_tSelectRect.top = (m_tRect.top + fScrollY) + TILE_SIZE;
+		m_tSelectRect.right = m_tSelectRect.left + TILE_SIZE;
+		m_tSelectRect.bottom = m_tSelectRect.top + TILE_SIZE;
+
+		INTPOINT pos;
+		pos.x = m_tSelectRect.left;
+		pos.y = m_tSelectRect.top;
+
+		m_tSelectRectIdx = TILEMANAGER->GetIndex(pos);
+
+		for (int posY = m_tSelectRect.top; posY < m_tSelectRect.bottom; posY += TILE_SIZE) {
+
+			for (int posX = m_tSelectRect.left; posX < m_tSelectRect.right; posX += TILE_SIZE) {
+
+				int x = (posX - static_cast<int>(fScrollX)) / TILE_SIZE;
+				int y = (posY - static_cast<int>(fScrollY)) / TILE_SIZE;
+				int k = TILEMANAGER->GetTileNum().x;
+				int nIdx = x + TILEMANAGER->GetTileNum().x * y;
+
+				CObj* pTile = TILEMANAGER->SelectTile(nIdx);
+
+				if (nullptr == pTile) return true;
+
+				dynamic_cast<CTile*>(pTile)->SetTileMovable();
+			}
+		}
+		return true;
+	}
 	return 0;
 }
 
@@ -250,9 +318,11 @@ bool CScv::CheckCommand(POINT tMousePos)
 
 			if (tMousePos.x >= d->tImage.tPos.x && tMousePos.x <= d->tClickArea.x &&
 				tMousePos.y >= d->tImage.tPos.y && tMousePos.y <= d->tClickArea.y) {
-				if (!strcmp(d->tImage.tInfo.szName, "ScvCommand10")) {
-					m_eCommand = BASIC_BUILD;
-				}
+
+				if (!strcmp(d->tImage.tInfo.szName, "ScvCommand10")) m_eCommand = BASIC_BUILD;
+				else if (!strcmp(d->tImage.tInfo.szName, "ScvCommand11")) m_eCommand = ADVANCED_BUILD;
+
+				
 				nCnt++;
 
 				return true;
@@ -268,6 +338,7 @@ bool CScv::CheckCommand(POINT tMousePos)
 				nCnt++;
 
 				if (!(nCnt & 1)) {
+
 					// Control
 					if (!strcmp(d->tImage.tInfo.szName, "BasicBuild01")) {
 						if (d->nMineCost <= SCENEMANAGER->GetReSourcesValue(MINE)) {
@@ -275,6 +346,7 @@ bool CScv::CheckCommand(POINT tMousePos)
 							SCENEMANAGER->UpdateResourcesValue(MINE, -d->nMineCost);
 							return true;
 						}
+						else SOUNDMANAGER->PlayerEffectSound(MORE_MINERAL);
 					}
 					// Barrack
 					else if (!strcmp(d->tImage.tInfo.szName, "BasicBuild07")) {
@@ -283,6 +355,7 @@ bool CScv::CheckCommand(POINT tMousePos)
 							SCENEMANAGER->UpdateResourcesValue(MINE, -d->nMineCost);
 							return true;
 						}
+						else SOUNDMANAGER->PlayerEffectSound(MORE_MINERAL);
 					}
 				}
 				else if (!strcmp(d->tImage.tInfo.szName, "BasicBuild16")) {
@@ -290,6 +363,11 @@ bool CScv::CheckCommand(POINT tMousePos)
 					return true;
 
 				}
+				else if (!strcmp(d->tImage.tInfo.szName, "AdvancedBuilding8")) {
+					m_eCommand = BASIC;
+					return true;
+				}
+
 
 			}
 		}
@@ -446,6 +524,7 @@ void CScv::Move()
 				}
 				// Mine
 				if (m_bAttack) {
+					SOUNDMANAGER->PlayerEffectSound(SCV_MINING);
 					m_eCurrId = SCV_STATE::MINE;
 					m_bAttack = false;
 					m_tInfo.fAngle = m_fAttackAngle;
@@ -575,6 +654,7 @@ void CScv::Build()
 	if (m_bBuild && SCV_STATE::BUILD == m_eCurrId && m_dwAttackTime + 50 < GetTickCount()) {
 
 		if (m_dwBuildTime + 500 < GetTickCount()) {
+			SOUNDMANAGER->PlayerEffectSound(SCV_DOING_BUILD);
 			m_dwBuildTime = GetTickCount();
 			++m_nBuildCnt;
 
@@ -588,7 +668,7 @@ void CScv::Build()
 			case BARRACK:
 				CObj * pObj = CFactoryManager<CStructure>::CreateObj(GREEN, BARRACK, PORTRAIT::ADVISOR,
 					UNIT::LARGE_WIRE::BARRACK, UNIT_SELECT9, FLOATPOINT(m_BuildPos.x, m_BuildPos.y), 1000);
-
+				SOUNDMANAGER->PlayerEffectSound(SCV_BUILD_DONE);
 				OBJMANAGER->AddObject(pObj, BARRACK);
 				break;
 

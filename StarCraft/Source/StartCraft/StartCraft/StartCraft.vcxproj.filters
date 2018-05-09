@@ -22,21 +22,6 @@
     <Filter Include="01.Object">
       <UniqueIdentifier>{d542960e-47bf-4fa6-978e-21f61851ad28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Scene\00.MainMenu">
-      <UniqueIdentifier>{5f664822-2d82-40d2-924f-3476d7a4207e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Scene\02.MultiPlay">
-      <UniqueIdentifier>{0edce887-fa66-42fd-bf73-4d737a4c2ea8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Scene\03.Editor">
-      <UniqueIdentifier>{89b21329-2d46-4972-9d1a-8afddc587a3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Scene\04.Exit">
-      <UniqueIdentifier>{d61a229f-92a4-4765-a8cc-4fede99336ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Scene\01.SinglePlay">
-      <UniqueIdentifier>{5d051054-38fa-42ed-84c7-2fc99b876e65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Object\01.UI">
       <UniqueIdentifier>{68c2a729-9b30-4290-a4b3-f9afbc9ee15e}</UniqueIdentifier>
     </Filter>
@@ -63,6 +48,21 @@
     </Filter>
     <Filter Include="01.Object\04.Unit\02.Ghost">
       <UniqueIdentifier>{f56e6056-d267-4f65-bdb2-f470b2517acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\00.MainMenu">
+      <UniqueIdentifier>{5f664822-2d82-40d2-924f-3476d7a4207e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\01.SinglePlay">
+      <UniqueIdentifier>{5d051054-38fa-42ed-84c7-2fc99b876e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\02.MultiPlay">
+      <UniqueIdentifier>{0edce887-fa66-42fd-bf73-4d737a4c2ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\03.Editor">
+      <UniqueIdentifier>{89b21329-2d46-4972-9d1a-8afddc587a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Scene\04.Exit">
+      <UniqueIdentifier>{d61a229f-92a4-4765-a8cc-4fede99336ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

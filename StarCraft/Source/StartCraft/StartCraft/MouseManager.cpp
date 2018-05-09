@@ -7,6 +7,8 @@
 #include "Structure.h"
 #include "Unit.h"
 #include "Scv.h"
+#include "Ghost.h"
+
 CMouseManager*	CMouseManager::m_pInstance = nullptr;
 
 void CMouseManager::Init()
@@ -17,7 +19,7 @@ void CMouseManager::Init()
 	m_bIsDragging = false;
 	m_bIsClickedBuildIcon = false;
 	m_bCanBuild = false;
-
+	m_bSpecialAttack = false;
 	m_nAnimationIdx = 0;
 	m_nSelectedUnitNum = 0;
 
@@ -278,7 +280,6 @@ void CMouseManager::Render()
 
 		if (0 == cnt) m_bCanBuild = true;
 		else m_bCanBuild = false;
-
 		BITMAPMANAGER->GetImage()[m_tBuildImage[m_eBuildId].tInfo.szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
 			rc.left,
 			rc.top,
@@ -412,7 +413,7 @@ void CMouseManager::RenderUI()
 			if (0.4f > fPercent) idx = 4;
 			if (0.3f > fPercent) idx = 5;
 
-		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedSmallWireId][idx];
+		p = m_wireList[m_tUnitSelect[i].eSelectedWireSizeId][m_tUnitSelect[i].eSelectedSmallWireId][idx];
 
 			BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(hDC,
 				m_tUnitSelect[i].tDrawPos.x,
@@ -462,6 +463,12 @@ void CMouseManager::SelectObj()
 					
 					m_eCurrId = ARROW;
 				}
+				if (SCV == d->GetObjId()) SOUNDMANAGER->PlayerEffectSound(SCV_SELECT);
+				else if (MARINE == d->GetObjId()) SOUNDMANAGER->PlayerEffectSound(MARINE_SELECT);
+				else if (GHOST == d->GetObjId()) SOUNDMANAGER->PlayerEffectSound(GHOST_SELECT);
+
+				else if(d->IsStructure()) SOUNDMANAGER->PlayerEffectSound(SELECT_BUILDING);
+
 				m_selectedObj[0] = d;
 				m_tSelectRect = d->GetSelectRect();
 				m_tUnitSelect[0].eId = static_cast<OBJ_ID>(i);
@@ -541,7 +548,7 @@ void CMouseManager::DragSelectObj()
 				for (pos.x = m_tDragPos[DRAG_START_POS].x; pos.x < m_tDragPos[DRAG_END_POS].x; pos.x += TILE_SIZE) {
 					if ((*itor_begin)->IsClicked(pos)) {
 						if (PORTRAIT::ADVISOR == (*itor_begin)->GetPortraitId()) goto END;
-	
+
 						m_selectedObj[m_nSelectedUnitNum] = *itor_begin;
 						m_tSelectRect = (*itor_begin)->GetSelectRect();
 						m_tUnitSelect[m_nSelectedUnitNum].eSelectedPortraitId = (*itor_begin)->GetPortraitId();
@@ -578,9 +585,11 @@ void CMouseManager::DragSelectObj()
 			END:
 			++itor_begin;
 		}
-	
-	}
 
+	}
+	if (SCV == m_selectedObj[0]->GetObjId()) SOUNDMANAGER->PlayerEffectSound(SCV_SELECT);
+	else if (MARINE == m_selectedObj[0]->GetObjId()) SOUNDMANAGER->PlayerEffectSound(MARINE_SELECT);
+	else if (GHOST == m_selectedObj[0]->GetObjId()) SOUNDMANAGER->PlayerEffectSound(GHOST_SELECT);
 
 }
 
@@ -602,16 +611,18 @@ void CMouseManager::CheckSelectObj()
 	}
 	else {
 		if (KEYMANAGER->KeyDown(VK_LBUTTON)) {
-
+			if (TARGY == m_eCurrId && m_bSpecialAttack && dynamic_cast<CGhost*>(m_selectedObj[0])) {
+				dynamic_cast<CGhost*>(m_selectedObj[0])->SetNuclear(m_tPos);
+			}
 			// Build Icon Click
 			if (0 < m_nSelectedUnitNum) {
+
 				m_bIsClickedBuildIcon = false;
 				if(m_tUnitSelect[0].bIsStructure)
 					m_bIsClickedBuildIcon = dynamic_cast<CStructure*>(m_selectedObj[0])->CheckBuildUnit(m_tPos);
 				else if (dynamic_cast<CUnit*>(m_selectedObj[0])) {
 					m_bIsClickedBuildIcon = dynamic_cast<CUnit*>(m_selectedObj[0])->CheckCommand(m_tPos);
 				}
-			
 				if (m_bCanBuild) {
 					m_tIntPos.x = m_tPos.x - SCROLLMANAGER->GetScrollX();
 					m_tIntPos.y = m_tPos.y - SCROLLMANAGER->GetScrollY();
@@ -668,9 +679,12 @@ void CMouseManager::CheckSelectObj()
 					}
 
 					m_bCanBuild = false;
+					m_eBuildId = OBJ_END;
+
 					return;
 
 				}
+		
 			}
 		
 			if (!m_bIsClickedBuildIcon) MOUSEMANAGER->SelectObj();
@@ -720,58 +734,59 @@ void CMouseManager::CheckMoveObj()
 		if (dynamic_cast<CTile*>(pTile)->IsClickable()) {
 			m_eCurrId = TARGG;
 			INTPOINT dest[3];
-			
+
 			for (int i = 0; i < m_nSelectedUnitNum; ++i) {
+				if (SCV == m_selectedObj[i]->GetObjId()) {
+					for (int i = 0; i < 3; ++i) dest[i] = m_tIntPos;
 
-				for (int i = 0; i < 3; ++i) dest[i] = m_tIntPos;
+					INTPOINT src;
+					src.x = m_selectedObj[i]->GetSelectRect().left;
+					src.y = m_selectedObj[i]->GetSelectRect().top;
+					node_t* node[3];
 
-				INTPOINT src;
-				src.x = m_selectedObj[i]->GetSelectRect().left;
-				src.y = m_selectedObj[i]->GetSelectRect().top;
-				node_t* node[3];
+					// L B R
+					dest[0].x -= TILE_SIZE;
+					dest[1].y += TILE_SIZE;
+					dest[2].x += TILE_SIZE;
 
-				// L B R
-				dest[0].x -= TILE_SIZE;
-				dest[1].y += TILE_SIZE;
-				dest[2].x += TILE_SIZE;
-
-				for (int i = 0; i < 3; ++i) {
-					node[i] = PATHMANAGER->FindPath(src, dest[i]);
-				}
-	
-
-				for (int i = 0; i < 3; ++i) {
-					if (0 > node[i]->value_factor) node[i]->value_factor = 999;
-				}
-
-				int min = node[0]->value_factor;
-
-				for (int i = 0; i < 3; ++i) {
-					if (min > node[i]->value_factor) min = node[i]->value_factor;
-				}
-	
-
-				for (int j = 0; j < 3; ++j) {
-					if (min == node[j]->value_factor) {
-						node[j] = PATHMANAGER->FindPath(src, dest[j]);
-						m_selectedObj[i]->SetMove(node[j]);
-						float fAngle;
-						if (0 == j) fAngle = RIGHT;
-						else if (1 == j) fAngle = TOP;
-						else if (2 == j) fAngle = LEFT;
-
-						dynamic_cast<CUnit*>(m_selectedObj[i])->SetAttack(m_tIntPos, fAngle);
-						break;
-
-		
+					for (int i = 0; i < 3; ++i) {
+						node[i] = PATHMANAGER->FindPath(src, dest[i]);
 					}
+
+
+					for (int i = 0; i < 3; ++i) {
+						if (0 > node[i]->value_factor) node[i]->value_factor = 999;
+					}
+
+					int min = node[0]->value_factor;
+
+					for (int i = 0; i < 3; ++i) {
+						if (min > node[i]->value_factor) min = node[i]->value_factor;
+					}
+
+
+					for (int j = 0; j < 3; ++j) {
+						if (min == node[j]->value_factor) {
+							node[j] = PATHMANAGER->FindPath(src, dest[j]);
+							m_selectedObj[i]->SetMove(node[j]);
+							float fAngle;
+							if (0 == j) fAngle = RIGHT;
+							else if (1 == j) fAngle = TOP;
+							else if (2 == j) fAngle = LEFT;
+
+							dynamic_cast<CUnit*>(m_selectedObj[i])->SetAttack(m_tIntPos, fAngle);
+							break;
+
+
+						}
+					}
+
 				}
-
+				return;
 			}
-			return;
 		}
-
 		m_eCurrId = ILLEGAL;
+		SOUNDMANAGER->PlayerEffectSound(ILLEGAL_CLICK);
 		m_tIllegalRect = dynamic_cast<CTile*>(pTile)->GetRectWithScroll();
 		
 	}

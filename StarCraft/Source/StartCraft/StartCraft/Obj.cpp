@@ -80,6 +80,11 @@ void CObj::SetMove(node_t* node)
 
 	if (m_route.empty()) return;
 
+	if (SCV == m_tInfo.eObjId && m_tReturnPos.x == -1) SOUNDMANAGER->PlayerEffectSound(SCV_MOVE);
+	else if (MARINE == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(MARINE_MOVE);
+	else if (GHOST == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(GHOST_MOVE);
+
+
 	INTPOINT pos;
 	pos.x = m_tSelectRect.left;
 	pos.y = m_tSelectRect.top;
@@ -133,6 +138,8 @@ CObj::CObj()
 	m_bIsInit = false;
 	m_bIsUI = false;
 	m_bIsStructure = false;
+	m_tReturnPos.x = -1;
+
 }
 
 CObj::~CObj()

@@ -13,6 +13,8 @@ public:
 	void Release();
 
 public:
+	void RenderTile();
+public:
 	void Undo();
 
 public:

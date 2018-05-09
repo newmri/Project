@@ -88,7 +88,10 @@ void CUnit::LateInit()
 
 
 	// Command Icon
-	IMAGE_INFO* p = BITMAPMANAGER->GetImageInfo(MARINE_COMMAND_ICON);
+	IMAGE_INFO* p;
+	if (MARINE == m_tInfo.eObjId) p = BITMAPMANAGER->GetImageInfo(MARINE_COMMAND_ICON);
+	else if (GHOST == m_tInfo.eObjId) p = BITMAPMANAGER->GetImageInfo(GHOST_COMMAND_ICON);
+
 	FLOATPOINT tPos(0.795f, 0.875f);
 	for (int i = 0; i < p[0].nImageNum; ++i) {
 		COMMAND_INFO* pTemp = new COMMAND_INFO;
@@ -109,19 +112,15 @@ void CUnit::LateInit()
 		}
 
 
-		if (((i + 1) % 6) == 0) {
+		if (((i + 1) % 6) == 0 && i < 9) {
 			tPos.fX = 0.795f;
 			tPos.fY += 0.04f;
 		}
-		if (9 == i) {
+		else if (9 == i) {
 			tPos.fX = 0.795f;
 			tPos.fY += 0.04f;
 		}
-		if (9 < i) {
-			pTemp->bRender = true;
-			tPos.fX += 0.070f;
 
-		}
 
 
 		m_commandList.push_back(pTemp);
@@ -163,8 +162,11 @@ void CUnit::Render()
 
 
 	if (UNIT::ATTACK == m_eCurrId) {
-
-		m_nEffectIdx = (m_nEffectIdx + 1) % m_effectList[0]->tInfo.nImageNum;
+		if (m_nEffectIdx >= m_effectList[0]->tInfo.nImageNum - 1 && m_pTarget->GetStat().nHP > 0) {
+			if (MARINE == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(MARINE_BULLET);
+			else if (GHOST == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(GHOST_BULLET);
+		}
+			m_nEffectIdx = (m_nEffectIdx + 1) % m_effectList[0]->tInfo.nImageNum;
 		BITMAPMANAGER->GetImage()[m_effectList[m_nEffectIdx]->tInfo.szName]->TransparentBlt(hDC,
 			m_tAttackTargetPos.x + SCROLLMANAGER->GetScrollX(),
 			m_tAttackTargetPos.y + SCROLLMANAGER->GetScrollY(),
@@ -319,10 +321,10 @@ void CUnit::Attack()
 			nAnimationCnt = nAnimationMinNum + 3;
 			m_nEffectIdx = 0;
 		}
-		if (m_dwAttackTime + 150 < GetTickCount()) {
+		if (m_dwAttackTime + m_nAttackTime < GetTickCount()) {
 			if (++m_tAnimationInfo[m_eCurrId].nCnt > nAnimationCnt) {
 				m_tAnimationInfo[m_eCurrId].nCnt = nAnimationMinNum;
-				if (0 < m_pTarget->GetStat().nHP) m_pTarget->SetDamage(30);
+				if (0 < m_pTarget->GetStat().nHP) m_pTarget->SetDamage(m_tStat.nDamage);
 				else {
 					m_pTarget = nullptr;
 					m_eCurrId = UNIT::MOVE;
@@ -379,6 +381,8 @@ bool CUnit::Die()
 					dynamic_cast<CTile*>(pTile)->SetTileMovable();
 				}
 			}
+			if (MARINE == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(MARINE_DEAD);
+			else if (GHOST == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(GHOST_DEAD);
 			return true;
 		}
 	}
@@ -465,7 +469,10 @@ void CUnit::SetAttack()
 {
 
 	m_eCurrId = UNIT::ATTACK;
-	
+	if (MARINE == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(MARINE_ATTACK);
+	else if (GHOST == m_tInfo.eObjId) SOUNDMANAGER->PlayerEffectSound(GHOST_ATTACK);
+
+
 	FLOATPOINT src(m_tSelectRect.left, m_tSelectRect.top);
 	FLOATPOINT dest(m_tAttackTargetPos.x, m_tAttackTargetPos.y);
 

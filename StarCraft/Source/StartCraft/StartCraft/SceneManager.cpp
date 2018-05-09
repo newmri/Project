@@ -15,6 +15,7 @@ void CSceneManager::SetState(const SCENE::SCENE_ID eSceneID)
 		SafeDelete(m_pScene);
 
 		switch (eSceneID) {
+
 		case SCENE::SCENE_ID::MAIN_MENU:
 			m_bIsGameStarted = false;
 			m_pScene = new CMainMenu; m_eSceneID = SCENE::SCENE_ID::MAIN_MENU; break;
@@ -43,7 +44,10 @@ void CSceneManager::Init()
 	SetState(SCENE::MAIN_MENU);
 	m_bShowCollisionBox = false;
 	m_bInvincibility = false;
+	for (int i = 0; i < 3; ++i) m_tResources[i].nValue = 1000;
 
+
+	
 	LateInit();
 
 }

@@ -39,7 +39,7 @@ public:
 
 public:
 	void CheckMouseOver(UILIST& target);
-	void ChangeCursor(CURSOR_ID eId) { m_eCurrId = eId; }
+	void ChangeCursor(CURSOR_ID eId, bool bNormalAttack = false) { m_eCurrId = eId; m_bSpecialAttack = bNormalAttack; }
 
 public:
 	static CMouseManager* GetInstance()
@@ -94,6 +94,8 @@ private:
 	bool				m_bIsDragging;
 	bool				m_bIsClickedBuildIcon;
 	bool				m_bCanBuild;
+	bool				m_bSpecialAttack;
+
 private:
 	OBJ_ID				m_eBuildId;
 	STATIC_UI_IMAGE_INFO m_tBuildImage[2];

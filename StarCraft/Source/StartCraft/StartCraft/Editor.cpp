@@ -98,6 +98,7 @@ void CEditor::Render()
 
 	TILEMANAGER->Render();
 	CScene::Render();
+	TILEMANAGER->RenderTile();
 }
 
 void CEditor::Release()
