@@ -399,6 +399,7 @@ void CStructure::BuildUnit()
 						INTPOINT idx = TILEMANAGER->GetIndex(pos);
 						int nIdx = idx.x + TILEMANAGER->GetTileNum().x * idx.y;
 						CObj* pTile = TILEMANAGER->SelectTile(nIdx);
+					
 						if (dynamic_cast<CTile*>(pTile)->IsMovable()) {
 							if (!strcmp(m_BuildQueueList.front()->tImage.tInfo.szName, "ControlUnitIcon01")) {
 								CObj* pObj = CFactoryManager<CScv>::CreateObj(GREEN, SCV, PORTRAIT::SCV,
@@ -409,6 +410,11 @@ void CStructure::BuildUnit()
 								CObj* pObj = CFactoryManager<CMarine>::CreateObj(GREEN, MARINE, PORTRAIT::MARINE,
 									UNIT::LARGE_WIRE::MARINE, UNIT::SMALL_WIRE::MARINE, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
 								OBJMANAGER->AddObject(pObj, MARINE);
+							}
+							else if (!strcmp(m_BuildQueueList.front()->tImage.tInfo.szName, "BarrackUnitIcon07")) {
+								CObj* pObj = CFactoryManager<CMarine>::CreateObj(GREEN, GHOST, PORTRAIT::GHOST,
+									UNIT::LARGE_WIRE::GHOST, UNIT::SMALL_WIRE::GHOST, UNIT_SELECT2, FLOATPOINT((idx.x * TILE_SIZE) - 19, (idx.y * TILE_SIZE) - 17), 60);
+								OBJMANAGER->AddObject(pObj, GHOST);
 							}
 							m_BuildQueueList.pop_front();
 							int nSize = m_BuildQueueList.size();

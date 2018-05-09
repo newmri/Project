@@ -51,7 +51,7 @@ typedef struct tagStat {
 	int		nHP; // 현재 체력
 
 	int		nDamage; // 공격력
-
+	int		nAttackRange;
 }STAT;
 
 typedef struct tagBitmapAnimationInfo
@@ -92,6 +92,8 @@ typedef struct tagIntPoint
 	}
 	tagIntPoint() {}
 	tagIntPoint(int x, int y) : x(x), y(y) {}
+	tagIntPoint(FLOATPOINT tPos) : x(tPos.fX), y(tPos.fY) {}
+
 
 }INTPOINT;
 

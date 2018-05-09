@@ -155,7 +155,7 @@ void CMouseManager::Update()
 	}
 
 
-	if (0 < m_nSelectedUnitNum && TARGG != m_eCurrId && ILLEGAL != m_eCurrId) {
+	if (0 < m_nSelectedUnitNum && TARGG != m_eCurrId && ILLEGAL != m_eCurrId && TARGY != m_eCurrId) {
 		if(m_tPos.x < m_tSelectRect.left ||
 			m_tPos.x  > m_tSelectRect.right ||
 			m_tPos.y < m_tSelectRect.top ||
@@ -165,6 +165,7 @@ void CMouseManager::Update()
 		}
 
 	}
+
 
 	if (ILLEGAL == m_eCurrId) {
 		if (m_tPos.x < m_tIllegalRect.left ||
@@ -208,6 +209,7 @@ void CMouseManager::Render()
 				break;
 
 			}
+
 
 			BITMAPMANAGER->GetImage()[m_tSelectImage[m_tUnitSelect[i].eSelectedUnitsize].szName]->TransparentBlt(RENDERMANAGER->GetMemDC(),
 				static_cast<int>(pos.x + SCROLLMANAGER->GetScrollX()),
@@ -363,7 +365,17 @@ void CMouseManager::RenderUI()
 
 	// Render Wire
 	if (UNIT::LARGE == m_tUnitSelect[0].eSelectedWireSizeId) {
-		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedLargeWireId][0];
+		int idx = 0;
+		float fPercent = m_selectedObj[0]->GetHpPercent();
+		if (0.7f > fPercent) idx = 1;
+		if (0.6f > fPercent) idx = 2;
+		if (0.5f > fPercent) idx = 3;
+		if (0.4f > fPercent) idx = 4;
+		if (0.3f > fPercent) idx = 5;
+
+
+
+		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedLargeWireId][idx];
 
 		BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(hDC,
 			p->tPos.x,
@@ -378,6 +390,7 @@ void CMouseManager::RenderUI()
 		// Render HP
 		SetBkMode(hDC, TRANSPARENT);
 		SetTextColor(hDC, RGB(0, 255, 0));
+		wsprintf(m_tUnitSelect[0].szHp, L"%d/%d", m_selectedObj[0]->GetStat().nHP, m_selectedObj[0]->GetStat().nMaxHP);
 		TextOut(hDC, static_cast<int>(p->tPos.x * 1.2f), static_cast<int>(RENDERMANAGER->GetWindowSize().y * 0.98f), m_tUnitSelect[0].szHp, _tcslen(m_tUnitSelect[0].szHp));
 
 		// Render Name
@@ -387,8 +400,20 @@ void CMouseManager::RenderUI()
 	}
 
 	else {
-		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedSmallWireId][0];
+
+
 		for (int i = 0; i < m_nSelectedUnitNum; ++i) {
+			float fPercent = m_selectedObj[i]->GetHpPercent();
+			int idx = 0;
+
+			if (0.7f > fPercent) idx = 1;
+			if (0.6f > fPercent) idx = 2;
+			if (0.5f > fPercent) idx = 3;
+			if (0.4f > fPercent) idx = 4;
+			if (0.3f > fPercent) idx = 5;
+
+		p = m_wireList[m_tUnitSelect[0].eSelectedWireSizeId][m_tUnitSelect[0].eSelectedSmallWireId][idx];
+
 			BITMAPMANAGER->GetImage()[p->tInfo.szName]->TransparentBlt(hDC,
 				m_tUnitSelect[i].tDrawPos.x,
 				m_tUnitSelect[i].tDrawPos.y,
@@ -431,6 +456,12 @@ void CMouseManager::SelectObj()
 		OBJLIST list = OBJMANAGER->GetObj(static_cast<OBJ_ID>(i));
 		for (auto& d : list) {
 			if (d->IsClicked(pos)) {
+				if (TARGY == m_eCurrId) {
+					for (int i = 0; i < m_nSelectedUnitNum; ++i)
+						dynamic_cast<CUnit*>(m_selectedObj[i])->SetTarget(d, pos);
+					
+					m_eCurrId = ARROW;
+				}
 				m_selectedObj[0] = d;
 				m_tSelectRect = d->GetSelectRect();
 				m_tUnitSelect[0].eId = static_cast<OBJ_ID>(i);
@@ -510,6 +541,7 @@ void CMouseManager::DragSelectObj()
 				for (pos.x = m_tDragPos[DRAG_START_POS].x; pos.x < m_tDragPos[DRAG_END_POS].x; pos.x += TILE_SIZE) {
 					if ((*itor_begin)->IsClicked(pos)) {
 						if (PORTRAIT::ADVISOR == (*itor_begin)->GetPortraitId()) goto END;
+	
 						m_selectedObj[m_nSelectedUnitNum] = *itor_begin;
 						m_tSelectRect = (*itor_begin)->GetSelectRect();
 						m_tUnitSelect[m_nSelectedUnitNum].eSelectedPortraitId = (*itor_begin)->GetPortraitId();
@@ -538,6 +570,7 @@ void CMouseManager::DragSelectObj()
 						m_dwAnimationTime = GetTickCount();
 						m_nAnimationIdx = 0;
 						if (m_nSelectedUnitNum < MAX_UNIT_SELECT_NUM) ++m_nSelectedUnitNum;
+	
 						goto END;
 					}
 				}

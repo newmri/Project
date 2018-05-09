@@ -32,13 +32,14 @@ public:
 public:
 	void SetMiniMapArea(RECT rc);
 	void SetBuild(OBJ_ID eId);
+	void ReSetSelectUnit() { m_nSelectedUnitNum = 0; }
 
 public:
 	void MoveScrollByMouse();
 
 public:
 	void CheckMouseOver(UILIST& target);
-
+	void ChangeCursor(CURSOR_ID eId) { m_eCurrId = eId; }
 
 public:
 	static CMouseManager* GetInstance()

@@ -3,6 +3,7 @@
 #include "Button.h"
 #include "Structure.h"
 #include "Unit.h"
+#include "Marine.h"
 
 void CSinglePlay::Init()
 {
@@ -76,9 +77,13 @@ void CSinglePlay::Init()
 	OBJMANAGER->AddObject(pObj, CONTROL);
 
 
+	pObj = CFactoryManager<CMarine>::CreateObj(GREEN, MARINE, PORTRAIT::MARINE,
+		UNIT::LARGE_WIRE::MARINE, UNIT::SMALL_WIRE::MARINE, UNIT_SELECT2, FLOATPOINT((5 * TILE_SIZE) - 19, (5 * TILE_SIZE) - 17), 60);
+	OBJMANAGER->AddObject(pObj, MARINE);
 
-
-
+	pObj = CFactoryManager<CMarine>::CreateObj(GREEN, GHOST, PORTRAIT::GHOST,
+		UNIT::LARGE_WIRE::GHOST, UNIT::SMALL_WIRE::GHOST, UNIT_SELECT2, FLOATPOINT((6 * TILE_SIZE) - 19, (5 * TILE_SIZE) - 17), 60);
+	OBJMANAGER->AddObject(pObj, GHOST);
 
 }
 

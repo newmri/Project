@@ -24,7 +24,5 @@ public:
 	virtual void Move();
 	virtual void Attack();
 
-public:
-	void UpdateRect();
 
 };

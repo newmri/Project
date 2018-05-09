@@ -30,6 +30,7 @@ const TCHAR OBJ_NAME[OBJ_END - 1][STR_LEN] =
 {
 	{L"Terran Barrack"},
 	{L"Terran Command Center" },
+	{ L"Terran Ghost" },
 	{ L"Terran Marine" },
 	{ L"Terran SCV" }
 
@@ -38,6 +39,7 @@ const char OBJ_DIR[OBJ_END][STR_LEN] =
 {
 	{ "Resources/Image/Structure/Barrack/*.*" },
 	{ "Resources/Image/Structure/Control/*.*" },
+	{ "Resources/Image/Unit/Ghost/*.*" },
 	{ "Resources/Image/Unit/Marine/*.*" },
 	{ "Resources/Image/Unit/Scv/*.*" },
 	{ "Resources/Image/Cursor/*.*" },
@@ -47,6 +49,7 @@ const char OBJ_DIR[OBJ_END][STR_LEN] =
 const char OBJ_PORTRAIT_DIR[PORTRAIT::PORTRAIT_END][STR_LEN] =
 {
 	{ "Resources/Image/Portrait/Advisor/*.*" },
+	{ "Resources/Image/Portrait/Ghost/*.*" },
 	{ "Resources/Image/Portrait/Marine/*.*" },
 	{ "Resources/Image/Portrait/SCV/*.*" }
 
@@ -56,6 +59,7 @@ const char OBJ_LARGE_WIRE_DIR[UNIT::LARGE_WIRE::LARGE_WIRE_END][STR_LEN] =
 {
 	{ "Resources/Image/Wire/Large/Barrack/*.*" },
 	{ "Resources/Image/Wire/Large/Control/*.*" },
+	{ "Resources/Image/Wire/Large/Ghost/*.*" },
 	{ "Resources/Image/Wire/Large/Marine/*.*" },
 	{ "Resources/Image/Wire/Large/SCV/*.*" },
 	{ "Resources/Image/Wire/Large/Mine/*.*" }
@@ -65,6 +69,7 @@ const char OBJ_LARGE_WIRE_DIR[UNIT::LARGE_WIRE::LARGE_WIRE_END][STR_LEN] =
 
 const char OBJ_SMALL_WIRE_DIR[UNIT::SMALL_WIRE::SMALL_WIRE_END][STR_LEN] =
 {
+	{ "Resources/Image/Wire/Small/Ghost/*.*" },
 	{ "Resources/Image/Wire/Small/Marine/*.*" },
 	{ "Resources/Image/Wire/Small/SCV/*.*" }
 
@@ -99,10 +104,12 @@ const char IMAGE_DIR[IMAGE_END][STR_LEN] =
 	{ "Resources/Image/Build/ControlBuild/*.*" },
 	{ "Resources/Image/UI/BuildIcon/Barrack/*.*" },
 	{ "Resources/Image/UI/BuildIcon/Control/*.*" },
+	{ "Resources/Image/UI/UnitCommandIcon/Marine/*.*" },
 	{ "Resources/Image/UI/UnitCommandIcon/Scv/*.*" },
 	{ "Resources/Image/UI/UnitCommandIcon/BasicBuild/*.*" },
 	{ "Resources/Image/UI/Build/*.*" },
-
+	{ "Resources/Image/Effect/Ghost/*.*" },
+	{ "Resources/Image/Effect/Marine/*.*" },
 	{ "Resources/Image/Map/Mine/*.*" }
 
 

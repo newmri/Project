@@ -212,9 +212,12 @@ void CScv::Render()
 	UpdateRect();
 	HDC hDC = RENDERMANAGER->GetMemDC();
 
+	float fScrollX = SCROLLMANAGER->GetScrollX();
+	float fScrollY = SCROLLMANAGER->GetScrollY();
+
 	BITMAPMANAGER->GetImage()[m_tAnimationInfo[m_eCurrId].tName[m_tAnimationInfo[m_eCurrId].nCnt]]->TransparentBlt(hDC,
-		static_cast<int>(m_tRect.left + SCROLLMANAGER->GetScrollX()),
-		static_cast<int>(m_tRect.top + SCROLLMANAGER->GetScrollY()),
+		static_cast<int>(m_tRect.left + fScrollX),
+		static_cast<int>(m_tRect.top + fScrollY),
 		m_tAnimationInfo[m_eCurrId].nImageW,
 		m_tAnimationInfo[m_eCurrId].nImageH,
 		0,
@@ -225,8 +228,8 @@ void CScv::Render()
 
 	if (m_bBuild)
 		BITMAPMANAGER->GetImage()[m_buildImageList[m_eBuildId][m_nBuildCnt]->tInfo.szName]->TransparentBlt(hDC,
-			m_BuildPos.x - TILE_SIZE,
-			m_BuildPos.y - TILE_SIZE / 2,
+			(m_BuildPos.x - TILE_SIZE) + fScrollX,
+			(m_BuildPos.y - TILE_SIZE / 2) + fScrollY,
 			m_buildImageList[m_eBuildId][m_nBuildCnt]->tInfo.nImageW,
 			m_buildImageList[m_eBuildId][m_nBuildCnt]->tInfo.nImageH,
 			0,

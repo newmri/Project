@@ -25,7 +25,8 @@ public:
 	const PORTRAIT::ID& GetPortraitId() { return m_tInfo.ePortraitId; }
 	const UNIT::LARGE_WIRE::LARGE_WIRE_ID& GetLargeWireId() { return m_tInfo.eLargeWireId; }
 	const UNIT::SMALL_WIRE::SMALL_WIRE_ID& GetSmallWireId() { return m_tInfo.eSmallWireId; }
-	
+	const float GetHpPercent() { return static_cast<float>(m_tStat.nHP) / static_cast<float>(m_tStat.nMaxHP); }
+
 public:
 	const bool& IsUI() const { return m_bIsUI; }
 	bool IsClicked(const INTPOINT& pos) const;
@@ -43,7 +44,7 @@ public:
 	void SetLargeWireId(UNIT::LARGE_WIRE::LARGE_WIRE_ID eId) { m_tInfo.eLargeWireId = eId; }
 	void SetSmallWireId(UNIT::SMALL_WIRE::SMALL_WIRE_ID eId) { m_tInfo.eSmallWireId = eId; }
 	void SetHP(int hp) { m_tStat.nMaxHP = hp; m_tStat.nHP = hp; }
-
+	void SetDamage(int dmg) { m_tStat.nHP -= dmg; }
 
 public:
 	void SetMove(node_t* node);

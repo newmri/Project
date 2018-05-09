@@ -124,6 +124,7 @@ void CObj::SetMove(node_t* node)
 	m_dwTime = GetTickCount();
 	m_cnt = 0;
 	m_nBoforeIdx = 0;
+
 }
 
 CObj::CObj()
